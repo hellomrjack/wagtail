@@ -1,4 +1,5 @@
 import inspect
+import math
 
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.rect import Rect
@@ -245,3 +246,39 @@ class BackgroundColorOperation(Operation):
 
     def run(self, willow, image, env):
         return willow.set_background_color_rgb(self.color)
+
+
+
+class PowerOfTwoOperation(Operation):
+    @staticmethod
+    def largerPowerOfTwo(num):
+        i = 1
+        while 2 ** i< num:
+            i += 1
+        return 2 ** i
+
+    def construct(self, size):
+        if not (int(size) != 0 and ((int(size) & (int(size) - 1)) == 0)):
+            raise ValueError("Size must be a power of 2.")
+        self.size = int(size)
+
+    def run(self, willow, image, env):
+        image_width, image_height = willow.get_size()
+        # get largest side
+        if image_width > image_height:
+            scaled_height = math.floor((self.size / image_width) * image_height)
+            power_height = PowerOfTwoOperation.largerPowerOfTwo(scaled_height)
+            diff = (power_height - scaled_height) * 0.5
+            print((self.size, power_height))
+            print((self.size, scaled_height))
+            print((0, -diff, self.size, power_height - diff))
+            willow = willow.resize((self.size, scaled_height))
+            willow = willow.crop((0, -diff, self.size, power_height - diff))
+        else:
+            scaled_width =  math.floor((self.size / image_height) * image_width)
+            power_width = PowerOfTwoOperation.largerPowerOfTwo(scaled_width)
+            diff = power_width - scaled_width
+            willow = willow.resize((scaled_width, self.size))
+            willow = willow.crop((-diff, 0, power_width - diff, self.size))
+
+        return willow

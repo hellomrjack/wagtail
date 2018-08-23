@@ -116,6 +116,7 @@ def register_image_operations():
         ('jpegquality', image_operations.JPEGQualityOperation),
         ('format', image_operations.FormatOperation),
         ('bgcolor', image_operations.BackgroundColorOperation),
+        ('po2', image_operations.PowerOfTwoOperation),
     ]
 
 
