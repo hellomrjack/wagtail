@@ -1,34 +1,40 @@
 Core team
 =========
 
-* Matthew Westcott (Torchbox)
-* Karl Hobley (Torchbox)
-* Tom Dyson (Torchbox)
-* Thibaud Colas (Torchbox)
-* Janneke Janssen (Lukkien)
-* Mike Dingjan (Lab Digital)
-* Bertrand Bordage (NoriPyt)
-* Loïc Teixeira (Springload)
-* Andy Chosak (consumerfinance.gov)
-* Will Barton (consumerfinance.gov)
-* LB Johnston
-* Coen van der Kamp (Four Digits)
-* Codie Roelf (Praekelt)
-* Lisa Adams (Praekelt)
-* Naomi Morduch Toubman
-* Kalob Taulien
-* Jonny Scholes (Neon Jungle)
 * Andy Babic (Torchbox)
+* Andy Chosak (consumerfinance.gov)
+* Bertrand Bordage (NoriPyt)
+* Codie Roelf (Praekelt)
+* Coen van der Kamp (Four Digits)
+* Cynthia Kiser (Caltech)
 * Dan Braghis (Torchbox)
 * Dawn Wages
 * Jacob Topp-Mugglestone (Torchbox)
+* Janneke Janssen (Lukkien)
+* Jonny Scholes (Neon Jungle)
+* Kalob Taulien
+* Karl Hobley (Torchbox)
+* LB Johnston
+* Lisa Adams (Praekelt)
+* Loïc Teixeira (Springload)
+* Martin Sandström (Fröjd)
+* Matthew Westcott (Torchbox)
+* Mike Dingjan (Lab Digital)
+* Naomi Morduch Toubman
+* Scott Cranfill (consumerfinance.gov)
+* Storm Heg
+* Thibaud Colas (Torchbox)
+* Tom Dyson (Torchbox)
 
 Core team alumni
 ================
 
+* Emily Horsman
 * Josh Barr
-* Tim Heap
 * Mikalai Radchuk
+* Rob Moorman
+* Tim Heap
+* Will Barton
 
 Contributors
 ============
@@ -506,6 +512,13 @@ Contributors
 * Vlad Podgurschi
 * Kevin Breen
 * Ihor Marhitych
+* Andre Fonseca
+* Tidjani Dia
+* Jan Seifert
+* hardcodd
+* Chris Pollard
+* Godswill Melford
+* Jake Howard
 
 Translators
 ===========
@@ -533,15 +546,15 @@ Translators
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Fabien Heureux, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: Amós Oviedo
 * Georgian: André Bouatchidzé
-* German: Ettore Atalan, Bohreromir, Benedikt Breinbauer, Patrick Craston, Peter Dreuw, Patrick Hebner, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, oliverengel, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, Jannis Vajen, Vorlif, Matthew Westcott, Benedikt Willi
+* German: Ettore Atalan, Bohreromir, Benedikt Breinbauer, Patrick Craston, Peter Dreuw, Oliver Engel, Patrick Hebner, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, Jannis Vajen, Vorlif, Matthew Westcott, Benedikt Willi
 * Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Haitian: Hantz Vius
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Men770, Adi Ron, Oleg Sverdlov
 * Hungarian: Istvan Farkas, Laszlo Molnar, Kornél Novák Mergulhão, BN, Aron Santa
 * Icelandic (Iceland): Arnar Tumi Þorsteinsson, Kjartan Sverrisson, Sævar Öfjörð Magnússon
 * Indonesian (Indonesia): atmosuwiryo, Sutrisno Efendi, Dzikri Hakim, Reshi Mahendra, Geek Pantura, Andry Widya Putra, Ronggo Radityo, M. Febrian Ramadhana
-* Italian: Sandro Badalamenti, Edd Baldry, Claudio Bantaloukas, Guglielmo Celata, Gian-Maria Daffre, Giacomo Ghizzani, LB (Ben Johnston), Stefano Marchetto, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
-* Japanese: Sangmin Ahn, Shuhei Hirota, Shu Ishida, Yudai Kobayashi, Tri Minh, Tetsuya Morimoto, Hideaki Oguchi, Tomo Mizoe, Safu9, Kinoshita Shinji, Daigo Shitara, Shimizu Taku, umepon0626, Takuya Yamamoto
+* Italian: Sandro Badalamenti, Edd Baldry, Claudio Bantaloukas, Guglielmo Celata, Gian-Maria Daffre, Giacomo Ghizzani, LB (Ben Johnston), Marco Lerco, Stefano Marchetto, Carlo Miron, Alessio Di Stasio, Andrea Tagliazucchi
+* Japanese: Sangmin Ahn, Shuhei Hirota, Shu Ishida, Yudai Kobayashi, Tri Minh, Koji Miyazawa, Tetsuya Morimoto, Hideaki Oguchi, Tomo Mizoe, Safu9, Kinoshita Shinji, Daigo Shitara, Shimizu Taku, umepon0626, Takuya Yamamoto
 * Korean: Kyungil Choi, Jihan Chung
 * Latvian: Reinis Rozenbergs, Maris Serzans
 * Lithuanian: Matas Dailyda, Naglis Jonaitis

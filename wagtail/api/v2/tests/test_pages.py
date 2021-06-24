@@ -454,6 +454,13 @@ class TestPageListing(TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [16])
 
+    def test_filtering_on_foreign_key(self):
+        response = self.get_response(type="demosite.contactpage", feed_image=7)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [12])
+
     def test_filtering_on_boolean(self):
         response = self.get_response(show_in_menus='false')
         content = json.loads(response.content.decode('UTF-8'))
@@ -489,12 +496,19 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "query parameter is not an operation or a recognised field: not_a_field"})
 
-    def test_filtering_int_validation(self):
+    def test_filtering_id_int_validation(self):
         response = self.get_response(id='abc')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "field filter error. 'abc' is not a valid value for id (invalid literal for int() with base 10: 'abc')"})
+
+    def test_filtering_foreign_key_int_validation(self):
+        response = self.get_response(type="demosite.contactpage", feed_image='abc')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content['message'][:61], "field filter error. 'abc' is not a valid value for feed_image")
 
     def test_filtering_boolean_validation(self):
         response = self.get_response(show_in_menus='abc')
@@ -549,6 +563,44 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "parent page doesn't exist"})
 
+    # ANCESTOR OF FILTER
+
+    def test_ancestor_of_filter(self):
+        response = self.get_response(ancestor_of=10)
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [2, 6])
+
+    def test_ancestor_of_with_type(self):
+        response = self.get_response(type='demosite.eventindexpage', ancestor_of=8)
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [4])
+
+    def test_ancestor_of_unknown_page_gives_error(self):
+        response = self.get_response(ancestor_of=1000)
+        content = response.json()
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "descendant page doesn't exist"})
+
+    def test_ancestor_of_not_integer_gives_error(self):
+        response = self.get_response(ancestor_of='abc')
+        content = response.json()
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "ancestor_of must be a positive integer"})
+
+    def test_ancestor_of_home_page_ignores_root(self):
+        # Root page is not in any site, so pretend it doesn't exist
+        response = self.get_response(ancestor_of=2)
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [])
+
     # DESCENDANT OF FILTER
 
     def test_descendant_of_filter(self):
@@ -568,11 +620,11 @@ class TestPageListing(TestCase):
         self.assertEqual(page_id_list, [4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12])
 
     def test_descendant_of_with_type(self):
-        response = self.get_response(type='tests.EventPage', descendant_of=6)
+        response = self.get_response(type='demosite.eventindexpage', descendant_of=2)
         content = json.loads(response.content.decode('UTF-8'))
 
         page_id_list = self.get_page_id_list(content)
-        self.assertEqual(page_id_list, [])
+        self.assertEqual(page_id_list, [4])
 
     def test_descendant_of_unknown_page_gives_error(self):
         response = self.get_response(descendant_of=1000)

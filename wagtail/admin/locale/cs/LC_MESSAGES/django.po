@@ -409,9 +409,6 @@ msgstr "Komentář"
 msgid "More actions"
 msgstr "Další akce"
 
-msgid "Unknown {action}"
-msgstr "Neznámé {action}"
-
 msgid "Error 404: Page not found"
 msgstr "Error 404: Stránka nebyla nalezena"
 

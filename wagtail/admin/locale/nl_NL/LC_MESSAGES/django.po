@@ -406,9 +406,6 @@ msgstr "Opmerking"
 msgid "More actions"
 msgstr "Meer acties"
 
-msgid "Unknown {action}"
-msgstr "{action} onbekend"
-
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pagina niet gevonden"
 

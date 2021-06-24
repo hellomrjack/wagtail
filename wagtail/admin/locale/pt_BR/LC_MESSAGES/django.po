@@ -402,9 +402,6 @@ msgstr "Comentário"
 msgid "More actions"
 msgstr "Mais ações"
 
-msgid "Unknown {action}"
-msgstr "{action} desconhecida"
-
 msgid "Error 404: Page not found"
 msgstr "Erro 404: Página não encontrada"
 

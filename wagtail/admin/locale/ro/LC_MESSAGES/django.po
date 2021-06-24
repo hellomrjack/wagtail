@@ -399,9 +399,6 @@ msgstr "Comentariu"
 msgid "More actions"
 msgstr "Mai multe acțiuni"
 
-msgid "Unknown {action}"
-msgstr "Necunoscut {action}"
-
 msgid "Error 404: Page not found"
 msgstr "Eroare 404: Pagina nu a fost găsită"
 
@@ -593,9 +590,6 @@ msgstr ""
 msgid "Set collection privacy. Current status: Public"
 msgstr "Setați confidențialitatea colecției. Starea actuală: Public"
 
-msgid "Set collection privacy. Current status: Public"
-msgstr "Setați confidențialitatea colecției. Starea actuală: Public"
-
 msgid "Public"
 msgstr "Public"
 
@@ -650,16 +644,6 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "Aici va fi afișată informație utilă despre conținutul creat de dvs."
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail va elimina treptat suportul pentru IE11. Acest fapt vă poate afecta "
-"pe dvs. sau pe organizația dvs. <a href=\"%(url)s\">Aflați mai multe despre "
-"planurile noastre de support pentru IE11</a>."
 
 msgid "Your locked pages"
 msgstr "Paginile Dvs. blocate"
