@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 16:08+0100\n"
-"PO-Revision-Date: 2020-08-07 15:09+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -360,84 +360,6 @@ msgstr " '{title}' 페이지의 하위 페이지 보기"
 
 msgid "Page explorer"
 msgstr "페이지 탐색"
-
-msgid "January"
-msgstr "1월"
-
-msgid "February"
-msgstr "2월"
-
-msgid "March"
-msgstr "3월"
-
-msgid "April"
-msgstr "4월"
-
-msgid "May"
-msgstr "5월"
-
-msgid "June"
-msgstr "6월"
-
-msgid "July"
-msgstr "7월"
-
-msgid "August"
-msgstr "8월"
-
-msgid "September"
-msgstr "9월"
-
-msgid "October"
-msgstr "10월"
-
-msgid "November"
-msgstr "11월"
-
-msgid "December"
-msgstr "12월"
-
-msgid "Sunday"
-msgstr "일요일"
-
-msgid "Monday"
-msgstr "월요일"
-
-msgid "Tuesday"
-msgstr "화요일"
-
-msgid "Wednesday"
-msgstr "수요일"
-
-msgid "Thursday"
-msgstr "목요일"
-
-msgid "Friday"
-msgstr "금요일"
-
-msgid "Saturday"
-msgstr "토요일"
-
-msgid "Sun"
-msgstr "일요일"
-
-msgid "Mon"
-msgstr "월요일"
-
-msgid "Tue"
-msgstr "화요일"
-
-msgid "Wed"
-msgstr "수요일"
-
-msgid "Thu"
-msgstr "목요일"
-
-msgid "Fri"
-msgstr "금요일"
-
-msgid "Sat"
-msgstr "토요일"
 
 msgid "Error 404: Page not found"
 msgstr "에러 404: 페이지를 찾을 수 없습니다"
@@ -1326,23 +1248,6 @@ msgstr ""
 "니다. <a href=\"https://browsehappy.com/\">브라우저를 업그레이드</a> 해주세"
 "요."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            웨그테일을 사용하려면 자바스크립트가 필요하지만 현재 비활성화되"
-"어 있습니다.<br />\n"
-"            여기에서 <a href=\"https://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">웹 브라우저에서 자바스크립트를 켜는 방"
-"법</a>을 볼 수 있습니다.\n"
-"        "
-
 msgid "Go to Wagtail admin interface"
 msgstr "웨그테일 관리자 페이지로 이동"
 
@@ -1426,26 +1331,41 @@ msgstr "이 모음을 지우려는 것이 확실한가요?"
 msgid "Editing"
 msgstr "수정"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "'{0}' 페이지가 생성되었고 게시하도록 예약되었습니다."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "'{0}' 페이지 그리고 {1} 개의 하위페이지가 복사되었습니다"
 
-msgid "View live"
-msgstr "라이브 보기"
-
-msgid "Page '{0}' created and published."
-msgstr "'{0}' 페이지가 생성 및 게시되었습니다"
+msgid "Page '{0}' copied."
+msgstr "'{0}' 페이지가 복사 되었습니다"
 
 msgid "View draft"
 msgstr "임시저장 보기"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "'{0}' 페이지가 생성되고 검토에 의해 제출되었습니다"
+msgid "View live"
+msgstr "라이브 보기"
 
 msgid "Page '{0}' created."
 msgstr "'{0}' 페이지가 생성되었습니다"
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "'{0}' 페이지가 생성되었고 게시하도록 예약되었습니다."
+
+msgid "Page '{0}' created and published."
+msgstr "'{0}' 페이지가 생성 및 게시되었습니다"
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "'{0}' 페이지가 생성되고 검토에 의해 제출되었습니다"
+
 msgid "The page could not be created due to validation errors"
 msgstr "이 페이지는 오류에 의해 생성될 수 없습니다"
+
+msgid "Page '{0}' deleted."
+msgstr "'{0}' 페이지가 삭제되었습니다"
+
+msgid "This page is currently awaiting moderation"
+msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
+
+msgid "Page '{0}' has been updated."
+msgstr "'{0}' 페이지가 수정되었습니다."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>'{}' 페이지의 잠금</b>이 <b>당신</b>에 의해 <b>{}</b>에 적용됨."
@@ -1459,9 +1379,6 @@ msgstr "<b>'{}' 페이지의 잠금</b>이 <b>{}</b>에 의해 <b>{}</b>에 적�
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>'{}' 페이지가 잠김</b>."
 
-msgid "This page is currently awaiting moderation"
-msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
-
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "'{0}' 페이지를 게시하도록 예약했습니다."
 
@@ -1471,36 +1388,14 @@ msgstr "'{0}' 페이지가 게시되었습니다."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "'{0}' 페이지를 검토할 수 있도록 제출했습니다."
 
-msgid "Page '{0}' has been updated."
-msgstr "'{0}' 페이지가 수정되었습니다."
-
 msgid "The page could not be saved as it is locked"
 msgstr "이 페이지는 잠겨 있으므로 저장할 수 없습니다"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "이 페이지는 오류에 의해 저장할 수 없습니다"
 
-msgid "Page '{0}' deleted."
-msgstr "'{0}' 페이지가 삭제되었습니다"
-
-msgid "Page '{0}' unpublished."
-msgstr "'{0}' 페이지의 게시가 해제 되었습니다"
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"'{0}' 슬러그는 이미 선택된 상위 페이지가 사용중입니다. 슬러그가 유일한지 확"
-"인 후 다시 시도하십시오"
-
-msgid "Page '{0}' moved."
-msgstr "'{0}' 페이지가 이동하였습니다"
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "'{0}' 페이지 그리고 {1} 개의 하위페이지가 복사되었습니다"
-
-msgid "Page '{0}' copied."
-msgstr "'{0}' 페이지가 복사 되었습니다"
+msgid "Page '{0}' is now unlocked."
+msgstr "'{0}' 페이지의 잠금을 풀었습니다."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' 페이지는 현재 검토를 기다리고 있지 않습니다"
@@ -1517,8 +1412,15 @@ msgstr "'{0}' 페이지는 게시가 거절되었습니다"
 msgid "Failed to send rejection notifications"
 msgstr "거절 알림 보내기 실패"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "'{0}' 페이지의 잠금을 풀었습니다."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"'{0}' 슬러그는 이미 선택된 상위 페이지가 사용중입니다. 슬러그가 유일한지 확"
+"인 후 다시 시도하십시오"
+
+msgid "Page '{0}' moved."
+msgstr "'{0}' 페이지가 이동하였습니다"
 
 msgid "Earliest"
 msgstr "최초"
@@ -1528,6 +1430,9 @@ msgstr "최근"
 
 msgid "revision {0} of \"{1}\""
 msgstr "\"{1}\"의 수정안 {0}"
+
+msgid "Page '{0}' unpublished."
+msgstr "'{0}' 페이지의 게시가 해제 되었습니다"
 
 #, python-format
 msgid "Edit '%(title)s'"

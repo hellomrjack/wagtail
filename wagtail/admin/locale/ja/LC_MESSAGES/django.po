@@ -5,6 +5,7 @@
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
 # shuhei hirota, 2019
+# Kinoshita Shinji <shinji.kino@gmail.com>, 2020
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2019
 # Tri Minh <minh.nguyentri.95@gmail.com>, 2019
 # 小口英昭 <oguchi@bluff-lab.com>, 2019
@@ -15,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 16:08+0100\n"
-"PO-Revision-Date: 2020-08-07 15:09+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -31,6 +32,12 @@ msgstr "公開"
 
 msgid "Submit for moderation"
 msgstr "承認を受ける"
+
+msgid "Restart workflow "
+msgstr "ワークフローを再開"
+
+msgid "Cancel workflow "
+msgstr "ワークフローの中止"
 
 msgid "Unpublish"
 msgstr "非公開に設定"
@@ -287,7 +294,7 @@ msgid "Alt text"
 msgstr "Alt 属性に記載するテキスト"
 
 msgid "Write here…"
-msgstr "ここに書いて"
+msgstr "入力してください"
 
 msgid "Horizontal line"
 msgstr "横線"
@@ -333,84 +340,6 @@ msgstr "'{title}'を編集します"
 
 msgid "Page explorer"
 msgstr "ページ探索"
-
-msgid "January"
-msgstr "1月"
-
-msgid "February"
-msgstr "2月"
-
-msgid "March"
-msgstr "3月"
-
-msgid "April"
-msgstr "4月"
-
-msgid "May"
-msgstr "5月"
-
-msgid "June"
-msgstr "6月"
-
-msgid "July"
-msgstr "7月"
-
-msgid "August"
-msgstr "8月"
-
-msgid "September"
-msgstr "9月"
-
-msgid "October"
-msgstr "10月"
-
-msgid "November"
-msgstr "11月"
-
-msgid "December"
-msgstr "12月"
-
-msgid "Sunday"
-msgstr "日曜日"
-
-msgid "Monday"
-msgstr "月曜日"
-
-msgid "Tuesday"
-msgstr "火曜日"
-
-msgid "Wednesday"
-msgstr "水曜日"
-
-msgid "Thursday"
-msgstr "木曜日"
-
-msgid "Friday"
-msgstr "金曜日"
-
-msgid "Saturday"
-msgstr "土曜日"
-
-msgid "Sun"
-msgstr "日"
-
-msgid "Mon"
-msgstr "月"
-
-msgid "Tue"
-msgstr "火"
-
-msgid "Wed"
-msgstr "水"
-
-msgid "Thu"
-msgstr "木"
-
-msgid "Fri"
-msgstr "金"
-
-msgid "Sat"
-msgstr "土"
 
 msgid "Error 404: Page not found"
 msgstr "404エラー：ページが見つかりません"
@@ -1303,29 +1232,41 @@ msgstr "コレクションを完全に削除しますか"
 msgid "Editing"
 msgstr "編集中"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "ページ'{0}' が作成され、公開予定が設定されました。"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "ページ：'{0}' とサブページ：'{1}'が複製されました。 "
 
-msgid "View live"
-msgstr "閲覧"
-
-msgid "Page '{0}' created and published."
-msgstr "ページ：'{0}' が作成され、公開されました。"
+msgid "Page '{0}' copied."
+msgstr "ページ：'{0}' がコピーされました。"
 
 msgid "View draft"
 msgstr "下書きを閲覧"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "'{0}' が作成され、承認待ちです。"
+msgid "View live"
+msgstr "閲覧"
 
 msgid "Page '{0}' created."
 msgstr "ページ：'{0}' が作成されました。"
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "ページ'{0}' が作成され、公開予定が設定されました。"
+
+msgid "Page '{0}' created and published."
+msgstr "ページ：'{0}' が作成され、公開されました。"
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "'{0}' が作成され、承認待ちです。"
+
 msgid "The page could not be created due to validation errors"
 msgstr "このページはエラーにより作成できませんでした。"
 
+msgid "Page '{0}' deleted."
+msgstr "ページ：'{0}' が削除されました。"
+
 msgid "This page is currently awaiting moderation"
 msgstr "このページは現在承認待ちです。"
+
+msgid "Page '{0}' has been updated."
+msgstr "ページ：'{0}' の更新が完了しました。"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "ページ'{0}'の公開が予定されました。"
@@ -1338,36 +1279,14 @@ msgstr ""
 "88%match\n"
 "ページ：'{0}' が調整のために提出されました。"
 
-msgid "Page '{0}' has been updated."
-msgstr "ページ：'{0}' の更新が完了しました。"
-
 msgid "The page could not be saved as it is locked"
 msgstr "このページはロックされているため、保存できませんでした。"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "このページはエラーにより保存できませんでした。"
 
-msgid "Page '{0}' deleted."
-msgstr "ページ：'{0}' が削除されました。"
-
-msgid "Page '{0}' unpublished."
-msgstr "ページ：'{0}' が非公開に設定されました。"
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"スラッグ '{0}' は既に選択した親ページで使用されています。 スラッグが重複しな"
-"いことを確認したのち、再度操作を行ってください。"
-
-msgid "Page '{0}' moved."
-msgstr "ページ：'{0}' が除去されました。"
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "ページ：'{0}' とサブページ：'{1}'が複製されました。 "
-
-msgid "Page '{0}' copied."
-msgstr "ページ：'{0}' がコピーされました。"
+msgid "Page '{0}' is now unlocked."
+msgstr "ページ：'{0}' のロックが解除されました。"
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "ページ：'{0}' は現在承認待ちではありません。"
@@ -1384,8 +1303,15 @@ msgstr "ページ：'{0}' の公開が拒否されました。"
 msgid "Failed to send rejection notifications"
 msgstr "拒否通信を送信できない"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "ページ：'{0}' のロックが解除されました。"
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"スラッグ '{0}' は既に選択した親ページで使用されています。 スラッグが重複しな"
+"いことを確認したのち、再度操作を行ってください。"
+
+msgid "Page '{0}' moved."
+msgstr "ページ：'{0}' が除去されました。"
 
 msgid "Earliest"
 msgstr "最も早い"
@@ -1395,6 +1321,9 @@ msgstr "最新"
 
 msgid "revision {0} of \"{1}\""
 msgstr "\"{1}\"のリビジョン{0}"
+
+msgid "Page '{0}' unpublished."
+msgstr "ページ：'{0}' が非公開に設定されました。"
 
 msgid "More"
 msgstr "詳細表示"

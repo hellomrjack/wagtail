@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 16:08+0100\n"
-"PO-Revision-Date: 2020-08-07 15:09+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -299,84 +299,6 @@ msgstr "ปิด"
 
 msgid "Edit '{title}'"
 msgstr "แก้ไข'{title}'"
-
-msgid "January"
-msgstr "มกราคม"
-
-msgid "February"
-msgstr "กุมภาพันธ์"
-
-msgid "March"
-msgstr "มีนาคม"
-
-msgid "April"
-msgstr "เมษายน"
-
-msgid "May"
-msgstr "พฤษภาคม"
-
-msgid "June"
-msgstr "มิถุนายน"
-
-msgid "July"
-msgstr "กรกฎาคม"
-
-msgid "August"
-msgstr "สิงหาคม"
-
-msgid "September"
-msgstr "กันยายน"
-
-msgid "October"
-msgstr "ตุลาคม"
-
-msgid "November"
-msgstr "พฤศจิกายน"
-
-msgid "December"
-msgstr "ธันวาคม"
-
-msgid "Sunday"
-msgstr "วันอาทิตย์"
-
-msgid "Monday"
-msgstr "วันจันทร์"
-
-msgid "Tuesday"
-msgstr "วันอังคาร"
-
-msgid "Wednesday"
-msgstr "วันพุธ"
-
-msgid "Thursday"
-msgstr "วันพฤหัสบดี"
-
-msgid "Friday"
-msgstr "วันศุกร์"
-
-msgid "Saturday"
-msgstr "วันเสาร์"
-
-msgid "Sun"
-msgstr "วันอาทิตย์"
-
-msgid "Mon"
-msgstr "วันจันทร์"
-
-msgid "Tue"
-msgstr "วันอังคาร"
-
-msgid "Wed"
-msgstr "วันพุธ"
-
-msgid "Thu"
-msgstr "วันพฤหัสบดี"
-
-msgid "Fri"
-msgstr "วันศุกร์"
-
-msgid "Sat"
-msgstr "วันเสาร์"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404 : ไม่พบเนื้อหา"
@@ -1202,29 +1124,43 @@ msgstr "คุณแน่ใจว่าคุณต้องการลบท
 msgid "Editing"
 msgstr "กำลังแก้ไข"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "หน้า'{0}'ถูกสร้างและตีพิมพ์สำหรับตาราง"
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "หน้า'{0}'และ{1}เป็นหน้าย่อยที่ถูกก๊อปปี้"
 
-msgid "View live"
-msgstr "ดูถ่ายทอดสด"
-
-msgid "Page '{0}' created and published."
-msgstr "หน้า'{0}'ถูกสร้างและตีพิมพ์"
+msgid "Page '{0}' copied."
+msgstr "หน้า{0}ถูกคัดลอกแล้ว"
 
 msgid "View draft"
 msgstr "ดูข้อความที่เก็บเอาไว้ทำใหม่"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "หน้า'{0}'ถูกสร้างและถูกส่งสำหรับตรวจ"
+msgid "View live"
+msgstr "ดูถ่ายทอดสด"
 
 msgid "Page '{0}' created."
 msgstr "หน้า'{0}'ถูกสร้าง"
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "หน้า'{0}'ถูกสร้างและตีพิมพ์สำหรับตาราง"
+
+msgid "Page '{0}' created and published."
+msgstr "หน้า'{0}'ถูกสร้างและตีพิมพ์"
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "หน้า'{0}'ถูกสร้างและถูกส่งสำหรับตรวจ"
+
 msgid "The page could not be created due to validation errors"
 msgstr "หน้านี้ไม่สามารถถูกสร้างในระหว่างที่การยืนยันเกิดข้อผิดพลาด"
 
+msgid "Page '{0}' deleted."
+msgstr ""
+"หน้า{0}\n"
+"ถูกลบแล้ว"
+
 msgid "This page is currently awaiting moderation"
 msgstr "หน้าที่กำลังแสดงอยู่นี้กำลังรอคอยการตรวจอยู่"
+
+msgid "Page '{0}' has been updated."
+msgstr "หน้า{0}ได้อัพเดทแล้ว"
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "หน้า{0}ได้จัดตารางในการพิมพ์เรียบร้อยแล้ว"
@@ -1235,33 +1171,14 @@ msgstr "หน้า{0} ได้จัดพิมพ์เรียบร้�
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "หน้า'{0}'ถูกส่งสำหรับตรวจแล้ว"
 
-msgid "Page '{0}' has been updated."
-msgstr "หน้า{0}ได้อัพเดทแล้ว"
-
 msgid "The page could not be saved as it is locked"
 msgstr "หน้านี้ไม่สามารถเซฟได้เนื่องจากมันถูกล็อกอยู่"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "หน้านี้ไม่สามารถถูกเซฟระหว่างการยืนยันที่เกิดข้อผิดพลาด"
 
-msgid "Page '{0}' deleted."
-msgstr ""
-"หน้า{0}\n"
-"ถูกลบแล้ว"
-
-msgid "Page '{0}' unpublished."
-msgstr "หน้า{0} ยกเลิกจัดพิมพ์แล้ว"
-
-msgid "Page '{0}' moved."
-msgstr ""
-"หน้า{0} \n"
-"เคลื่อนย้ายแล้ว"
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "หน้า'{0}'และ{1}เป็นหน้าย่อยที่ถูกก๊อปปี้"
-
-msgid "Page '{0}' copied."
-msgstr "หน้า{0}ถูกคัดลอกแล้ว"
+msgid "Page '{0}' is now unlocked."
+msgstr "หน้า'{0}'ตอนนี้ได้ถูกปลดล็อกแล้ว"
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "หน้า{0} ปัจจุบันนี้ไม่รอตรวจ"
@@ -1278,8 +1195,10 @@ msgstr "หน้า'{0}' ถูกปฏิเสธสำหรับสิ่
 msgid "Failed to send rejection notifications"
 msgstr "ข้อผิดพลาดถูกส่งแจ้งเตือนการปฏิเสธ"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "หน้า'{0}'ตอนนี้ได้ถูกปลดล็อกแล้ว"
+msgid "Page '{0}' moved."
+msgstr ""
+"หน้า{0} \n"
+"เคลื่อนย้ายแล้ว"
 
 msgid "Earliest"
 msgstr "ที่เก่าแก่ที่สุด"
@@ -1289,6 +1208,9 @@ msgstr "ล่าสุด"
 
 msgid "revision {0} of \"{1}\""
 msgstr "การแก้ไข{0}ของหน้า{1}"
+
+msgid "Page '{0}' unpublished."
+msgstr "หน้า{0} ยกเลิกจัดพิมพ์แล้ว"
 
 msgid "More"
 msgstr "เพิ่ม"

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andry Widya Putra UN <andrywidyaputra@gmail.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2018
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
@@ -12,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 16:08+0100\n"
-"PO-Revision-Date: 2020-08-07 15:09+0000\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -35,8 +36,24 @@ msgstr "Tarik publikasi"
 msgid "Delete"
 msgstr "Hapus"
 
+msgid "Lock"
+msgstr "Kunci"
+
+msgid "Apply editor lock"
+msgstr "Terapkan kunci editor"
+
+msgid "Unlock"
+msgstr "Buka kunci"
+
+msgid "Save Draft"
+msgstr "Simpan konsep"
+
 msgid "Page locked"
 msgstr "Halaman dikunci"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s dan Publikasikan"
 
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
@@ -68,6 +85,21 @@ msgstr "Promosikan"
 msgid "Settings"
 msgstr "Pengaturan"
 
+msgid "Date from"
+msgstr "Tanggal awal"
+
+msgid "Date to"
+msgstr "Tanggal akhir"
+
+msgid "All"
+msgstr "Semua"
+
+msgid "Started at"
+msgstr "Dimulai pada"
+
+msgid "Show"
+msgstr "Tampilkan"
+
 msgid "Date"
 msgstr "Tanggal"
 
@@ -83,6 +115,9 @@ msgstr "Masukkan %s anda"
 
 msgid "Enter your email address to reset your password"
 msgstr "Masukkan alamat surel untuk atur ulang kata sandi anda"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
@@ -167,6 +202,9 @@ msgstr "Kolom ini  harus diisi."
 msgid "Please select at least one group."
 msgstr "Harap memilih minimal satu grup."
 
+msgid "Arabic"
+msgstr "Arab"
+
 msgid "Catalan"
 msgstr "Katalan"
 
@@ -191,17 +229,29 @@ msgstr "Perancis"
 msgid "Galician"
 msgstr "Galicia"
 
+msgid "Hungarian"
+msgstr "Hunggaria"
+
+msgid "Indonesian"
+msgstr "Indonesia"
+
 msgid "Icelandic"
 msgstr "Islandia"
 
 msgid "Italian"
 msgstr "Italia"
 
+msgid "Japanese"
+msgstr "Jepang"
+
 msgid "Korean"
 msgstr "Korea"
 
 msgid "Lithuanian"
 msgstr "Lituania"
+
+msgid "Mongolian"
+msgstr "Mongolia"
 
 msgid "Norwegian Bokmål"
 msgstr "Norwegia"
@@ -232,6 +282,12 @@ msgstr "Swedia"
 
 msgid "Slovak"
 msgstr "Slowakia"
+
+msgid "Thai"
+msgstr "Thailand"
+
+msgid "Turkish"
+msgstr "Turki"
 
 msgid "Ukrainian"
 msgstr "Ukraina"
@@ -302,83 +358,8 @@ msgstr "Tutup"
 msgid "Edit '{title}'"
 msgstr "Ubah '{title}'"
 
-msgid "January"
-msgstr "Januari"
-
-msgid "February"
-msgstr "Februari"
-
-msgid "March"
-msgstr "Maret"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Mei"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "Agustus"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "Desember"
-
-msgid "Sunday"
-msgstr "Minggu"
-
-msgid "Monday"
-msgstr "Senin"
-
-msgid "Tuesday"
-msgstr "Selasa"
-
-msgid "Wednesday"
-msgstr "Rabu"
-
-msgid "Thursday"
-msgstr "Kamis"
-
-msgid "Friday"
-msgstr "Jum'at"
-
-msgid "Saturday"
-msgstr "Sabtu"
-
-msgid "Sun"
-msgstr "Min"
-
-msgid "Mon"
-msgstr "Sen"
-
-msgid "Tue"
-msgstr "Sel"
-
-msgid "Wed"
-msgstr "Rab"
-
-msgid "Thu"
-msgstr "Kam"
-
-msgid "Fri"
-msgstr "Jum"
-
-msgid "Sat"
-msgstr "Sab"
+msgid "Page explorer"
+msgstr "Perambah halaman"
 
 msgid "Error 404: Page not found"
 msgstr "Galat 404: Halaman tidak ditemukan"
@@ -406,6 +387,9 @@ msgstr "Perbarui"
 
 msgid "Change email"
 msgstr "Ubah surel"
+
+msgid "Change name"
+msgstr "Ubah nama"
 
 msgid "Change password"
 msgstr "Ganti kata sandi"
@@ -640,6 +624,12 @@ msgstr "Status"
 
 msgid "Site summary"
 msgstr "Ringkasan situs"
+
+msgid "Awaiting"
+msgstr "Menunggu"
+
+msgid "Awaiting your review"
+msgstr "Menunggu tinjauan anda"
 
 msgid "Sign in"
 msgstr "Masuk"
@@ -1230,29 +1220,41 @@ msgstr "Apakah anda yakin akan menghapus koleksi ini?"
 msgid "Editing"
 msgstr "Mengubah"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Halaman '{0}' telah dibuat dan dijadwalkan untuk dipublikasi."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Telah menyalin halaman '{0}' dan {1} sub-halaman."
 
-msgid "View live"
-msgstr "Tampilkan yang aktif"
-
-msgid "Page '{0}' created and published."
-msgstr "Halaman '{0}' telah dibuat dan dipublikasi."
+msgid "Page '{0}' copied."
+msgstr "Halaman '{0}' telah disalin."
 
 msgid "View draft"
 msgstr "Tampilkan konsep"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Halaman '{0}' telah dibuat dan dikirim untuk dimoderasi."
+msgid "View live"
+msgstr "Tampilkan yang aktif"
 
 msgid "Page '{0}' created."
 msgstr "Halaman '{0}' telah dibuat."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Halaman '{0}' telah dibuat dan dijadwalkan untuk dipublikasi."
+
+msgid "Page '{0}' created and published."
+msgstr "Halaman '{0}' telah dibuat dan dipublikasi."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Halaman '{0}' telah dibuat dan dikirim untuk dimoderasi."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Halaman tersebut tidak dapat dibuat karena tidak lolos validasi."
 
+msgid "Page '{0}' deleted."
+msgstr "Halaman '{0}' dihapus."
+
 msgid "This page is currently awaiting moderation"
 msgstr "Halaman ini menunggu proses moderasi"
+
+msgid "Page '{0}' has been updated."
+msgstr "Halaman '{0}' telah diperbarui."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Halaman '{0}' telah dijadwalkan untuk publikasi."
@@ -1263,29 +1265,14 @@ msgstr "Halaman '{0}' telah dipublikasi."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Halaman '{0}' telah dikirim untuk moderasi."
 
-msgid "Page '{0}' has been updated."
-msgstr "Halaman '{0}' telah diperbarui."
-
 msgid "The page could not be saved as it is locked"
 msgstr "Halaman ini tidak dapat disimpan karena terkunci"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Halaman ini tidak dapat disimpan karena tidak lolos validasi"
 
-msgid "Page '{0}' deleted."
-msgstr "Halaman '{0}' dihapus."
-
-msgid "Page '{0}' unpublished."
-msgstr "Halaman '{0}' ditarik dari publikasi."
-
-msgid "Page '{0}' moved."
-msgstr "Halaman '{0}' telah dipindah."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Telah menyalin halaman '{0}' dan {1} sub-halaman."
-
-msgid "Page '{0}' copied."
-msgstr "Halaman '{0}' telah disalin."
+msgid "Page '{0}' is now unlocked."
+msgstr "Halaman '{0}' sekarang tidak dikunci."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Halaman '{0}' tidak dalam proses moderasi."
@@ -1302,8 +1289,8 @@ msgstr "Publikasi halaman '{0}' ditolak."
 msgid "Failed to send rejection notifications"
 msgstr "Gagal mengirim notifikasi penolakan"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Halaman '{0}' sekarang tidak dikunci."
+msgid "Page '{0}' moved."
+msgstr "Halaman '{0}' telah dipindah."
 
 msgid "Earliest"
 msgstr "Paling awal"
@@ -1313,6 +1300,9 @@ msgstr "Paling akhir"
 
 msgid "revision {0} of \"{1}\""
 msgstr "revisi {0} dari \"{1}\""
+
+msgid "Page '{0}' unpublished."
+msgstr "Halaman '{0}' ditarik dari publikasi."
 
 msgid "More"
 msgstr "Lainnya"

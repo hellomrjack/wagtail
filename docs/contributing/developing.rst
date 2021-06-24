@@ -3,7 +3,7 @@
 Development
 ===========
 
-Setting up a local copy of `the Wagtail git repository <https://github.com/wagtail/wagtail>`_ is slightly more involved than running a release package of Wagtail, as it requires `Node.js <https://nodejs.org/>`_ and NPM for building Javascript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
+Setting up a local copy of `the Wagtail git repository <https://github.com/wagtail/wagtail>`_ is slightly more involved than running a release package of Wagtail, as it requires `Node.js <https://nodejs.org/>`_ and NPM for building JavaScript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
 If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <https://github.com/wagtail/vagrant-wagtail-develop>`_ and `docker-wagtail-develop <https://github.com/wagtail/docker-wagtail-develop>`_ setup scripts are the fastest way to get up and running. They will provide you with a running instance of the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_, with the Wagtail and bakerydemo codebases available as shared folders for editing on your host machine.
 
@@ -100,7 +100,7 @@ You can create migrations for the test app by running the following from the Wag
 
 .. code-block:: console
 
-    $ django-admin.py makemigrations --settings=wagtail.tests.settings
+    $ django-admin makemigrations --settings=wagtail.tests.settings
 
 
 Testing against PostgreSQL
@@ -175,6 +175,7 @@ IE 11 is gradually falling out of use, and specific features are unsupported in 
 * Rich text copy-paste in the rich text editor.
 * Sticky toolbar in the rich text editor.
 * Focus outline styles in the main menu & explorer menu.
+* Keyboard access to the actions in page listing tables.
 
 **Unsupported browsers / devices include:**
 

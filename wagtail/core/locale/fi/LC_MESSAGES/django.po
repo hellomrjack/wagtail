@@ -6,16 +6,17 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Glen Somerville <glen.somerville@gmail.com>, 2015
-# Rauli L. <rauli.laine@iki.fi>, 2016
-# Rauli L. <rauli.laine@iki.fi>, 2016
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
+# Rauli Laine <rauli.laine@iki.fi>, 2016
+# Rauli Laine <rauli.laine@iki.fi>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-03 18:03+0100\n"
-"PO-Revision-Date: 2020-07-24 16:50+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 16:56+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -50,6 +51,9 @@ msgstr "Salasana"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Antamasi salasana ei ole oikein. Koeta uudestaan."
+
+msgid "Comment"
+msgstr "Kommentti"
 
 msgid "hostname"
 msgstr "isäntäosoite"
@@ -90,6 +94,9 @@ msgstr "sivusto"
 
 msgid "sites"
 msgstr "sivustot"
+
+msgid "default"
+msgstr "oletus"
 
 #, python-format
 msgid ""
@@ -183,11 +190,17 @@ msgstr "Lyhytnimi on jo käytössä."
 msgid "scheduled"
 msgstr "ajoitettu"
 
+msgid "in moderation"
+msgstr "tarkastettavana"
+
 msgid "draft"
 msgstr "luonnos"
 
 msgid "live + scheduled"
 msgstr "esillä + ajastettu"
+
+msgid "live + in moderation"
+msgstr "esillä + tarkastettavana"
 
 msgid "live + draft"
 msgstr "julkaistu + luonnos"
@@ -323,6 +336,43 @@ msgstr "ryhmä/kokoelma-oikeus"
 
 msgid "group collection permissions"
 msgstr "ryhmän oikeudet kokoelmaan"
+
+msgid "workflow"
+msgstr "työnkulku"
+
+msgid "Approve"
+msgstr "Hyväksy"
+
+msgid "Approve with comment"
+msgstr "Hyväksy kommentin kera"
+
+msgid "Approved"
+msgstr "Hyväksytty"
+
+msgid "Needs changes"
+msgstr "Vaatii muutoksia"
+
+msgid "Cancelled"
+msgstr "Peruttu"
+
+msgid "Not started"
+msgstr "Ei aloitettu"
+
+msgid "Workflow state"
+msgstr "Työnkulun tila"
+
+msgid "Workflow states"
+msgstr "Työnkulun tilat"
+
+msgid "timestamp (UTC)"
+msgstr "aikaleima (UTC)"
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "käyttäjä %(id)d (poistettu)"
+
+msgid "system"
+msgstr "järjestelmä"
 
 msgid "Log in"
 msgstr "Kirjaudu"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-07 16:08+0100\n"
-"PO-Revision-Date: 2020-08-07 15:23+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -421,83 +421,9 @@ msgstr "Vezi paginile dependente de '{title}'"
 msgid "Page explorer"
 msgstr "Explorator de pagini"
 
-msgid "January"
-msgstr "Ianuarie"
-
-msgid "February"
-msgstr "Februarie"
-
-msgid "March"
-msgstr "Martie"
-
-msgid "April"
-msgstr "Aprilie"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Iunie"
-
-msgid "July"
-msgstr "Iulie"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "Septembrie"
-
-msgid "October"
-msgstr "Octombrie"
-
-msgid "November"
-msgstr "Noiembrie"
-
-msgid "December"
-msgstr "Decembrie"
-
-msgid "Sunday"
-msgstr "Duminică"
-
-msgid "Monday"
-msgstr "Luni"
-
-msgid "Tuesday"
-msgstr "Marți"
-
-msgid "Wednesday"
-msgstr "Miercuri"
-
-msgid "Thursday"
-msgstr "Joi"
-
-msgid "Friday"
-msgstr "Vineri"
-
-msgid "Saturday"
-msgstr "Sâmbătă"
-
-msgid "Sun"
-msgstr "D"
-
-msgid "Mon"
-msgstr "L"
-
-msgid "Tue"
-msgstr "Ma"
-
-msgid "Wed"
-msgstr "Mi"
-
-msgid "Thu"
-msgstr "J"
-
-msgid "Fri"
-msgstr "V"
-
-msgid "Sat"
-msgstr "S"
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Acțiune necunoscută %(action)s"
 
 msgid "Unknown {action}"
 msgstr "Necunoscut {action}"
@@ -1585,9 +1511,6 @@ msgstr[2] ""
 msgid "Page types"
 msgstr "Tipuri pagini"
 
-msgid "All"
-msgstr "Toate"
-
 #, python-format
 msgid "Sorry, no pages match <em>%(query_string)s</em>"
 msgstr ""
@@ -1817,22 +1740,8 @@ msgstr ""
 "această aplicație. Vă rugăm să <a href=\"https://browsehappy.com/"
 "\">actualizați browser-ul Dvstră</a>."
 
-msgid ""
-"\n"
-"            Javascript is required to use Wagtail, but it is currently "
-"disabled.<br />\n"
-"            Here are the <a href=\"https://www.enable-javascript.com/\" "
-"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
-"JavaScript in your web browser</a>.\n"
-"        "
-msgstr ""
-"\n"
-"            Wagtail are nevoie de Javascript, care în prezent e deactivat."
-"<br />\n"
-"            Vezi <a href=\"https://www.enable-javascript.com/\" target="
-"\"_blank\" rel=\"noopener noreferrer\">instrucțiuni de activare JavaScript "
-"în web browser-ul Dvs</a>.\n"
-"        "
+msgid "Skip to main content"
+msgstr "Săriți la conținutul principal"
 
 msgid "Skip to main content"
 msgstr "Săriți la conținutul principal"
@@ -2143,26 +2052,44 @@ msgstr "Sigur doriți să ștergeți această colecție?"
 msgid "Editing"
 msgstr "Editare"
 
-msgid "Page '{0}' created and scheduled for publishing."
-msgstr "Pagina '{0}' a fost creată și programată pentru publicare."
+msgid "Page '{0}' and {1} subpages copied."
+msgstr "Pagina '{0}' și {1} subpagini au fost copiate."
 
-msgid "View live"
-msgstr "Vezi în direct"
-
-msgid "Page '{0}' created and published."
-msgstr "Pagina '{0}' a fost creată și publicată."
+msgid "Page '{0}' copied."
+msgstr "Pagina '{0}' a fost copiată."
 
 msgid "View draft"
 msgstr "Vezi ciornă"
 
-msgid "Page '{0}' created and submitted for moderation."
-msgstr "Pagina '{0}' a fost creată și trimisă pentru moderare."
+msgid "View live"
+msgstr "Vezi în direct"
 
 msgid "Page '{0}' created."
 msgstr "Pagina '{0}' a fost creată."
 
+msgid "Page '{0}' created and scheduled for publishing."
+msgstr "Pagina '{0}' a fost creată și programată pentru publicare."
+
+msgid "Page '{0}' created and published."
+msgstr "Pagina '{0}' a fost creată și publicată."
+
+msgid "Page '{0}' created and submitted for moderation."
+msgstr "Pagina '{0}' a fost creată și trimisă pentru moderare."
+
 msgid "The page could not be created due to validation errors"
 msgstr "Pagina nu a fost creată din cauza erorilor de validare."
+
+msgid "Page '{0}' deleted."
+msgstr "Pagina '{0}' a fost ștearsă."
+
+msgid "This page is currently awaiting moderation"
+msgstr "Această pagină este în moderare"
+
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "Pagina '{0}' a fost schimbată cu versiunea {1}."
+
+msgid "Page '{0}' has been updated."
+msgstr "Pagina '{0}' a fost actualizată."
 
 msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
 msgstr "<b>Pagina '{}' a fost blocată</b> de <b>tine</b> la <b>{}</b>."
@@ -2185,8 +2112,8 @@ msgstr "Acestă pagină așteaptă <b>'{}'</b> în fluxul de lucru <b>'{}'</b>"
 msgid "Only reviewers for this task can edit the page."
 msgstr "Numai revizuitorii acestei sarcini pot să editeze pagina."
 
-msgid "This page is currently awaiting moderation"
-msgstr "Această pagină este în moderare"
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Fluxul de lucru al paginii '{0}' a fost anulat."
 
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Versiunea din {0} a paginii '{1}' a fost programată pentru publicare."
@@ -2207,17 +2134,8 @@ msgstr "Pagina '{0}' a fost publicată."
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Pagina '{0}' a fost trimisă pentru moderare."
 
-msgid "Workflow on page '{0}' has been cancelled."
-msgstr "Fluxul de lucru al paginii '{0}' a fost anulat."
-
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "Fluxul de lucru al paginii '{0}' a fost repornit."
-
-msgid "Page '{0}' has been replaced with version from {1}."
-msgstr "Pagina '{0}' a fost schimbată cu versiunea {1}."
-
-msgid "Page '{0}' has been updated."
-msgstr "Pagina '{0}' a fost actualizată."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Pagina nu a fost salvată pentru că este blocată"
@@ -2225,27 +2143,8 @@ msgstr "Pagina nu a fost salvată pentru că este blocată"
 msgid "The page could not be saved due to validation errors"
 msgstr "Pagina nu a fost salvată din cauza erorilor de validare."
 
-msgid "Page '{0}' deleted."
-msgstr "Pagina '{0}' a fost ștearsă."
-
-msgid "Page '{0}' unpublished."
-msgstr "Publicare anulată pentru pagina '{0}'."
-
-msgid ""
-"The slug '{0}' is already in use at the selected parent page. Make sure the "
-"slug is unique and try again"
-msgstr ""
-"Acest slug '{0}' este deja folosit în contextul paginii părinte. Asigurați-"
-"vă ca slug-ul este unic și încercați din nou"
-
-msgid "Page '{0}' moved."
-msgstr "Pagina '{0}' a fost mutată."
-
-msgid "Page '{0}' and {1} subpages copied."
-msgstr "Pagina '{0}' și {1} subpagini au fost copiate."
-
-msgid "Page '{0}' copied."
-msgstr "Pagina '{0}' a fost copiată."
+msgid "Page '{0}' is now unlocked."
+msgstr "Pagina '{0}' is fost deblocată."
 
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Pagina '{0}' nu este în moderare la moment."
@@ -2262,11 +2161,23 @@ msgstr "Publicare paginii '{0}' a fost refuzată."
 msgid "Failed to send rejection notifications"
 msgstr "Trimiterea notificărilor de respingere au eșuat."
 
-msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
-msgstr "Pagina '{0}' nu este în moderare la sarcina '{1}' în acest moment."
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Acest slug '{0}' este deja folosit în contextul paginii părinte. Asigurați-"
+"vă ca slug-ul este unic și încercați din nou"
 
-msgid "Page '{0}' is now unlocked."
-msgstr "Pagina '{0}' is fost deblocată."
+msgid "Page '{0}' moved."
+msgstr "Pagina '{0}' a fost mutată."
+
+#, python-format
+msgid ""
+"You are viewing a previous version of this page from <b>%(created_at)s</b> "
+"by %(user)s"
+msgstr ""
+"Sunteți în process de vizualizare a versiunii precedente a paginii din <b>"
+"%(created_at)s</b> de către %(user)s"
 
 #, python-format
 msgid ""
@@ -2287,6 +2198,12 @@ msgstr "revizia {0} pentru \"{1}\""
 
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "Programare anulată pentru versiunea {0} a paginii \"{1}\""
+
+msgid "Page '{0}' unpublished."
+msgstr "Publicare anulată pentru pagina '{0}'."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr "Pagina '{0}' nu este în moderare la sarcina '{1}' în acest moment."
 
 msgid "Locked pages"
 msgstr "Pagini blocate"
@@ -2418,9 +2335,6 @@ msgstr "Sarcina '{0}' a fost activată."
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Raportează această eroare webmasterului cu următoarele informații:"
-
-msgid "Locked Pages"
-msgstr "Pagini blocate"
 
 #, python-format
 msgid "Edit '%(title)s'"

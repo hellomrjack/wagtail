@@ -8,6 +8,7 @@ import warnings
 
 from django.core.management import execute_from_command_line
 
+
 os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
 
 
@@ -19,6 +20,8 @@ def make_parser():
     parser.add_argument('--elasticsearch5', action='store_true')
     parser.add_argument('--elasticsearch6', action='store_true')
     parser.add_argument('--elasticsearch7', action='store_true')
+    parser.add_argument('--emailuser', action='store_true')
+    parser.add_argument('--disabletimezone', action='store_true')
     parser.add_argument('--bench', action='store_true')
     return parser
 
@@ -66,6 +69,12 @@ def runtests():
         # forcibly delete the ELASTICSEARCH_URL setting to skip those tests
         del os.environ['ELASTICSEARCH_URL']
 
+    if args.emailuser:
+        os.environ['USE_EMAIL_USER_MODEL'] = '1'
+
+    if args.disabletimezone:
+        os.environ['DISABLE_TIMEZONE'] = '1'
+
     if args.bench:
         benchmarks = [
             'wagtail.admin.tests.benches',
@@ -78,7 +87,7 @@ def runtests():
     try:
         execute_from_command_line(argv)
     finally:
-        from wagtail.tests.settings import STATIC_ROOT, MEDIA_ROOT
+        from wagtail.tests.settings import MEDIA_ROOT, STATIC_ROOT
         shutil.rmtree(STATIC_ROOT, ignore_errors=True)
         shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
 

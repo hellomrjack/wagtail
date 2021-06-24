@@ -1,5 +1,6 @@
 import copy
 import json
+
 from collections import OrderedDict
 from urllib.parse import urlparse
 
@@ -1069,6 +1070,10 @@ class Elasticsearch2SearchBackend(BaseSearchBackend):
         es_urls = params.pop('URLS', ['http://localhost:9200'])
         if self.hosts is None:
             self.hosts = []
+
+            # if es_urls is not a list, convert it to a list
+            if isinstance(es_urls, str):
+                es_urls = [es_urls]
 
             for url in es_urls:
                 parsed_url = urlparse(url)

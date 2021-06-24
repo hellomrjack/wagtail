@@ -64,6 +64,91 @@ Override the templates used by the search front-end views.
 
 Set the number of days (default 7) that search query logs are kept for; these are used to identify popular search terms for :ref:`promoted search results <editors-picks>`. Queries older than this will be removed by the :ref:`search_garbage_collect` command.
 
+Internationalisation
+====================
+
+.. versionadded:: 2.11
+
+Wagtail supports internationalisation of content by maintaining separate trees
+of pages for each language.
+
+For a guide on how to enable internationalisation on your site, see the :ref:`configuration guide <enabling_internationalisation>`.
+
+``WAGTAIL_I18N_ENABLED``
+------------------------
+
+(boolean, default ``False``)
+
+When set to ``True``, Wagtail's internationalisation features will be enabled:
+
+.. code-block:: python
+
+    WAGTAIL_I18N_ENABLED = True
+
+.. _wagtail_content_languages_setting:
+
+``WAGTAIL_CONTENT_LANGUAGES``
+-----------------------------
+
+(list, default ``[]``)
+
+A list of languages and/or locales that Wagtail content can be authored in.
+
+For example:
+
+.. code-block:: python
+
+    WAGTAIL_CONTENT_LANGUAGES = [
+        ('en', _("English")),
+        ('fr', _("French")),
+    ]
+
+Each item in the list is a 2-tuple containing a language code and a display name.
+The language code can either be a language code on its own (such as ``en``, ``fr``),
+or it can include a region code (such as ``en-gb``, ``fr-fr``).
+You can mix the two formats if you only need to localize in some regions but not others.
+
+This setting follows the same structure of Django's  ``LANGUAGES`` setting,
+so they can both be set to the same value:
+
+.. code-block:: python
+
+    LANGUAGES = WAGTAIL_CONTENT_LANGUAGES = [
+        ('en-gb', _("English (United Kingdom)")),
+        ('en-us', _("English (United States)")),
+        ('es-es', _("Spanish (Spain)")),
+        ('es-mx', _("Spanish (Mexico)")),
+    ]
+
+However having them separate allows you to configure many different regions on your site
+yet have them share Wagtail content (but defer on things like date formatting, currency, etc):
+
+.. code-block:: python
+
+    LANGUAGES = [
+        ('en', _("English (United Kingdom)")),
+        ('en-us', _("English (United States)")),
+        ('es', _("Spanish (Spain)")),
+        ('es-mx', _("Spanish (Mexico)")),
+    ]
+
+
+    WAGTAIL_CONTENT_LANGUAGES = [
+        ('en', _("English")),
+        ('es', _("Spanish")),
+    ]
+
+This would mean that your site will respond on the
+``https://www.mysite.com/es/`` and ``https://www.mysite.com/es-MX/`` URLs, but both
+of them will serve content from the same "Spanish" tree in Wagtail.
+
+.. note:: ``WAGTAIL_CONTENT_LANGUAGES`` must be a subset of ``LANGUAGES``
+
+    Note that all languages that exist in ``WAGTAIL_CONTENT_LANGUAGES``
+    must also exist in your ``LANGUAGES`` setting. This is so that Wagtail can
+    generate a live URL to these pages from an untranslated context (e.g. the admin
+    interface).
+
 Embeds
 ======
 
@@ -179,6 +264,36 @@ For this reason, Wagtail provides a number of serving methods which trade some o
  * ``'serve_view'`` - links to documents point to a Django view which both checks the user's permission, and serves the document. Serving will be handled by `django-sendfile <https://github.com/johnsensible/django-sendfile>`_, if this is installed and supported by your server configuration, or as a streaming response from Django if not. When using this method, it is recommended that you configure your webserver to *disallow* serving documents directly from their location under ``MEDIA_ROOT``, as this would provide a way to bypass the permission check.
 
 If ``WAGTAILDOCS_SERVE_METHOD`` is unspecified or set to ``None``, the default method is ``'redirect'`` when a remote storage backend is in use (i.e. one that exposes a URL but not a local filesystem path), and ``'serve_view'`` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for ``'serve_view'``.
+
+.. _wagtaildocs_content_types:
+
+.. code-block:: python
+
+  WAGTAILDOCS_CONTENT_TYPES = {
+      'pdf': 'application/pdf',
+      'txt': 'text/plain',
+  }
+
+Specifies the MIME content type that will be returned for the given file extension, when using the ``serve_view`` method. Content types not listed here will be guessed using the Python ``mimetypes.guess_type`` function, or ``application/octet-stream`` if unsuccessful.
+
+.. _wagtaildocs_inline_content_types:
+
+.. code-block:: python
+
+  WAGTAILDOCS_INLINE_CONTENT_TYPES = ['application/pdf', 'text/plain']
+
+A list of MIME content types that will be shown inline in the browser (by serving the HTTP header ``Content-Disposition: inline``) rather than served as a download, when using the ``serve_view`` method. Defaults to ``application/pdf``.
+
+.. _wagtaildocs_extensions:
+
+.. code-block:: python
+
+  WAGTAILDOCS_EXTENSIONS = ['pdf', 'docx']
+
+A list of allowed document extensions that will be validated during document uploading.
+If this isn't supplied all document extensions are allowed.
+Warning: this doesn't always ensure that the uploaded file is valid as files can
+be renamed to have an extension no matter what data they contain.
 
 Password Management
 ===================
@@ -434,12 +549,12 @@ Static files
 
     WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS = False
 
-Static file URLs within the Wagtail admin are given a version-specific query string of the form ``?v=1a2b3c4d``, to prevent outdated cached copies of Javascript and CSS files from persisting after a Wagtail upgrade. To disable these, set ``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS`` to ``False``.
+Static file URLs within the Wagtail admin are given a version-specific query string of the form ``?v=1a2b3c4d``, to prevent outdated cached copies of JavaScript and CSS files from persisting after a Wagtail upgrade. To disable these, set ``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS`` to ``False``.
 
 API Settings
 ============
 
-For full documenation on API configuration, including these settings, see :ref:`api_v2_configuration` documentation.
+For full documentation on API configuration, including these settings, see :ref:`api_v2_configuration` documentation.
 
 .. code-block:: python
 
@@ -465,12 +580,12 @@ Default is true, setting this to false will disable full text search on all endp
 
     WAGTAILAPI_USE_FRONTENDCACHE = True
 
-Requires ``wagtailfrontendcache`` app to be installed, inidicates the API should use the frontend cache.
+Requires ``wagtailfrontendcache`` app to be installed, indicates the API should use the frontend cache.
 
 Frontend cache
 ==============
 
-For full documenation on frontend cache invalidation, including these settings, see :ref:`frontend_cache_purging`.
+For full documentation on frontend cache invalidation, including these settings, see :ref:`frontend_cache_purging`.
 
 
 .. code-block:: python
@@ -551,10 +666,6 @@ By default the redirect importer keeps track of the uploaded file as a temp file
 Form builder
 ============
 
-.. versionadded:: 2.7.4/2.9.3
-
-    The ``WAGTAILFORMS_HELP_TEXT_ALLOW_HTML`` option was added.
-
 .. code-block:: python
 
     WAGTAILFORMS_HELP_TEXT_ALLOW_HTML = True
@@ -576,7 +687,7 @@ Workflow
 
 Moderation workflows can be used in two modes. The first is to require that all tasks must approve a specific page revision for the workflow to complete. As a result,
 if edits are made to a page while it is in moderation, any approved tasks will need to be re-approved for the new revision before the workflow finishes.
-This is the default, ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`` . The second mode does not require reapproval: if edits are made when 
+This is the default, ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`` . The second mode does not require reapproval: if edits are made when
 tasks have already been approved, those tasks do not need to be reapproved. This is more suited to a hierarchical workflow system. To use workflows in this mode,
 set ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False``.
 
@@ -593,4 +704,4 @@ which publishes the page. The function must accept a ``WorkflowState`` object as
 
 This determines whether publishing a page with an ongoing workflow will cancel the workflow (if true) or leave the workflow unaffected (false).
 Disabling this could be useful if your site has long, multi-step workflows, and you want to be able to publish urgent page updates while the
-workflow continues to provide less urgent feedback. 
+workflow continues to provide less urgent feedback.

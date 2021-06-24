@@ -17,7 +17,7 @@ Templates
 
 Every type of page or "content type" in Wagtail is defined as a "model" in a file called ``models.py``. If your site has a blog, you might have a ``BlogPage``  model and another called ``BlogPageListing``. The names of the models are up to the Django developer.
 
-For each page model in ``models.py``, Wagtail assumes an HTML template file exists of (almost) the same name. The Front End developer may need to create these templates themselves by refering to ``models.py`` to infer template names from the models defined therein.
+For each page model in ``models.py``, Wagtail assumes an HTML template file exists of (almost) the same name. The Front End developer may need to create these templates themselves by referring to ``models.py`` to infer template names from the models defined therein.
 
 To find a suitable template, Wagtail converts CamelCase names to snake_case. So for a ``BlogPage``, a template ``blog_page.html`` will be expected. The name of the template file can be overridden per model if necessary.
 
@@ -127,14 +127,20 @@ Only fields using ``RichTextField`` need this applied in the template.
 Responsive Embeds
 -----------------
 
-By default, Wagtail includes embeds and images at their full width, which may overflow the bounds of the content container you've defined in your templates. To address this, Wagtail provides the ability to make images and embeds responsive -- meaning they'll resize to fit their container. Responsive embeds can be enabled by setting ``WAGTAILEMBEDS_RESPONSIVE_HTML = True`` in your project settings; this adds a CSS class of ``responsive-object`` and an inline ``padding-bottom`` style to the embed, to be used in conjunction with CSS such as the following:
+As Wagtail does not impose any styling of its own on templates, images and embedded media will be displayed at a fixed width as determined by the HTML. Images can be made to resize to fit their container using a CSS rule such as the following:
 
 .. code-block:: css
 
-    .rich-text img {
+    .body img {
         max-width: 100%;
         height: auto;
     }
+
+where ``body`` is a container element in your template surrounding the images.
+
+Making embedded media resizable is also possible, but typically requires custom style rules matching the media's aspect ratio. To assist in this, Wagtail provides built-in support for responsive embeds, which can be enabled by setting ``WAGTAILEMBEDS_RESPONSIVE_HTML = True`` in your project settings. This adds a CSS class of ``responsive-object`` and an inline ``padding-bottom`` style to the embed, to be used in conjunction with the following CSS:
+
+.. code-block:: css
 
     .responsive-object {
         position: relative;
@@ -230,10 +236,6 @@ Returns the Site object corresponding to the current request.
     {% load wagtailcore_tags %}
 
     {% wagtail_site as current_site %}
-
-.. versionadded:: 2.9
-
-  In previous versions, the recommended way to refer to the current site was through the ``request.site`` attribute provided by :class:`~wagtail.core.middleware.SiteMiddleware`; this is now deprecated.
 
 .. _wagtailuserbar_tag:
 

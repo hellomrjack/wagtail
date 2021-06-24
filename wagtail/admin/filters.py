@@ -1,4 +1,5 @@
 import django_filters
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -112,9 +113,10 @@ class LockedPagesReportFilterSet(WagtailFilterSet):
 
 
 def get_requested_by_queryset(request):
-    return get_user_model().objects.filter(
+    User = get_user_model()
+    return User.objects.filter(
         pk__in=set(WorkflowState.objects.values_list('requested_by__pk', flat=True))
-    ).order_by('username')
+    ).order_by(User.USERNAME_FIELD)
 
 
 class WorkflowReportFilterSet(WagtailFilterSet):
@@ -176,9 +178,10 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
 
 
 def get_audit_log_users_queryset(request):
-    return get_user_model().objects.filter(
+    User = get_user_model()
+    return User.objects.filter(
         pk__in=set(PageLogEntry.objects.values_list('user__pk', flat=True))
-    ).order_by('username')
+    ).order_by(User.USERNAME_FIELD)
 
 
 class SiteHistoryReportFilterSet(WagtailFilterSet):
