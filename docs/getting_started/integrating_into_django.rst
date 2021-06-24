@@ -5,7 +5,7 @@ Integrating Wagtail into a Django project
 
 Wagtail provides the ``wagtail start`` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 1.11, 2.0 and 2.1. First, install the ``wagtail`` package from PyPI:
+Wagtail is currently compatible with Django 2.0 and 2.1. First, install the ``wagtail`` package from PyPI:
 
 .. code-block:: console
 
@@ -76,11 +76,6 @@ Now make the following additions to your ``urls.py`` file:
         re_path(r'^pages/', include(wagtail_urls)),
         ...
     ]
-
-.. important::
-
-   The example above assumes you are using Django version 2.0 or later. If you are using a Django version earlier than 2.0, you should rename all occurrences of re_path() to url(). For example: ``from django.urls import path, url, include`` instead of ``from django.urls import path, re_path, include`` and ``url(r'^cms/', include(wagtailadmin_urls)),`` instead of ``re_path(r'^cms/', include(wagtailadmin_urls)),``.
-   (`read more <https://docs.djangoproject.com/en/2.1/ref/urls/#url>`_).
 
 The URL paths here can be altered as necessary to fit your project's URL scheme.
 

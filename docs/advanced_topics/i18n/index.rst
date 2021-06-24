@@ -4,7 +4,7 @@ Internationalisation
 
 This document describes the internationalisation features of Wagtail and how to create multi-lingual sites.
 
-Wagtail uses Django's `Internationalisation framework <https://docs.djangoproject.com/en/stable/topics/i18n/>`_ so most of the steps are the same as other Django projects.
+Wagtail uses Django's :doc:`Internationalisation framework <django:topics/i18n/index>` so most of the steps are the same as other Django projects.
 
 
 .. contents::
@@ -43,7 +43,7 @@ If there is a translation available for your language, the Wagtail admin backend
 Creating sites with multiple languages
 ======================================
 
-You can create sites with multiple language support by leveraging Django's `translation features <https://docs.djangoproject.com/en/stable/topics/i18n/translation/>`_.
+You can create sites with multiple language support by leveraging Django's :doc:`translation features <django:topics/i18n/translation>`.
 
 This section of the documentation will show you how to use Django's translation features with Wagtail and also describe a couple of methods for storing/retrieving translated content using Wagtail pages.
 
@@ -63,7 +63,7 @@ To enable multi-language support, add ``django.middleware.locale.LocaleMiddlewar
         'django.middleware.locale.LocaleMiddleware',
     )
 
-This middleware class looks at the user's browser language and sets the `language of the site accordingly <https://docs.djangoproject.com/en/stable/topics/i18n/translation/#how-django-discovers-language-preference>`_.
+This middleware class looks at the user's browser language and sets the :ref:`language of the site accordingly <django:how-django-discovers-language-preference>`.
 
 
 Serving different languages from different URLs
@@ -107,11 +107,6 @@ This feature is enabled through the project's root URL configuration. Just put t
 
         re_path(r'', include(wagtail_urls)),
     )
-
-.. important::
-
-   The example above assumes you are using Django version 2.0 or later. If you are using a Django version earlier than 2.0, you should rename all occurrences of re_path() to url(). For example: ``from django.conf.urls import include, url`` instead of ``from django.conf.urls import include, re_path`` and ``url(r'^django-admin/', include(admin.site.urls)),`` instead of ``re_path(r'^django-admin/', include(admin.site.urls)),``.
-   (`read more <https://docs.djangoproject.com/en/2.1/ref/urls/#url>`_).
 
 You can implement switching between languages by changing the part at the beginning of the URL. As each language has its own URL, it also works well with just about any caching setup.
 

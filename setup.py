@@ -26,7 +26,7 @@ install_requires = [
     "django-taggit>=0.23,<0.24",
     "django-treebeard>=4.2.0,<5.0",
     "djangorestframework>=3.7.4,<4.0",
-    "draftjs_exporter>=2.0,<3.0",
+    "draftjs_exporter>=2.1.5,<3.0",
     "Pillow>=4.0.0,<6.0",
     "beautifulsoup4>=4.5.1,<4.6.1",
     "html5lib>=0.999,<2",
@@ -40,7 +40,6 @@ install_requires = [
 # Testing dependencies
 testing_extras = [
     # Required for running the tests
-    'mock>=1.0.0',
     'python-dateutil>=2.2',
     'pytz>=2014.7',
     'elasticsearch>=1.0.0,<3.0',
@@ -50,7 +49,7 @@ testing_extras = [
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
-    'flake8>=2.2.0',
+    'flake8>=3.6.0',
     'isort==4.2.5',
     'flake8-blind-except==0.1.1',
     'flake8-print==2.0.2',
@@ -92,8 +91,8 @@ https://github.com/wagtail/wagtail/.",
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Framework :: Django',
-        'Framework :: Django :: 1.11',
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',
         'Framework :: Wagtail',
