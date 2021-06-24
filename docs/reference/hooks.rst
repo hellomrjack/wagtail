@@ -56,7 +56,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_panels``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``.
+  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``. Hook functions should modify the ``panels`` list in-place as required.
 
   .. code-block:: python
 
@@ -76,7 +76,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('construct_homepage_panels')
     def add_another_welcome_panel(request, panels):
-      return panels.append( WelcomePanel() )
+        panels.append(WelcomePanel())
 
 
 .. _construct_homepage_summary_items:
@@ -156,7 +156,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu
 
-  ``MenuItem`` can be subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/menu.py``) for details.
+  ``MenuItem`` can be subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/menu.py``) for details.
 
   .. code-block:: python
 
@@ -212,6 +212,14 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   As ``register_admin_menu_item``, but registers menu items into the 'Settings' sub-menu rather than the top-level menu.
 
 
+.. _construct_settings_menu:
+
+``construct_settings_menu``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  As ``construct_main_menu``, but modifies the 'Settings' sub-menu rather than the top-level menu.
+
+
 .. _register_admin_search_area:
 
 ``register_admin_search_area``
@@ -231,7 +239,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   A template tag, ``search_other`` is provided by the ``wagtailadmin_tags`` template module. This tag takes a single, optional parameter, ``current``, which allows you to specify the ``name`` of the search option currently active. If the parameter is not given, the hook defaults to a reverse lookup of the page's URL for comparison against the ``url`` parameter.
 
 
-  ``SearchArea`` can be subclassed to customise the HTML output, specify JavaScript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/wagtailadmin/search.py``) for details.
+  ``SearchArea`` can be subclassed to customise the HTML output, specify JavaScript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/search.py``) for details.
 
   .. code-block:: python
 
@@ -539,6 +547,7 @@ Hooks for customising the way users are directed through the process of creating
     from wagtail.admin.action_menu import ActionMenuItem
 
     class GuacamoleMenuItem(ActionMenuItem):
+        name = 'action-guacamole'
         label = "Guacamole"
 
         def get_url(self, request, context):
@@ -623,6 +632,8 @@ Hooks for customising the way admins are directed through the process of editing
 
   .. code-block:: python
 
+    from django.http import HttpResponse
+
     from wagtail.core import hooks
 
     from .models import AwesomePage
@@ -705,7 +716,7 @@ Choosers
     @hooks.register('construct_document_chooser_queryset')
     def show_my_uploaded_documents_only(documents, request):
         # Only show uploaded documents
-        documents = documents.filter(uploaded_by=request.user)
+        documents = documents.filter(uploaded_by_user=request.user)
 
         return documents
 
@@ -715,7 +726,7 @@ Choosers
 ``construct_image_chooser_queryset``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called when rendering the image chooser view, to allow the image listing QuerySet to be customised. The callable passed into the hook will receive the current image QuerySet and the request object, and must return a Document QuerySet (either the original one, or a new one).
+  Called when rendering the image chooser view, to allow the image listing QuerySet to be customised. The callable passed into the hook will receive the current image QuerySet and the request object, and must return an Image QuerySet (either the original one, or a new one).
 
   .. code-block:: python
 
@@ -724,7 +735,7 @@ Choosers
     @hooks.register('construct_image_chooser_queryset')
     def show_my_uploaded_images_only(images, request):
         # Only show uploaded images
-        images = images.filter(uploaded_by=request.user)
+        images = images.filter(uploaded_by_user=request.user)
 
         return images
 
@@ -850,6 +861,8 @@ Page serving
   Called when Wagtail is about to serve a page. The callable passed into the hook will receive the page object, the request object, and the ``args`` and ``kwargs`` that will be passed to the page's ``serve()`` method. If the callable returns an ``HttpResponse``, that response will be returned immediately to the user, and Wagtail will not proceed to call ``serve()`` on the page.
 
   .. code-block:: python
+
+    from django.http import HttpResponse
 
     from wagtail.core import hooks
 

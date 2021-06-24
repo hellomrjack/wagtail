@@ -1,4 +1,3 @@
-import unittest
 from functools import partial
 
 from django.test import TestCase
@@ -105,17 +104,17 @@ class TestStreamFieldComparison(TestCase):
         comparison = self.comparison_class(
             field,
             StreamPage(body=StreamValue(field.stream_block, [
-                ('text', "Content"),
+                ('text', "Content", '1'),
             ])),
             StreamPage(body=StreamValue(field.stream_block, [
-                ('text', "Content"),
+                ('text', "Content", '1'),
             ])),
         )
 
         self.assertTrue(comparison.is_field)
         self.assertFalse(comparison.is_child_relation)
         self.assertEqual(comparison.field_label(), "Body")
-        self.assertEqual(comparison.htmldiff(), 'Content')
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">Content</div>')
         self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertFalse(comparison.has_changed())
 
@@ -125,32 +124,90 @@ class TestStreamFieldComparison(TestCase):
         comparison = self.comparison_class(
             field,
             StreamPage(body=StreamValue(field.stream_block, [
-                ('text', "Original content"),
+                ('text', "Original content", '1'),
             ])),
             StreamPage(body=StreamValue(field.stream_block, [
-                ('text', "Modified content"),
+                ('text', "Modified content", '1'),
             ])),
         )
 
-        self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original</span><span class="addition">Modified</span> content')
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object"><span class="deletion">Original</span><span class="addition">Modified</span> content</div>')
         self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
 
-    @unittest.expectedFailure
+    def test_add_block(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('text', "Content", '1'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('text', "Content", '1'),
+                ('text', "New Content", '2'),
+            ])),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">Content</div>\n<div class="comparison__child-object addition">New Content</div>')
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
+        self.assertTrue(comparison.has_changed())
+
+    def test_delete_block(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('text', "Content", '1'),
+                ('text', "Content Foo", '2'),
+                ('text', "Content Bar", '3'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('text', "Content", '1'),
+                ('text', "Content Bar", '3'),
+            ])),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">Content</div>\n<div class="comparison__child-object deletion">Content Foo</div>\n<div class="comparison__child-object">Content Bar</div>')
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
+        self.assertTrue(comparison.has_changed())
+
+    def test_edit_block(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('text', "Content", '1'),
+                ('text', "Content Foo", '2'),
+                ('text', "Content Bar", '3'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('text', "Content", '1'),
+                ('text', "Content Baz", '2'),
+                ('text', "Content Bar", '3'),
+            ])),
+        )
+
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object">Content</div>\n<div class="comparison__child-object">Content <span class="deletion">Foo</span><span class="addition">Baz</span></div>\n<div class="comparison__child-object">Content Bar</div>')
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
+        self.assertTrue(comparison.has_changed())
+
     def test_has_changed_richtext(self):
         field = StreamPage._meta.get_field('body')
 
         comparison = self.comparison_class(
             field,
             StreamPage(body=StreamValue(field.stream_block, [
-                ('rich_text', "<b>Original</b> content"),
+                ('rich_text', "<b>Original</b> content", '1'),
             ])),
             StreamPage(body=StreamValue(field.stream_block, [
-                ('rich_text', "Modified <i>content</i>"),
+                ('rich_text', "Modified <i>content</i>", '1'),
             ])),
         )
 
-        self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original</span><span class="addition">Modified</span> content')
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object"><span class="deletion">Original</span><span class="addition">Modified</span> content</div>')
         self.assertIsInstance(comparison.htmldiff(), SafeText)
         self.assertTrue(comparison.has_changed())
 
@@ -160,32 +217,88 @@ class TestStreamFieldComparison(TestCase):
         comparison = self.comparison_class(
             field,
             StreamPage(body=StreamValue(field.stream_block, [
-                ('text', "Original content"),
+                ('text', "Original content", '1'),
             ])),
             StreamPage(body=StreamValue(field.stream_block, [
-                ('text', '<script type="text/javascript">doSomethingBad();</script>'),
+                ('text', '<script type="text/javascript">doSomethingBad();</script>', '1'),
             ])),
         )
 
-        self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original content</span><span class="addition">&lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</span>')
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object"><span class="deletion">Original content</span><span class="addition">&lt;script type=&quot;text/javascript&quot;&gt;doSomethingBad();&lt;/script&gt;</span></div>')
         self.assertIsInstance(comparison.htmldiff(), SafeText)
 
-    @unittest.expectedFailure
     def test_htmldiff_escapes_value_richtext(self):
         field = StreamPage._meta.get_field('body')
 
         comparison = self.comparison_class(
             field,
             StreamPage(body=StreamValue(field.stream_block, [
-                ('rich_text', "Original content"),
+                ('rich_text', "Original content", '1'),
             ])),
             StreamPage(body=StreamValue(field.stream_block, [
-                ('rich_text', '<script type="text/javascript">doSomethingBad();</script>'),
+                ('rich_text', '<script type="text/javascript">doSomethingBad();</script>', '1'),
             ])),
         )
 
-        self.assertEqual(comparison.htmldiff(), '<span class="deletion">Original content</span><span class="addition">doSomethingBad();</span>')
+        self.assertEqual(comparison.htmldiff(), '<div class="comparison__child-object"><span class="deletion">Original content</span><span class="addition">doSomethingBad();</span></div>')
         self.assertIsInstance(comparison.htmldiff(), SafeText)
+
+    def test_compare_structblock(self):
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('product', {'name': 'a packet of rolos', 'price': '75p'}, '1'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('product', {'name': 'a packet of rolos', 'price': '85p'}, '1'),
+            ])),
+        )
+
+        expected = """
+            <div class="comparison__child-object"><dl>
+                <dt>Name</dt>
+                <dd>a packet of rolos</dd>
+                <dt>Price</dt>
+                <dd><span class="deletion">75p</span><span class="addition">85p</span></dd>
+            </dl></div>
+        """
+        self.assertHTMLEqual(comparison.htmldiff(), expected)
+        self.assertIsInstance(comparison.htmldiff(), SafeText)
+        self.assertTrue(comparison.has_changed())
+
+    def test_compare_imagechooserblock(self):
+        image_model = get_image_model()
+        test_image_1 = image_model.objects.create(
+            title="Test image 1",
+            file=get_test_image_file(),
+        )
+        test_image_2 = image_model.objects.create(
+            title="Test image 2",
+            file=get_test_image_file(),
+        )
+
+        field = StreamPage._meta.get_field('body')
+
+        comparison = self.comparison_class(
+            field,
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('image', test_image_1, '1'),
+            ])),
+            StreamPage(body=StreamValue(field.stream_block, [
+                ('image', test_image_2, '1'),
+            ])),
+        )
+
+        result = comparison.htmldiff()
+        self.assertIn('<div class="preview-image deletion">', result)
+        self.assertIn('alt="Test image 1"', result)
+        self.assertIn('<div class="preview-image addition">', result)
+        self.assertIn('alt="Test image 2"', result)
+
+        self.assertIsInstance(result, SafeText)
+        self.assertTrue(comparison.has_changed())
 
 
 class TestChoiceFieldComparison(TestCase):

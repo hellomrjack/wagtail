@@ -5,15 +5,15 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
-# Eetu Häivälä <eetu.haivala@anders.fi>, 2017
+# Eetu Häivälä, 2017
 # Rauli L. <rauli.laine@iki.fi>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -162,24 +162,6 @@ msgstr "Tila"
 
 msgid "Edit this page"
 msgstr "Muokkaa tätä sivua"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Document\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Documents\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> dokumentti\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> dokumenttia\n"
-"    "
 
 msgid "Add multiple documents"
 msgstr "Lisää useampi dokumentti"

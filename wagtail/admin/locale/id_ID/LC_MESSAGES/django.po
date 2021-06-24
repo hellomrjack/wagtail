@@ -7,12 +7,13 @@
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
 # Ronggo Radityo <radityo3000@yahoo.com>, 2017
 # Sutrisno Efendi <kangfend@gmail.com>, 2015,2017
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -63,7 +64,7 @@ msgid "Enter your %s"
 msgstr "Masukkan %s anda"
 
 msgid "Enter your email address to reset your password"
-msgstr "Masukkan alamat surel untuk atur ulang kata kunci anda"
+msgstr "Masukkan alamat surel untuk atur ulang kata sandi anda"
 
 msgid "URL"
 msgstr "URL"
@@ -242,9 +243,6 @@ msgstr "Pengaturan ulang kata sandi"
 msgid "Reset your password"
 msgstr "Atur ulang kata sandi Anda"
 
-msgid "Edit"
-msgstr "Ubah"
-
 msgid "Page"
 msgstr "Halaman"
 
@@ -259,9 +257,6 @@ msgstr "Tidak ada hasil"
 
 msgid "Server Error"
 msgstr "Galat pada Server"
-
-msgid "See children"
-msgstr "Lihat turunan"
 
 msgid "See all"
 msgstr "Lihat semua"
@@ -305,6 +300,87 @@ msgstr ""
 "Editor telah gagal. Konten telah dipasang ulang dengan versi terakhir yang "
 "disimpan."
 
+msgid "Close"
+msgstr "Tutup"
+
+msgid "January"
+msgstr "Januari"
+
+msgid "February"
+msgstr "Februari"
+
+msgid "March"
+msgstr "Maret"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Mei"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "Agustus"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "Desember"
+
+msgid "Sunday"
+msgstr "Minggu"
+
+msgid "Monday"
+msgstr "Senin"
+
+msgid "Tuesday"
+msgstr "Selasa"
+
+msgid "Wednesday"
+msgstr "Rabu"
+
+msgid "Thursday"
+msgstr "Kamis"
+
+msgid "Friday"
+msgstr "Jum'at"
+
+msgid "Saturday"
+msgstr "Sabtu"
+
+msgid "Sun"
+msgstr "Min"
+
+msgid "Mon"
+msgstr "Sen"
+
+msgid "Tue"
+msgstr "Sel"
+
+msgid "Wed"
+msgstr "Rab"
+
+msgid "Thu"
+msgstr "Kam"
+
+msgid "Fri"
+msgstr "Jum"
+
+msgid "Sat"
+msgstr "Sab"
+
 msgid "Dashboard"
 msgstr "Dasbor"
 
@@ -331,6 +407,19 @@ msgstr "Tautan luar"
 
 msgid "Email link"
 msgstr "Tautan surel"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Ada %(counter)s yang sesuai"
 
 msgid "Choose"
 msgstr "Pilih"
@@ -444,11 +533,17 @@ msgstr "Telah diubah"
 msgid "Edit this page"
 msgstr "Ubah halaman ini"
 
+msgid "Preview this page"
+msgstr "Pratinjau halaman ini"
+
 msgid "Approve"
 msgstr "Menyetujui"
 
 msgid "Reject"
 msgstr "Tolak"
+
+msgid "Edit"
+msgstr "Ubah"
 
 msgid "Preview"
 msgstr "Pratinjau"
@@ -474,20 +569,6 @@ msgstr "Terpublikasi"
 
 msgid "Site summary"
 msgstr "Ringkasan situs"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Halaman\n"
-"    "
 
 msgid "Sign in"
 msgstr "Masuk"
@@ -865,9 +946,6 @@ msgstr "Halaman ini tidak tampak oleh publik"
 msgid "Disable ordering of child pages"
 msgstr "Nonaktifkan pengurutan halaman turunan "
 
-msgid "Order"
-msgstr "Urutan"
-
 msgid "Enable ordering of child pages"
 msgstr "Aktifkan pengurutan halaman turunan"
 
@@ -896,9 +974,6 @@ msgstr ""
 "galat yang ada,\n"
 "                setelah itu tampilkan pratinjau lagi.\n"
 "            "
-
-msgid "Close"
-msgstr "Tutup"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1038,6 +1113,10 @@ msgstr "Tidak ada halaman yang menggunakan"
 msgid "Collection"
 msgstr "Koleksi"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Halaman %(page_num)s dari %(total_pages)s."
+
 msgid "Root"
 msgstr "Dasar"
 
@@ -1047,63 +1126,6 @@ msgstr "Beranda"
 msgid "All collections"
 msgstr "Semua koleksi"
 
-msgid "January"
-msgstr "Januari"
-
-msgid "February"
-msgstr "Februari"
-
-msgid "March"
-msgstr "Maret"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Mei"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "Agustus"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "Desember"
-
-msgid "Sun"
-msgstr "Min"
-
-msgid "Mon"
-msgstr "Sen"
-
-msgid "Tue"
-msgstr "Sel"
-
-msgid "Wed"
-msgstr "Rab"
-
-msgid "Thu"
-msgstr "Kam"
-
-msgid "Fri"
-msgstr "Jum"
-
-msgid "Sat"
-msgstr "Sab"
-
 msgid "Edit your account"
 msgstr "Ubah akun Anda"
 
@@ -1112,10 +1134,6 @@ msgstr "Pengaturan Akun"
 
 msgid "Log out"
 msgstr "Keluar"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Halaman %(page_num)s dari %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Pencarian yang lain"
@@ -1209,9 +1227,6 @@ msgstr "Slowakia"
 
 msgid "Ukrainian"
 msgstr "Ukraina"
-
-msgid "Chinese (China)"
-msgstr "Cina"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Maaf, Anda tidak memiliki izin untuk mengakses area ini"

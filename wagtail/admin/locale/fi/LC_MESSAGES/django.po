@@ -4,7 +4,7 @@
 #
 # Translators:
 # Aarni Koskela, 2016
-# Eetu Häivälä <eetu.haivala@anders.fi>, 2016-2017
+# Eetu Häivälä, 2016-2017
 # Juha Yrjölä <juha.yrjola@iki.fi>, 2016
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Rauli L. <rauli.laine@iki.fi>, 2016
@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -189,11 +189,65 @@ msgstr "Salasanan palautus"
 msgid "Reset your password"
 msgstr "Palauta salasanasi"
 
-msgid "Edit"
-msgstr "Muokkaa"
-
 msgid "Pages"
 msgstr "Sivut"
+
+msgid "January"
+msgstr "Tammi"
+
+msgid "February"
+msgstr "Helmi"
+
+msgid "March"
+msgstr "Maalis"
+
+msgid "April"
+msgstr "Huhti"
+
+msgid "May"
+msgstr "Touko"
+
+msgid "June"
+msgstr "Kesä"
+
+msgid "July"
+msgstr "Heinä"
+
+msgid "August"
+msgstr "Elo"
+
+msgid "September"
+msgstr "Syys"
+
+msgid "October"
+msgstr "Loka"
+
+msgid "November"
+msgstr "Marras"
+
+msgid "December"
+msgstr "Joulu"
+
+msgid "Sun"
+msgstr "Su"
+
+msgid "Mon"
+msgstr "Ma"
+
+msgid "Tue"
+msgstr "Ti"
+
+msgid "Wed"
+msgstr "Ke"
+
+msgid "Thu"
+msgstr "To"
+
+msgid "Fri"
+msgstr "Pe"
+
+msgid "Sat"
+msgstr "La"
 
 msgid "Dashboard"
 msgstr "Kojelauta"
@@ -326,6 +380,9 @@ msgstr "Hyväksy"
 msgid "Reject"
 msgstr "Hylkää"
 
+msgid "Edit"
+msgstr "Muokkaa"
+
 msgid "Preview"
 msgstr "Esikatsele"
 
@@ -350,22 +407,6 @@ msgstr "Julkinen"
 
 msgid "Site summary"
 msgstr "Sivuston yhteenveto"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Sivu"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Sivua"
 
 msgid "Sign in"
 msgstr "Kirjaudu sisään"
@@ -703,9 +744,6 @@ msgstr "Sivu on suojattu näkymästä julkisesti"
 msgid "Disable ordering of child pages"
 msgstr "Estä alasivujen uudelleenjärjestäminen"
 
-msgid "Order"
-msgstr "Järjestä"
-
 msgid "Enable ordering of child pages"
 msgstr "Salli alasivujen uudelleenjärjestäminen"
 
@@ -794,68 +832,15 @@ msgstr "Yhtään sivua ei käytä"
 msgid "Collection"
 msgstr "Kokoelma"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
+
 msgid "Home"
 msgstr "Koti"
 
 msgid "All collections"
 msgstr "Kaikki kokoelmat"
-
-msgid "January"
-msgstr "Tammi"
-
-msgid "February"
-msgstr "Helmi"
-
-msgid "March"
-msgstr "Maalis"
-
-msgid "April"
-msgstr "Huhti"
-
-msgid "May"
-msgstr "Touko"
-
-msgid "June"
-msgstr "Kesä"
-
-msgid "July"
-msgstr "Heinä"
-
-msgid "August"
-msgstr "Elo"
-
-msgid "September"
-msgstr "Syys"
-
-msgid "October"
-msgstr "Loka"
-
-msgid "November"
-msgstr "Marras"
-
-msgid "December"
-msgstr "Joulu"
-
-msgid "Sun"
-msgstr "Su"
-
-msgid "Mon"
-msgstr "Ma"
-
-msgid "Tue"
-msgstr "Ti"
-
-msgid "Wed"
-msgstr "Ke"
-
-msgid "Thu"
-msgstr "To"
-
-msgid "Fri"
-msgstr "Pe"
-
-msgid "Sat"
-msgstr "La"
 
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
@@ -865,10 +850,6 @@ msgstr "Tiliasetukset"
 
 msgid "Log out"
 msgstr "Kirjaudu ulos"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Sivu %(page_num)s yhteensä %(total_pages)s sivusta."
 
 msgid "Other searches"
 msgstr "Muut haut"

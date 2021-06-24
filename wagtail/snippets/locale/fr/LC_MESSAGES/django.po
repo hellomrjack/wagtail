@@ -3,7 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Benoît Vogel <contact@spicy-informatique.com>, 2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
+# fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
 # Loic Teixeira <hello@lta.me>, 2018
 # Loic Teixeira <hello@lta.me>, 2018
@@ -14,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -35,8 +37,34 @@ msgid "Search"
 msgstr "Rechercher"
 
 #, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"        Il y a %(counter)s correspondance"
+msgstr[1] ""
+"\n"
+"        Il y a %(counter)s correspondances"
+
+#, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Désolé, aucun bloc ne correspond à <em>\"%(query_string)s\"</em>"
+
+#, python-format
+msgid ""
+"You haven't created any %(snippet_type_name)s snippets. Why not <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">create one now</a>?"
+msgstr ""
+"Vous n’avez pas encore créé d’objet %(snippet_type_name)s. Pourquoi ne pas "
+"<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
+"\"noopener noreferrer\">en créer un maintenant</a> ?"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -61,6 +89,9 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer %(count)s %(snippet_type_name)s?
 
 msgid "Yes, delete"
 msgstr "Oui, supprimer"
+
+msgid "No, don't delete"
+msgstr "Non, ne pas supprimer"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"

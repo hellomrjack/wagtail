@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,38 +21,43 @@ msgstr ""
 msgid "Wagtail images"
 msgstr ""
 
-#: fields.py:10
+#: fields.py:11
 msgid "GIF, JPEG, PNG"
 msgstr ""
 
-#: fields.py:24
+#: fields.py:26
 #, python-format
 msgid ""
 "Supported formats: %(supported_formats)s. Maximum filesize: "
 "%(max_upload_size)s."
 msgstr ""
 
-#: fields.py:31
+#: fields.py:33
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr ""
 
-#: fields.py:38
+#: fields.py:40
 #, python-format
 msgid "Not a supported image format. Supported formats: %s."
 msgstr ""
 
-#: fields.py:42
+#: fields.py:44
 #, python-format
 msgid "Not a valid %s image."
 msgstr ""
 
-#: fields.py:46
+#: fields.py:48
 #, python-format
 msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr ""
 
-#: fields.py:50
+#: fields.py:52
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+
+#: fields.py:56
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr ""
@@ -117,7 +122,7 @@ msgstr ""
 msgid "Add/edit images you own"
 msgstr ""
 
-#: forms.py:89 views/images.py:274
+#: forms.py:89 views/images.py:275
 msgid "Edit"
 msgstr ""
 
@@ -213,11 +218,13 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"        <span>%(total)s</span> Image\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
 "    "
 msgid_plural ""
 "\n"
-"        <span>%(total)s</span> Images\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
 "    "
 msgstr[0] ""
 msgstr[1] ""
@@ -262,6 +269,10 @@ msgstr ""
 
 #: templates/wagtailimages/images/confirm_delete.html:23
 msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtailimages/images/confirm_delete.html:24
+msgid "No, don't delete"
 msgstr ""
 
 #: templates/wagtailimages/images/edit.html:3
@@ -317,24 +328,28 @@ msgid "Usage"
 msgstr ""
 
 #: templates/wagtailimages/images/index.html:5
-#: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:43
-#: wagtail_hooks.py:153
+#: templates/wagtailimages/images/index.html:24 wagtail_hooks.py:45
+#: wagtail_hooks.py:158
 msgid "Images"
 msgstr ""
 
-#: templates/wagtailimages/images/results.html:33
+#: templates/wagtailimages/images/results.html:24
+msgid "pixels"
+msgstr ""
+
+#: templates/wagtailimages/images/results.html:39
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
 msgstr ""
 
-#: templates/wagtailimages/images/results.html:39
+#: templates/wagtailimages/images/results.html:45
 #, python-format
 msgid ""
 "You haven't uploaded any images in this collection. Why not <a href="
 "\"%(wagtailimages_add_image_url)s\">upload one now</a>?"
 msgstr ""
 
-#: templates/wagtailimages/images/results.html:41
+#: templates/wagtailimages/images/results.html:47
 #, python-format
 msgid ""
 "You haven't uploaded any images. Why not <a href="
@@ -350,6 +365,7 @@ msgid "URL"
 msgstr ""
 
 #: templates/wagtailimages/images/url_generator.html:27
+#: templates/wagtailimages/images/url_generator.html:30
 msgid "Preview"
 msgstr ""
 
@@ -435,7 +451,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:145
+#: templates/wagtailimages/multiple/edit_form.html:15 views/images.py:146
 msgid "Delete"
 msgstr ""
 
@@ -451,41 +467,41 @@ msgstr ""
 msgid "Search images"
 msgstr ""
 
-#: views/images.py:123
+#: views/images.py:124
 msgid "Image '{0}' updated."
 msgstr ""
 
-#: views/images.py:124
+#: views/images.py:125
 msgid "Edit again"
 msgstr ""
 
-#: views/images.py:128
+#: views/images.py:129
 msgid "The image could not be saved due to errors."
 msgstr ""
 
-#: views/images.py:143
+#: views/images.py:144
 msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr ""
 
-#: views/images.py:243
+#: views/images.py:244
 msgid "Image '{0}' deleted."
 msgstr ""
 
-#: views/images.py:273
+#: views/images.py:274
 msgid "Image '{0}' added."
 msgstr ""
 
-#: views/images.py:278
+#: views/images.py:279
 msgid "The image could not be created due to errors."
 msgstr ""
 
-#: wagtail_hooks.py:86
+#: wagtail_hooks.py:88
 msgid "Image"
 msgstr ""
 
-#: wagtail_hooks.py:172
+#: wagtail_hooks.py:177
 #, python-format
 msgid "%(count)s image"
 msgid_plural "%(count)s images"

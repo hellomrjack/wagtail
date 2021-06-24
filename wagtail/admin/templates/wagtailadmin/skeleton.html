@@ -1,9 +1,11 @@
 <!doctype html>
 {% load static i18n %}
-<html class="no-js" lang="{{ LANGUAGE_CODE|default:"en-gb" }}">
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html class="no-js" lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
 <head>
     <meta charset="utf-8" />
-    <title>Wagtail - {% block titletag %}{% endblock %}</title>
+    <title>{% block branding_title %}Wagtail{% endblock %} - {% block titletag %}{% endblock %}</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
@@ -16,7 +18,7 @@
 
     {% block branding_favicon %}{% endblock %}
 </head>
-<body id="wagtail" class="{% block bodyclass %}{% endblock %} {% if messages %}has-messages{% endif %}">
+<body id="wagtail" class="{% block bodyclass %}{% endblock %} {% if messages %}has-messages{% endif %} focus-outline-on">
     <!--[if lt IE 9]>
         <p class="capabilitymessage">{% blocktrans %}You are using an <strong>outdated</strong> browser not supported by this software. Please <a href="http://browsehappy.com/">upgrade your browser</a>.{% endblocktrans %}</p>
     <![endif]-->

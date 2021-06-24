@@ -192,6 +192,25 @@ class TestImageAddView(TestCase, WagtailTestUtils):
             )
         )
 
+    @override_settings(WAGTAILIMAGES_MAX_IMAGE_PIXELS=1)
+    def test_add_too_many_pixels(self):
+        file_content = get_test_image_file().file.getvalue()
+
+        response = self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', file_content),
+        })
+
+        # Shouldn't redirect anywhere
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailimages/images/add.html')
+
+        # The form should have an error
+        self.assertFormError(
+            response, 'form', 'file',
+            'This file has too many pixels (307200). Maximum pixels 1.'
+        )
+
     def test_add_with_collections(self):
         root_collection = Collection.get_first_root_node()
         evil_plans_collection = root_collection.add_child(name="Evil plans")
@@ -674,7 +693,7 @@ class TestImageChooserSelectFormatView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'value=\\"some previous alt text\\"')
 
     def test_post_response(self):
-        response = self.post({'format': 'left', 'alt_text': 'Arthur "two sheds" Jackson'})
+        response = self.post({'image-chooser-insertion-format': 'left', 'image-chooser-insertion-alt_text': 'Arthur "two sheds" Jackson'})
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], 'application/json')
@@ -706,8 +725,8 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
     def test_upload(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
-            'title': "Test image",
-            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+            'image-chooser-upload-title': "Test image",
+            'image-chooser-upload-file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
         })
 
         # Check response
@@ -728,7 +747,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
     def test_upload_no_file_selected(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
-            'title': "Test image",
+            'image-chooser-upload-title': "Test image",
         })
 
         # Shouldn't redirect anywhere
@@ -746,7 +765,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
             )
 
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
-            'title': "Test image",
+            'image-chooser-upload-title': "Test image",
         })
 
         self.assertEqual(response.status_code, 200)
@@ -759,8 +778,8 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     def test_select_format_flag_after_upload_form_error(self):
         submit_url = reverse('wagtailimages:chooser_upload') + '?select_format=true'
         response = self.client.post(submit_url, {
-            'title': "Test image",
-            'file': SimpleUploadedFile('not_an_image.txt', b'this is not an image'),
+            'image-chooser-upload-title': "Test image",
+            'image-chooser-upload-file': SimpleUploadedFile('not_an_image.txt', b'this is not an image'),
         })
 
         self.assertEqual(response.status_code, 200)
@@ -775,8 +794,8 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_upload_with_external_storage(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
-            'title': "Test image",
-            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+            'image-chooser-upload-title': "Test image",
+            'image-chooser-upload-file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
         })
 
         # Check response
@@ -835,8 +854,8 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
 
     def test_add(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
-            'title': "Test image",
-            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+            'image-chooser-upload-title': "Test image",
+            'image-chooser-upload-file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
         })
 
         self.assertEqual(response.status_code, 200)

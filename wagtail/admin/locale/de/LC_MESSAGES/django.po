@@ -3,9 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Benjamin Thurm, 2018
+# Benjamin Thurm, 2018-2019
 # Daniel Manser <me@danielmanser.com>, 2015
-# Ettore Atalan <atalanttore@googlemail.com>, 2015-2017
+# Ettore Atalan <atalanttore@googlemail.com>, 2015-2017,2019
 # Henrik Kröger <hedwig@riseup.net>, 2015-2016,2018
 # hpoul <herbert.transifex@m.poul.at>, 2015
 # Jannis Vajen, 2016
@@ -19,6 +19,7 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
+# Peter Dreuw <archandha@gmx.net>, 2019
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
 # Vorlif <flori@vorlif.org>, 2016
 # Wasilis Mandratzis-Walz, 2015
@@ -26,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -269,9 +270,6 @@ msgstr "Passwort zurückgesetzt"
 msgid "Reset your password"
 msgstr "Setzen Sie Ihr Passwort zurück"
 
-msgid "Edit"
-msgstr "Bearbeiten"
-
 msgid "Page"
 msgstr "Seite"
 
@@ -286,9 +284,6 @@ msgstr "Keine Ergebnisse"
 
 msgid "Server Error"
 msgstr "Server-Fehler"
-
-msgid "See children"
-msgstr "Unterseiten einsehen"
 
 msgid "See all"
 msgstr "Alles einsehen"
@@ -332,6 +327,93 @@ msgstr ""
 "Der Texteditor ist abgestürzt. Der Inhalt wurde auf die zuletzt gespeicherte "
 "Version zurückgesetzt."
 
+msgid "Broken link"
+msgstr "Defekter Link"
+
+msgid "Missing document"
+msgstr "Fehlendes Dokument"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "January"
+msgstr "Januar"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "March"
+msgstr "März"
+
+msgid "April"
+msgstr "April"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "Dezember"
+
+msgid "Sunday"
+msgstr "Sonntag"
+
+msgid "Monday"
+msgstr "Montag"
+
+msgid "Tuesday"
+msgstr "Dienstag"
+
+msgid "Wednesday"
+msgstr "Mittwoch"
+
+msgid "Thursday"
+msgstr "Donnerstag"
+
+msgid "Friday"
+msgstr "Freitag"
+
+msgid "Saturday"
+msgstr "Samstag"
+
+msgid "Sun"
+msgstr "So"
+
+msgid "Mon"
+msgstr "Mo"
+
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Mi"
+
+msgid "Thu"
+msgstr "Do"
+
+msgid "Fri"
+msgstr "Fr"
+
+msgid "Sat"
+msgstr "Sa"
+
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -358,6 +440,24 @@ msgstr "Externer Link"
 
 msgid "Email link"
 msgstr "E-Mail-Link"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"        Es gibt %(counter)s Ergebnis\n"
+"    "
+msgstr[1] ""
+"\n"
+"        Es gibt %(counter)s Ergebnisse\n"
+"    "
 
 msgid "Choose"
 msgstr "Auswählen"
@@ -476,11 +576,17 @@ msgstr "Bearbeitet"
 msgid "Edit this page"
 msgstr "Diese Seite bearbeiten"
 
+msgid "Preview this page"
+msgstr "Seitenvorschau anzeigen"
+
 msgid "Approve"
 msgstr "Freischalten"
 
 msgid "Reject"
 msgstr "Ablehnen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
 
 msgid "Preview"
 msgstr "Vorschau"
@@ -506,24 +612,6 @@ msgstr "Seite anzeigen"
 
 msgid "Site summary"
 msgstr "Seitenzusammenfassung"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Seite\n"
-"            "
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Seiten\n"
-"            "
 
 msgid "Sign in"
 msgstr "Anmelden"
@@ -907,9 +995,6 @@ msgstr "Diese Seite ist vor öffentlichem Zugriff geschützt"
 msgid "Disable ordering of child pages"
 msgstr "Sortierung von Unterseiten deaktivieren"
 
-msgid "Order"
-msgstr "Sortierung"
-
 msgid "Enable ordering of child pages"
 msgstr "Sortierung von Unterseiten aktivieren"
 
@@ -937,9 +1022,6 @@ msgstr ""
 "Bitte schließen Sie diese Registerkarte, bearbeiten Sie die\n"
 "Seite, um die Fehler zu beheben, und verwenden Sie dann\n"
 "erneut die Vorschau."
-
-msgid "Close"
-msgstr "Schließen"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1096,6 +1178,10 @@ msgstr "Keine Seite benutzt "
 msgid "Collection"
 msgstr "Sammlung"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Seite %(page_num)s von %(total_pages)s."
+
 msgid "Root"
 msgstr "Ursprung"
 
@@ -1105,63 +1191,6 @@ msgstr "Home"
 msgid "All collections"
 msgstr "Alle Sammlungen"
 
-msgid "January"
-msgstr "Januar"
-
-msgid "February"
-msgstr "Februar"
-
-msgid "March"
-msgstr "März"
-
-msgid "April"
-msgstr "April"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Juni"
-
-msgid "July"
-msgstr "Juli"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Oktober"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "Dezember"
-
-msgid "Sun"
-msgstr "So"
-
-msgid "Mon"
-msgstr "Mo"
-
-msgid "Tue"
-msgstr "Di"
-
-msgid "Wed"
-msgstr "Mi"
-
-msgid "Thu"
-msgstr "Do"
-
-msgid "Fri"
-msgstr "Fr"
-
-msgid "Sat"
-msgstr "Sa"
-
 msgid "Edit your account"
 msgstr "Bearbeiten Sie Ihr Konto"
 
@@ -1170,10 +1199,6 @@ msgstr "Kontoeinstellungen"
 
 msgid "Log out"
 msgstr "Abmelden"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Seite %(page_num)s von %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Andere Suchbegriffe"
@@ -1187,6 +1212,23 @@ msgstr ""
 "dieser Software unterstützt wird. Bitte <a href=\"http://browsehappy.com/"
 "\">aktualisieren Sie Ihren Browser</a>."
 
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"JavaScript wird benötigt um Wagtail auszuführen, ist aber deaktiviert.<br /"
+">\n"
+"Beachten Sie <a href=\"http://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">die Hinweise wie Sie JavaScript in ihrem Browser "
+"aktivieren können</a>.\n"
+" "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Zum Wagtail Admin-Interface"
 
@@ -1198,6 +1240,9 @@ msgstr "Im Explorer anzeigen"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabisch"
 
 msgid "Catalan"
 msgstr "Katalanisch"
@@ -1223,6 +1268,9 @@ msgstr "Französisch"
 msgid "Galician"
 msgstr "Galicisch"
 
+msgid "Indonesian"
+msgstr "Indonesisch"
+
 msgid "Icelandic"
 msgstr "Isländisch"
 
@@ -1234,6 +1282,9 @@ msgstr "Koreanisch"
 
 msgid "Lithuanian"
 msgstr "Litauisch"
+
+msgid "Mongolian"
+msgstr "Mongolisch"
 
 msgid "Norwegian Bokmål"
 msgstr "Norwegische Buchsprache"
@@ -1268,8 +1319,11 @@ msgstr "Slowakisch"
 msgid "Ukrainian"
 msgstr "Ukrainisch"
 
-msgid "Chinese (China)"
-msgstr "Chinesisch (China)"
+msgid "Chinese (Simplified)"
+msgstr "Chinesisch (vereinfacht)"
+
+msgid "Chinese (Traditional)"
+msgstr "Chinesisch (traditionell)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Sie haben leider keinen Zugang zu diesem Bereich."
@@ -1394,6 +1448,13 @@ msgstr "Seite ‚{0}‘ gelöscht."
 msgid "Page '{0}' unpublished."
 msgstr "Veröffentlichung der Seite \"{0}\" aufgehoben."
 
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Der Kurztitel '{0}' wird innerhalb der Eltern-Seite bereits verwendet. Bitte "
+"wählen Sie einen eindeutigen Kurztitel und versuchen Sie es erneut."
+
 msgid "Page '{0}' moved."
 msgstr "Seite ‚{0}‘ verschoben."
 
@@ -1513,6 +1574,9 @@ msgstr "Aufzählung"
 msgid "Numbered list"
 msgstr "Nummerierte Liste"
 
+msgid "Blockquote"
+msgstr "Blockzitat"
+
 msgid "Bold"
 msgstr "Fett"
 
@@ -1521,6 +1585,18 @@ msgstr "Kursiv"
 
 msgid "Link"
 msgstr "Link"
+
+msgid "Superscript"
+msgstr "Hochgestellt"
+
+msgid "Subscript"
+msgstr "Tiefgestellt"
+
+msgid "Strikethrough"
+msgstr "Durchgestrichen"
+
+msgid "Code"
+msgstr "Code"
 
 msgid "Choose an item"
 msgstr "Eintrag wählen"

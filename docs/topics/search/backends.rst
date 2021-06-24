@@ -73,6 +73,8 @@ It also doesn't support:
 
 If any of these features are important to you, we recommend using Elasticsearch instead.
 
+.. _wagtailsearch_backends_postgresql:
+
 PostgreSQL Backend
 ------------------
 
@@ -88,10 +90,6 @@ See :ref:`postgres_search` for more detail.
 
 Elasticsearch Backend
 ---------------------
-
-.. versionchanged:: 2.1
-
-    Support for Elasticsearch 6.x was added
 
 Elasticsearch versions 2, 5 and 6 are supported. Use the appropriate backend for your version:
 

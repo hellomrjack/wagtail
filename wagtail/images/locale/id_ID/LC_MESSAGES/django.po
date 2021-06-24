@@ -4,12 +4,13 @@
 #
 # Translators:
 # M. Febrian Ramadhana <febrian@ramadhana.me>, 2018
+# atmosuwiryo <suwiryo.atmo@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -146,6 +147,19 @@ msgstr "Tag Populer"
 msgid "Uploading…"
 msgstr "Mengunggah..."
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"Ada %(counter)s yang sesuai"
+
 msgid "Latest images"
 msgstr "Gambar terbaru"
 
@@ -154,19 +168,6 @@ msgstr "Pilih format"
 
 msgid "Insert image"
 msgstr "Masukkan gambar"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Gambar"
 
 msgid "Change image file:"
 msgstr "Ubah berkas gambar:"

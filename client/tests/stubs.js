@@ -20,14 +20,12 @@ global.wagtailConfig = {
     SHORT_DATE_FORMAT: 'DD/MM/YYYY',
   },
   STRINGS: {
-    EDIT: 'Edit',
     DELETE: 'Delete',
     PAGE: 'Page',
     PAGES: 'Pages',
     LOADING: 'Loading…',
     NO_RESULTS: 'No results',
     SERVER_ERROR: 'Server Error',
-    SEE_CHILDREN: 'See children',
     SEE_ALL: 'See all',
     CLOSE_EXPLORER: 'Close explorer',
     ALT_TEXT: 'Alt text',
@@ -41,6 +39,12 @@ global.wagtailConfig = {
     SHOW_LATEST_CONTENT: 'Show latest content',
     SHOW_ERROR: 'Show error',
     EDITOR_CRASH: 'The editor just crashed. Content has been reset to the last saved version.',
+    BROKEN_LINK: 'Broken link',
+    MISSING_DOCUMENT: 'Missing document',
+    CLOSE: 'Close',
+    EDIT_PAGE: 'Edit \'{title}\'',
+    VIEW_CHILD_PAGES_OF_PAGE: 'View child pages of \'{title}\'',
+    PAGE_EXPLORER: 'Page explorer',
   },
 };
 

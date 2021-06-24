@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Dan Braghis, 2014-2018
+# Dan Braghis, 2014-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -246,9 +246,6 @@ msgstr "Resetarea parolei"
 msgid "Reset your password"
 msgstr "Resetează parola"
 
-msgid "Edit"
-msgstr "Editează"
-
 msgid "Page"
 msgstr "Pagină"
 
@@ -263,9 +260,6 @@ msgstr "Nici un rezultat"
 
 msgid "Server Error"
 msgstr "Eroare de server"
-
-msgid "See children"
-msgstr "Vezi descendenți"
 
 msgid "See all"
 msgstr "Vezi toate"
@@ -307,6 +301,87 @@ msgid ""
 "The editor just crashed. Content has been reset to the last saved version."
 msgstr "Editorul s-a prăbușit. Conținut resetat la versiunea recent salvată."
 
+msgid "Close"
+msgstr "Închideți"
+
+msgid "January"
+msgstr "Ianuarie"
+
+msgid "February"
+msgstr "Februarie"
+
+msgid "March"
+msgstr "Martie"
+
+msgid "April"
+msgstr "Aprilie"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "June"
+msgstr "Iunie"
+
+msgid "July"
+msgstr "Iulie"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "Septembrie"
+
+msgid "October"
+msgstr "Octombrie"
+
+msgid "November"
+msgstr "Noiembrie"
+
+msgid "December"
+msgstr "Decembrie"
+
+msgid "Sunday"
+msgstr "Duminică"
+
+msgid "Monday"
+msgstr "Luni"
+
+msgid "Tuesday"
+msgstr "Marți"
+
+msgid "Wednesday"
+msgstr "Miercuri"
+
+msgid "Thursday"
+msgstr "Joi"
+
+msgid "Friday"
+msgstr "Vineri"
+
+msgid "Saturday"
+msgstr "Sâmbătă"
+
+msgid "Sun"
+msgstr "D"
+
+msgid "Mon"
+msgstr "L"
+
+msgid "Tue"
+msgstr "Ma"
+
+msgid "Wed"
+msgstr "Mi"
+
+msgid "Thu"
+msgstr "J"
+
+msgid "Fri"
+msgstr "V"
+
+msgid "Sat"
+msgstr "S"
+
 msgid "Dashboard"
 msgstr "Bord"
 
@@ -333,6 +408,28 @@ msgstr "Link extern"
 
 msgid "Email link"
 msgstr "Link e-mail"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"        Există %(counter)s potrivire\n"
+"    "
+msgstr[1] ""
+"\n"
+"        Sunt %(counter)s potriviri\n"
+"    "
+msgstr[2] ""
+"\n"
+"        Sunt %(counter)s potriviri\n"
+"    "
 
 msgid "Choose"
 msgstr "Alege"
@@ -449,11 +546,17 @@ msgstr "Editat"
 msgid "Edit this page"
 msgstr "Editează această pagină"
 
+msgid "Preview this page"
+msgstr "Previzualizează această pagină"
+
 msgid "Approve"
 msgstr "Aprobă"
 
 msgid "Reject"
 msgstr "Respinge"
+
+msgid "Edit"
+msgstr "Editează"
 
 msgid "Preview"
 msgstr "Examinare"
@@ -479,25 +582,6 @@ msgstr "Activată"
 
 msgid "Site summary"
 msgstr "Rezumat sait"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> pagină"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> pagini"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> pagini"
 
 msgid "Sign in"
 msgstr "Conectare"
@@ -878,9 +962,6 @@ msgstr "Această pagină este protejată de ochii publicului"
 msgid "Disable ordering of child pages"
 msgstr "Dezactivează rânduirea paginilor dependente"
 
-msgid "Order"
-msgstr "Ordine"
-
 msgid "Enable ordering of child pages"
 msgstr "Activează rânduirea paginilor dependente"
 
@@ -909,9 +990,6 @@ msgstr ""
 "apoi\n"
 "                folosiți din nou funcția de previzualizare.\n"
 "            "
-
-msgid "Close"
-msgstr "Închideți"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1059,6 +1137,9 @@ msgstr[2] ""
 "\n"
 "%(counter)s pagini se potrivesc"
 
+msgid "Page types"
+msgstr "Tipuri pagini"
+
 #, python-format
 msgid "Sorry, no pages match <em>\"%(query_string)s\"</em>"
 msgstr ""
@@ -1073,6 +1154,10 @@ msgstr "Nici o pagină nu utilizează"
 msgid "Collection"
 msgstr "Colecție"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Pagina %(page_num)s din %(total_pages)s."
+
 msgid "Root"
 msgstr "Pagină de bază"
 
@@ -1082,63 +1167,6 @@ msgstr "Acasă"
 msgid "All collections"
 msgstr "Toate colecțiile"
 
-msgid "January"
-msgstr "Ianuarie"
-
-msgid "February"
-msgstr "Februarie"
-
-msgid "March"
-msgstr "Martie"
-
-msgid "April"
-msgstr "Aprilie"
-
-msgid "May"
-msgstr "Mai"
-
-msgid "June"
-msgstr "Iunie"
-
-msgid "July"
-msgstr "Iulie"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "Septembrie"
-
-msgid "October"
-msgstr "Octombrie"
-
-msgid "November"
-msgstr "Noiembrie"
-
-msgid "December"
-msgstr "Decembrie"
-
-msgid "Sun"
-msgstr "D"
-
-msgid "Mon"
-msgstr "L"
-
-msgid "Tue"
-msgstr "Ma"
-
-msgid "Wed"
-msgstr "Mi"
-
-msgid "Thu"
-msgstr "J"
-
-msgid "Fri"
-msgstr "V"
-
-msgid "Sat"
-msgstr "S"
-
 msgid "Edit your account"
 msgstr "Editează contul utilizator"
 
@@ -1147,10 +1175,6 @@ msgstr "Setări cont"
 
 msgid "Log out"
 msgstr "Deconectare"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Pagina %(page_num)s din %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Alte căutări"
@@ -1164,6 +1188,23 @@ msgstr ""
 "această aplicație. Vă rugăm să <a href=\"http://browsehappy.com/"
 "\">actualizați browser-ul</a> Dvstră."
 
+msgid ""
+"\n"
+"            Javascript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"http://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            Wagtail are nevoie de Javascript, care în prezent e deactivat."
+"<br />\n"
+"            Vezi <a href=\"http://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">instrucțiuni de activare JavaScript "
+"în web browser-ul Dvs</a>.\n"
+"        "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Spre interfața de administrare Wagtail"
 
@@ -1175,6 +1216,9 @@ msgstr "Arată în Explorator"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Arabic"
+msgstr "Arabă"
 
 msgid "Catalan"
 msgstr "Catalană"
@@ -1199,6 +1243,9 @@ msgstr "Franceză"
 
 msgid "Galician"
 msgstr "Galiciană"
+
+msgid "Indonesian"
+msgstr "Indoneză"
 
 msgid "Icelandic"
 msgstr "Islandeză"
@@ -1244,9 +1291,6 @@ msgstr "Slovacă"
 
 msgid "Ukrainian"
 msgstr "ucraineană"
-
-msgid "Chinese (China)"
-msgstr "Chineză"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Ne pare rău, nu aveți permisiunea de a accesa această zonă."

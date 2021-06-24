@@ -7,13 +7,13 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
-# Vassiliy Vorobyov <zuber.kg@gmail.com>, 2017
+# Vassily <zuber.kg@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-10-28 14:55+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:30+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"

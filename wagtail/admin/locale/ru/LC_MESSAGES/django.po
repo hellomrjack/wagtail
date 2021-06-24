@@ -19,13 +19,15 @@
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Vassily <zuber.kg@gmail.com>, 2019
 # Мирон Левицкий <miron200504@gmail.com>, 2018
+# Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -253,6 +255,13 @@ msgstr "Запросить новый пароль"
 msgid "Check your email"
 msgstr "Проверьте вашу электронную почту"
 
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Ссылка для сброса пароля была отправлена вам на email, если аккаунт с "
+"указанным адресом существует."
+
 msgid "Please follow the link below to reset your password:"
 msgstr "Пожалуйста, проследуйте по ссылке ниже чтобы сбросить ваш пароль:"
 
@@ -264,9 +273,6 @@ msgstr "Восстановление пароля"
 
 msgid "Reset your password"
 msgstr "Сбросить ваш пароль"
-
-msgid "Edit"
-msgstr "Редактировать"
 
 msgid "Page"
 msgstr "Страница"
@@ -282,9 +288,6 @@ msgstr "Нет результатов"
 
 msgid "Server Error"
 msgstr "Ошибка Сервера"
-
-msgid "See children"
-msgstr "Просмотреть дочерние страницы"
 
 msgid "See all"
 msgstr "Смотреть все"
@@ -307,6 +310,9 @@ msgstr "Разрыв строки"
 msgid "Undo"
 msgstr "Отменить дейсвие"
 
+msgid "Redo"
+msgstr "Вернуть"
+
 msgid "Reload the page"
 msgstr "Перезагрузить страницу"
 
@@ -318,6 +324,92 @@ msgstr "Показать последнее содержание"
 
 msgid "Show error"
 msgstr "Показать ошибку"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+"Редактор сломался. Содержимое было возвращено к последней сохранённой версии"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "January"
+msgstr "Январь"
+
+msgid "February"
+msgstr "Февраль"
+
+msgid "March"
+msgstr "Март"
+
+msgid "April"
+msgstr "Апрель"
+
+msgid "May"
+msgstr "Май"
+
+msgid "June"
+msgstr "Июнь"
+
+msgid "July"
+msgstr "Июль"
+
+msgid "August"
+msgstr "Август"
+
+msgid "September"
+msgstr "Сентябрь"
+
+msgid "October"
+msgstr "Октябрь"
+
+msgid "November"
+msgstr "Ноябрь"
+
+msgid "December"
+msgstr "Декабрь"
+
+msgid "Sunday"
+msgstr "Воскрксенье"
+
+msgid "Monday"
+msgstr "Понедельник"
+
+msgid "Tuesday"
+msgstr "Вторник"
+
+msgid "Wednesday"
+msgstr "Среда"
+
+msgid "Thursday"
+msgstr "Четверг"
+
+msgid "Friday"
+msgstr "Пятница"
+
+msgid "Saturday"
+msgstr "Суббота"
+
+msgid "Sun"
+msgstr "Вс"
+
+msgid "Mon"
+msgstr "Пн"
+
+msgid "Tue"
+msgstr "Вт"
+
+msgid "Wed"
+msgstr "Ср"
+
+msgid "Thu"
+msgstr "Чт"
+
+msgid "Fri"
+msgstr "Пт"
+
+msgid "Sat"
+msgstr "Сб"
 
 msgid "Dashboard"
 msgstr "Панель управления"
@@ -345,6 +437,28 @@ msgstr "Внешняя ссылка"
 
 msgid "Email link"
 msgstr "Ссылка адреса электронной почты"
+
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"Есть %(counter)s совпадение"
+msgstr[1] ""
+"\n"
+"Есть %(counter)sсовпадения"
+msgstr[2] ""
+"\n"
+"Есть %(counter)sсовпадений"
+msgstr[3] ""
+"\n"
+"Есть %(counter)s совпадений"
 
 msgid "Choose"
 msgstr "Выбрать"
@@ -468,11 +582,17 @@ msgstr "Редактировано"
 msgid "Edit this page"
 msgstr "Редактировать эту страницу"
 
+msgid "Preview this page"
+msgstr "Предпросмотр этой страницы"
+
 msgid "Approve"
 msgstr "Одобрить"
 
 msgid "Reject"
 msgstr "Отклонить"
+
+msgid "Edit"
+msgstr "Редактировать"
 
 msgid "Preview"
 msgstr "Предпросмотр"
@@ -498,31 +618,6 @@ msgstr "Опубликовано"
 
 msgid "Site summary"
 msgstr "Общая информация"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Страница\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Страницы\n"
-"    "
-msgstr[2] ""
-"\n"
-"        <span>%(total)s</span> Страницы"
-msgstr[3] ""
-"\n"
-"        <span>%(total)s</span> Страниц\n"
-"    "
 
 msgid "Sign in"
 msgstr "Войти"
@@ -914,9 +1009,6 @@ msgstr "Эта страница защищена от публичного пр�
 msgid "Disable ordering of child pages"
 msgstr "Отключить упорядочение дочерних страниц"
 
-msgid "Order"
-msgstr "Порядок"
-
 msgid "Enable ordering of child pages"
 msgstr "Включить упорядочение дочерних страниц"
 
@@ -944,9 +1036,6 @@ msgstr ""
 "для того чтобы исправить ошибки.\n"
 "                После исправления ошибок - попробуйте еще раз.\n"
 "            "
-
-msgid "Close"
-msgstr "Закрыть"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1060,11 +1149,17 @@ msgstr "Черновик"
 msgid "Live version"
 msgstr "Опубликованная версия"
 
+msgid "Scheduled for"
+msgstr "Запланированно на"
+
 msgid "Review this revision"
 msgstr "Ревью этой версии"
 
 msgid "Compare with previous revision"
 msgstr "Сравнить с предыдущей версией"
+
+msgid "Cancel scheduled publish"
+msgstr "Отменить запланированную публикацию"
 
 msgid "No revisions of this page exist"
 msgstr "Нет других версий этой страницы"
@@ -1109,6 +1204,10 @@ msgstr "Нет страниц использующих"
 msgid "Collection"
 msgstr "Коллекция"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Страница %(page_num)s из %(total_pages)s."
+
 msgid "Root"
 msgstr "Главная"
 
@@ -1118,84 +1217,6 @@ msgstr "Главная"
 msgid "All collections"
 msgstr "Все коллекции"
 
-msgid "January"
-msgstr "Январь"
-
-msgid "February"
-msgstr "Февраль"
-
-msgid "March"
-msgstr "Март"
-
-msgid "April"
-msgstr "Апрель"
-
-msgid "May"
-msgstr "Май"
-
-msgid "June"
-msgstr "Июнь"
-
-msgid "July"
-msgstr "Июль"
-
-msgid "August"
-msgstr "Август"
-
-msgid "September"
-msgstr "Сентябрь"
-
-msgid "October"
-msgstr "Октябрь"
-
-msgid "November"
-msgstr "Ноябрь"
-
-msgid "December"
-msgstr "Декабрь"
-
-msgid "Sunday"
-msgstr "Воскрксенье"
-
-msgid "Monday"
-msgstr "Понедельник"
-
-msgid "Tuesday"
-msgstr "Вторник"
-
-msgid "Wednesday"
-msgstr "Среда"
-
-msgid "Thursday"
-msgstr "Четверг"
-
-msgid "Friday"
-msgstr "Пятница"
-
-msgid "Saturday"
-msgstr "Суббота"
-
-msgid "Sun"
-msgstr "Вс"
-
-msgid "Mon"
-msgstr "Пн"
-
-msgid "Tue"
-msgstr "Вт"
-
-msgid "Wed"
-msgstr "Ср"
-
-msgid "Thu"
-msgstr "Чт"
-
-msgid "Fri"
-msgstr "Пт"
-
-msgid "Sat"
-msgstr "Сб"
-
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"
 
@@ -1204,10 +1225,6 @@ msgstr "Настройки аккаунта"
 
 msgid "Log out"
 msgstr "Выйти"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Страница %(page_num)s из %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Другие поиски"
@@ -1301,9 +1318,6 @@ msgstr "Словацкий язык"
 
 msgid "Ukrainian"
 msgstr "Украинский язык"
-
-msgid "Chinese (China)"
-msgstr "Китайский (упрощенный)"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Извините, но у вас нет доступа в эту область."
@@ -1413,6 +1427,13 @@ msgstr "Страница '{0}' удалена."
 msgid "Page '{0}' unpublished."
 msgstr "Страница '{0}' снята с публикации."
 
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Слаг '{0}' уже используется в выбранной родительской странице. Убедитесь что "
+"слаг уникален и попробуйте заново"
+
 msgid "Page '{0}' moved."
 msgstr "Страница '{0}' перемещена."
 
@@ -1456,6 +1477,12 @@ msgstr "Ранний"
 
 msgid "Latest"
 msgstr "Последний"
+
+msgid "revision {0} of \"{1}\""
+msgstr "версия {0} страницы \"{1}\""
+
+msgid "Revision {0} of \"{1}\" unscheduled."
+msgstr "Версия {0} страницы '{1}' перестала быть запланированной к публикации."
 
 msgid "Edit '{title}'"
 msgstr "Редактировать '{title}'"
@@ -1507,6 +1534,21 @@ msgstr "Языковые настройки"
 
 msgid "Choose the language you want to use here."
 msgstr "Выберите язык, который вы хотите использовать."
+
+msgid "Heading {level}"
+msgstr "Заголовок {level}"
+
+msgid "Bulleted list"
+msgstr "Маркированный список"
+
+msgid "Numbered list"
+msgstr "Нумерованный список"
+
+msgid "Bold"
+msgstr "Жирный"
+
+msgid "Italic"
+msgstr "Наклонный"
 
 msgid "Link"
 msgstr "Ссылка"

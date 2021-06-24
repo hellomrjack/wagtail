@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -218,9 +218,6 @@ msgstr "Obnova hesla"
 msgid "Reset your password"
 msgstr "Resetovanie vášho hesla"
 
-msgid "Edit"
-msgstr "Upraviť"
-
 msgid "Page"
 msgstr "Stránka"
 
@@ -233,14 +230,71 @@ msgstr "Žiadne výsledky"
 msgid "Server Error"
 msgstr "Chyba servera"
 
-msgid "See children"
-msgstr "Vidieť dieťa"
-
 msgid "See all"
 msgstr "Vidieť všetko"
 
 msgid "Close explorer"
 msgstr "Zavrieť prehliadač"
+
+msgid "Close"
+msgstr "Zavrieť"
+
+msgid "January"
+msgstr "Január"
+
+msgid "February"
+msgstr "Február"
+
+msgid "March"
+msgstr "Marec"
+
+msgid "April"
+msgstr "Apríl"
+
+msgid "May"
+msgstr "Máj"
+
+msgid "June"
+msgstr "Jún"
+
+msgid "July"
+msgstr "Júl"
+
+msgid "August"
+msgstr "August"
+
+msgid "September"
+msgstr "September"
+
+msgid "October"
+msgstr "Október"
+
+msgid "November"
+msgstr "November"
+
+msgid "December"
+msgstr "December"
+
+msgid "Sun"
+msgstr "Ne"
+
+msgid "Mon"
+msgstr "Pon"
+
+msgid "Tue"
+msgstr "Ut"
+
+msgid "Wed"
+msgstr "Str"
+
+msgid "Thu"
+msgstr "Štv"
+
+msgid "Fri"
+msgstr "Pia"
+
+msgid "Sat"
+msgstr "So"
 
 msgid "Dashboard"
 msgstr "Nástenka"
@@ -395,6 +449,9 @@ msgstr "Schváliť"
 msgid "Reject"
 msgstr "Odmietnuť"
 
+msgid "Edit"
+msgstr "Upraviť"
+
 msgid "Preview"
 msgstr "Náhľad"
 
@@ -419,28 +476,6 @@ msgstr "Live"
 
 msgid "Site summary"
 msgstr "Prehľad sídla"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Page\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Pages\n"
-"    "
-msgstr[0] ""
-"\n"
-"<span>%(total)s</span> Stránka"
-msgstr[1] ""
-"\n"
-"<span>%(total)s</span> Stránky"
-msgstr[2] ""
-"\n"
-"<span>%(total)s</span> Stránok"
-msgstr[3] ""
-"\n"
-"<span>%(total)s</span> Stránok"
 
 msgid "Sign in"
 msgstr "Prihlásiť sa"
@@ -823,9 +858,6 @@ msgstr "Táto stránka je chránená pred zobrazením návštevníkom"
 msgid "Disable ordering of child pages"
 msgstr "Zakázať usporiadanie podstránok"
 
-msgid "Order"
-msgstr "Poradie"
-
 msgid "Enable ordering of child pages"
 msgstr "Povoliť usporiadanie child stránok"
 
@@ -852,9 +884,6 @@ msgstr ""
 "                Prosím zavrite tento tab, opravte chyby na stránke \n"
 "                a použite náhľad znovu.\n"
 "            "
-
-msgid "Close"
-msgstr "Zavrieť"
 
 #, python-format
 msgid "Comparing %(title)s"
@@ -1006,6 +1035,10 @@ msgstr "Nepoužívajú žiadne stránky"
 msgid "Collection"
 msgstr "Kolekcie"
 
+#, python-format
+msgid "Page %(page_num)s of %(total_pages)s."
+msgstr "Strana %(page_num)s z %(total_pages)s."
+
 msgid "Root"
 msgstr "Koreň"
 
@@ -1015,63 +1048,6 @@ msgstr "Domov"
 msgid "All collections"
 msgstr "Všetky kolekcie"
 
-msgid "January"
-msgstr "Január"
-
-msgid "February"
-msgstr "Február"
-
-msgid "March"
-msgstr "Marec"
-
-msgid "April"
-msgstr "Apríl"
-
-msgid "May"
-msgstr "Máj"
-
-msgid "June"
-msgstr "Jún"
-
-msgid "July"
-msgstr "Júl"
-
-msgid "August"
-msgstr "August"
-
-msgid "September"
-msgstr "September"
-
-msgid "October"
-msgstr "Október"
-
-msgid "November"
-msgstr "November"
-
-msgid "December"
-msgstr "December"
-
-msgid "Sun"
-msgstr "Ne"
-
-msgid "Mon"
-msgstr "Pon"
-
-msgid "Tue"
-msgstr "Ut"
-
-msgid "Wed"
-msgstr "Str"
-
-msgid "Thu"
-msgstr "Štv"
-
-msgid "Fri"
-msgstr "Pia"
-
-msgid "Sat"
-msgstr "So"
-
 msgid "Edit your account"
 msgstr "Upraviť váš účet"
 
@@ -1080,10 +1056,6 @@ msgstr "Nastavenia účtu"
 
 msgid "Log out"
 msgstr "Odhlásiť sa"
-
-#, python-format
-msgid "Page %(page_num)s of %(total_pages)s."
-msgstr "Strana %(page_num)s z %(total_pages)s."
 
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
@@ -1171,9 +1143,6 @@ msgstr "Rusky"
 
 msgid "Swedish"
 msgstr "Švédsky"
-
-msgid "Chinese (China)"
-msgstr "Čínsky"
 
 msgid "Sorry, you do not have permission to access this area."
 msgstr "Prepáčte, ale na prístup k tejto časti nemáte oprávnenia"

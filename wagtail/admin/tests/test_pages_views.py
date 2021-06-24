@@ -1221,6 +1221,42 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertTrue(Page.objects.filter(title="New page!").exists())
 
 
+class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Site-wide editors"),
+            page=self.root_page, permission_type='add'
+        )
+
+    def test_create_page_with_per_request_custom_edit_handlers(self):
+        """
+        Test that per-request custom behaviour in edit handlers is honoured
+        """
+        # non-superusers should not see secret_data
+        logged_in = self.client.login(username='siteeditor', password='password')
+        self.assertTrue(logged_in)
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'secretpage', self.root_page.id))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"boring_data"')
+        self.assertNotContains(response, '"secret_data"')
+
+        # superusers should see secret_data
+        logged_in = self.client.login(username='superuser', password='password')
+        self.assertTrue(logged_in)
+        response = self.client.get(
+            reverse('wagtailadmin_pages:add', args=('tests', 'secretpage', self.root_page.id))
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '"boring_data"')
+        self.assertContains(response, '"secret_data"')
+
+
 class TestPageEdit(TestCase, WagtailTestUtils):
     def setUp(self):
         # Find root page
@@ -1957,8 +1993,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )))
 
-        link_to_draft = '<a href="/revised-slug-in-draft-only/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
-        link_to_live = '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
+        link_to_draft = '<a href="/revised-slug-in-draft-only/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
+        link_to_live = '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
 
@@ -1980,8 +2016,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.single_event_page.id, )))
 
-        link_to_draft = '<a href="/revised-slug-in-draft-only/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
-        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary">live + draft</a>'
+        link_to_draft = '<a href="/revised-slug-in-draft-only/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
+        link_to_live = '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="Visit the live page"><span class="visuallyhidden">Current page status:</span> live + draft</a>'
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
 
@@ -2539,22 +2575,29 @@ class TestPageMove(TestCase, WagtailTestUtils):
         # Find root page
         self.root_page = Page.objects.get(id=2)
 
-        # Create two sections
+        # Create three sections
         self.section_a = SimplePage(title="Section A", slug="section-a", content="hello")
         self.root_page.add_child(instance=self.section_a)
 
         self.section_b = SimplePage(title="Section B", slug="section-b", content="hello")
         self.root_page.add_child(instance=self.section_b)
 
-        # Add test page into section A
-        self.test_page = SimplePage(title="Hello world!", slug="hello-world", content="hello")
-        self.section_a.add_child(instance=self.test_page)
+        self.section_c = SimplePage(title="Section C", slug="section-c", content="hello")
+        self.root_page.add_child(instance=self.section_c)
+
+        # Add test page A into section A
+        self.test_page_a = SimplePage(title="Hello world!", slug="hello-world", content="hello")
+        self.section_a.add_child(instance=self.test_page_a)
+
+        # Add test page B into section C
+        self.test_page_b = SimplePage(title="Hello world!", slug="hello-world", content="hello")
+        self.section_c.add_child(instance=self.test_page_b)
 
         # Login
         self.user = self.login()
 
     def test_page_move(self):
-        response = self.client.get(reverse('wagtailadmin_pages:move', args=(self.test_page.id, )))
+        response = self.client.get(reverse('wagtailadmin_pages:move', args=(self.test_page_a.id, )))
         self.assertEqual(response.status_code, 200)
 
     def test_page_move_bad_permissions(self):
@@ -2566,19 +2609,32 @@ class TestPageMove(TestCase, WagtailTestUtils):
         self.user.save()
 
         # Get move page
-        response = self.client.get(reverse('wagtailadmin_pages:move', args=(self.test_page.id, )))
+        response = self.client.get(reverse('wagtailadmin_pages:move', args=(self.test_page_a.id, )))
 
         # Check that the user received a 403 response
         self.assertEqual(response.status_code, 403)
 
     def test_page_move_confirm(self):
         response = self.client.get(
-            reverse('wagtailadmin_pages:move_confirm', args=(self.test_page.id, self.section_b.id))
+            reverse('wagtailadmin_pages:move_confirm', args=(self.test_page_a.id, self.section_b.id))
         )
         self.assertEqual(response.status_code, 200)
 
+        response = self.client.get(
+            reverse('wagtailadmin_pages:move_confirm', args=(self.test_page_b.id, self.section_a.id))
+        )
+        # Duplicate slugs triggers a redirect with an error message.
+        self.assertEqual(response.status_code, 302)
+
+        response = self.client.get(reverse('wagtailadmin_home'))
+        messages = list(response.context['messages'])
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(messages[0].level, message_constants.ERROR)
+        # Slug should be in error message.
+        self.assertIn("{}".format(self.test_page_b.slug), messages[0].message)
+
     def test_page_set_page_position(self):
-        response = self.client.get(reverse('wagtailadmin_pages:set_page_position', args=(self.test_page.id, )))
+        response = self.client.get(reverse('wagtailadmin_pages:set_page_position', args=(self.test_page_a.id, )))
         self.assertEqual(response.status_code, 200)
 
     def test_before_move_page_hook(self):
@@ -2590,7 +2646,7 @@ class TestPageMove(TestCase, WagtailTestUtils):
             return HttpResponse("Overridden!")
 
         with self.register_hook('before_move_page', hook_func):
-            response = self.client.get(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page.id, self.section_b.id)))
+            response = self.client.get(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page_a.id, self.section_b.id)))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
@@ -2604,14 +2660,14 @@ class TestPageMove(TestCase, WagtailTestUtils):
             return HttpResponse("Overridden!")
 
         with self.register_hook('before_move_page', hook_func):
-            response = self.client.post(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page.id, self.section_b.id)))
+            response = self.client.post(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page_a.id, self.section_b.id)))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
         # page should not be moved
         self.assertEqual(
-            Page.objects.get(id=self.test_page.id).get_parent().id,
+            Page.objects.get(id=self.test_page_a.id).get_parent().id,
             self.section_a.id
         )
 
@@ -2623,14 +2679,14 @@ class TestPageMove(TestCase, WagtailTestUtils):
             return HttpResponse("Overridden!")
 
         with self.register_hook('after_move_page', hook_func):
-            response = self.client.post(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page.id, self.section_b.id)))
+            response = self.client.post(reverse('wagtailadmin_pages:move_confirm', args=(self.test_page_a.id, self.section_b.id)))
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, b"Overridden!")
 
         # page should be moved
         self.assertEqual(
-            Page.objects.get(id=self.test_page.id).get_parent().id,
+            Page.objects.get(id=self.test_page_a.id).get_parent().id,
             self.section_b.id
         )
 

@@ -5,12 +5,13 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-06 16:40+0000\n"
-"PO-Revision-Date: 2018-12-06 16:41+0000\n"
+"POT-Creation-Date: 2019-07-09 14:27+0100\n"
+"PO-Revision-Date: 2019-07-09 13:29+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -147,6 +148,24 @@ msgstr "Tags popolari"
 msgid "Uploading…"
 msgstr "Caricamento…"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            C'è %(counter)s corrispondenza\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Ci sono %(counter)s corrispondenze\n"
+"        "
+
 msgid "Latest images"
 msgstr "Ultime immagini"
 
@@ -155,24 +174,6 @@ msgstr "Scegli un formato"
 
 msgid "Insert image"
 msgstr "Inserisci immagine"
-
-#, python-format
-msgid ""
-"\n"
-"        <span>%(total)s</span> Image\n"
-"    "
-msgid_plural ""
-"\n"
-"        <span>%(total)s</span> Images\n"
-"    "
-msgstr[0] ""
-"\n"
-"        <span>%(total)s</span> Immagine\n"
-"    "
-msgstr[1] ""
-"\n"
-"        <span>%(total)s</span> Immagini\n"
-"    "
 
 msgid "Change image file:"
 msgstr "Cambia immagine"
@@ -210,6 +211,19 @@ msgstr "Modifica"
 
 msgid "URL Generator"
 msgstr "URL Generator"
+
+msgid "Focal point"
+msgstr "Punto focale"
+
+msgid "(optional)"
+msgstr "(opzionale)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Per definire la regione più importante di questa immagine, selezionala "
+"sull'immagine qui sotto."
 
 msgid "Current focal point shown"
 msgstr "Punto focale corrente indicato"

@@ -21,13 +21,13 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=1.11,<2.2",
+    "Django>=2.0,<2.3",
     "django-modelcluster>=4.2,<5.0",
-    "django-taggit>=0.23,<0.24",
+    "django-taggit>=0.23,<1.0",
     "django-treebeard>=4.2.0,<5.0",
     "djangorestframework>=3.7.4,<4.0",
     "draftjs_exporter>=2.1.5,<3.0",
-    "Pillow",
+    "Pillow>=4.0.0,<7.0.0",
     "beautifulsoup4>=4.5.1,<4.6.1",
     "html5lib>=0.999,<2",
     "Unidecode>=0.04.14,<2.0",
@@ -53,6 +53,12 @@ testing_extras = [
     'isort==4.2.5',
     'flake8-blind-except==0.1.1',
     'flake8-print==2.0.2',
+
+    # For templates linting
+    'jinjalint>=0.5',
+
+    # Pipenv hack to fix broken dependency causing CircleCI failures
+    'docutils==0.15',
 ]
 
 # Documentation dependencies
@@ -88,13 +94,13 @@ https://github.com/wagtail/wagtail/.",
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Framework :: Django',
         'Framework :: Django :: 2.0',
         'Framework :: Django :: 2.1',
+        'Framework :: Django :: 2.2',
         'Framework :: Wagtail',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
