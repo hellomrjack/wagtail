@@ -3,9 +3,9 @@ import os
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
-from django.shortcuts import render
+from django.template.response import TemplateResponse
 from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from unidecode import unidecode
 
 from wagtail.admin.edit_handlers import FieldPanel
@@ -13,7 +13,7 @@ from wagtail.admin.mail import send_mail
 from wagtail.core.models import Orderable, Page
 
 from .forms import FormBuilder, WagtailAdminFormPageForm
-from .views import SubmissionsListView
+
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -126,7 +126,7 @@ class AbstractForm(Page):
 
     form_builder = FormBuilder
 
-    submissions_list_view_class = SubmissionsListView
+    submissions_list_view_class = None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -188,6 +188,10 @@ class AbstractForm(Page):
 
         return FormSubmission
 
+    def get_submissions_list_view_class(self):
+        from .views import SubmissionsListView
+        return self.submissions_list_view_class or SubmissionsListView
+
     def process_form_submission(self, form):
         """
         Accepts form instance with submitted data, user and page.
@@ -211,7 +215,7 @@ class AbstractForm(Page):
         """
         context = self.get_context(request)
         context['form_submission'] = form_submission
-        return render(
+        return TemplateResponse(
             request,
             self.get_landing_page_template(request),
             context
@@ -224,7 +228,7 @@ class AbstractForm(Page):
         `list_submissions_view_class` can bse set to provide custom view class.
         Your class must be inherited from SubmissionsListView.
         """
-        view = self.submissions_list_view_class.as_view()
+        view = self.get_submissions_list_view_class().as_view()
         return view(request, form_page=self, *args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
@@ -239,7 +243,7 @@ class AbstractForm(Page):
 
         context = self.get_context(request)
         context['form'] = form
-        return render(
+        return TemplateResponse(
             request,
             self.get_template(request),
             context

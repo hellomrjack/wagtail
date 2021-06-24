@@ -6,13 +6,14 @@ from io import BytesIO
 
 from django.conf import settings
 from django.core import checks
+from django.core.cache import InvalidCacheBackendError, caches
 from django.core.files import File
 from django.db import models
 from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 from unidecode import unidecode
 from willow.image import Image as WillowImage
@@ -277,6 +278,22 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             filter = Filter(spec=filter)
 
         cache_key = filter.get_cache_key(self)
+
+
+        try:
+            rendition_caching = True
+            cache = caches['renditions']
+            rendition_cache_key = "image-{}-{}-{}".format(
+                self.id,
+                cache_key,
+                filter.spec
+            )
+            cached_rendition = cache.get(rendition_cache_key)
+            if cached_rendition:
+                return cached_rendition
+        except InvalidCacheBackendError:
+            rendition_caching = False
+
         Rendition = self.get_rendition_model()
 
         try:
@@ -313,6 +330,9 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
                 focal_point_key=cache_key,
                 defaults={'file': File(generated_image.f, name=output_filename)}
             )
+
+        if rendition_caching:
+            cache.set(rendition_cache_key, rendition)
 
         return rendition
 
@@ -552,3 +572,17 @@ class Rendition(AbstractRendition):
         unique_together = (
             ('image', 'filter_spec', 'focal_point_key'),
         )
+
+
+class UploadedImage(models.Model):
+    """
+    Temporary storage for images uploaded through the multiple image uploader, when validation rules (e.g.
+    required metadata fields) prevent creating an Image object from the image file alone. In this case,
+    the image file is stored against this model, to be turned into an Image object once the full form
+    has been filled in.
+    """
+    file = models.ImageField(upload_to='uploaded_images', max_length=200)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+    )

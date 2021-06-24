@@ -5,9 +5,9 @@ Development
 
 Setting up a local copy of `the Wagtail git repository <https://github.com/wagtail/wagtail>`_ is slightly more involved than running a release package of Wagtail, as it requires `Node.js <https://nodejs.org/>`_ and NPM for building Javascript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
-If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <https://github.com/wagtail/vagrant-wagtail-develop>`_ setup script is the fastest way to get up and running. This will provide you with a running instance of the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_, with the Wagtail and bakerydemo codebases available as shared folders for editing on your host machine.
+If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <https://github.com/wagtail/vagrant-wagtail-develop>`_ and `docker-wagtail-develop <https://github.com/wagtail/docker-wagtail-develop>`_ setup scripts are the fastest way to get up and running. They will provide you with a running instance of the `Wagtail Bakery demo site <https://github.com/wagtail/bakerydemo/>`_, with the Wagtail and bakerydemo codebases available as shared folders for editing on your host machine.
 
-(Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the `Wagtail Developers group <https://groups.google.com/forum/#!forum/wagtail-developers>`_!)
+(Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the `Slack workspace <https://github.com/wagtail/wagtail/wiki/Slack>`_!)
 
 If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and virtualenv to manage Python packages.
 

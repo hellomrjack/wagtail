@@ -56,7 +56,7 @@ _(If you are reading this on GitHub, the details here may not be indicative of t
 
 Wagtail supports:
 
-* Django 2.1.x, 2.2.x and 3.0.x
+* Django 2.2.x and 3.0.x
 * Python 3.5, 3.6, 3.7 and 3.8
 * PostgreSQL, MySQL and SQLite as database backends
 
@@ -92,7 +92,7 @@ To try out the latest features before a release, we also create builds from mast
 
 ### Contributing
 
-If you're a Python or Django developer, fork the repo and get stuck in! We run a separate group for developers of Wagtail itself at https://groups.google.com/forum/#!forum/wagtail-developers (please note that this is not for support requests).
+If you're a Python or Django developer, fork the repo and get stuck in! We have several developer focused channels on the [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack).
 
 You might like to start by reviewing the [contributing guidelines](https://docs.wagtail.io/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
@@ -116,4 +116,7 @@ We thank the following organisations for their services used in Wagtail's develo
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/) 
 [![Coverage](https://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master)](https://codecov.io/github/wagtail/wagtail?branch=master)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:python)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:javascript)
 [![Slack](https://wagtail-slack.now.sh/badge.svg)](https://wagtail-slack.now.sh)
