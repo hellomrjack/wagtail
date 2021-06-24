@@ -14,12 +14,12 @@
 # Dominique PERETTI <dperetti@gmail.com>, 2016
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2018,2020
+# Loic Teixeira, 2018,2020-2021
 # Loic Teixeira, 2018
 # Matt Westcott <matthew@torchbox.com>, 2016
 # nahuel, 2014
 # nahuel, 2014
-# pierre marfoure <pierre@onoffdesign.com>, 2016
+# incognitae <pierre@onoffdesign.com>, 2016
 # Romain Dorgueil <romain@dorgueil.net>, 2018
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
 # Sophy O <sophy.ouch@erudit.org>, 2017
@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-24 16:16+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-02-01 17:36+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -268,13 +268,13 @@ msgid "Add tasks to your workflow"
 msgstr "Ajoutez des tâches à votre workflow"
 
 msgid "Arabic"
-msgstr "Arabe"
+msgstr "arabe"
 
 msgid "Catalan"
 msgstr "catalan"
 
 msgid "Czech"
-msgstr "Tchèque"
+msgstr "tchèque"
 
 msgid "German"
 msgstr "allemand"
@@ -289,7 +289,7 @@ msgid "Spanish"
 msgstr "espagnol"
 
 msgid "Estonian"
-msgstr "Estonien"
+msgstr "estonien"
 
 msgid "Finnish"
 msgstr "finnois"
@@ -300,11 +300,14 @@ msgstr "français"
 msgid "Galician"
 msgstr "galicien"
 
+msgid "Croatian"
+msgstr "croate"
+
 msgid "Hungarian"
-msgstr "Hongrois"
+msgstr "hongrois"
 
 msgid "Indonesian"
-msgstr "Indonésien"
+msgstr "indonésien"
 
 msgid "Icelandic"
 msgstr "islandais"
@@ -313,7 +316,7 @@ msgid "Italian"
 msgstr "italien"
 
 msgid "Japanese"
-msgstr "Japonais"
+msgstr "japonais"
 
 msgid "Korean"
 msgstr "coréen"
@@ -322,7 +325,7 @@ msgid "Lithuanian"
 msgstr "lituanien"
 
 msgid "Mongolian"
-msgstr "Mongol"
+msgstr "mongol"
 
 msgid "Norwegian Bokmål"
 msgstr "norvégien bokmål"
@@ -331,7 +334,7 @@ msgid "Netherlands Dutch"
 msgstr "néerlandais"
 
 msgid "Persian"
-msgstr "Persan"
+msgstr "persan"
 
 msgid "Polish"
 msgstr "polonais"
@@ -352,25 +355,25 @@ msgid "Swedish"
 msgstr "suédois"
 
 msgid "Slovak"
-msgstr "Slovaque"
+msgstr "slovaque"
 
 msgid "Thai"
-msgstr "Thaï"
+msgstr "thaï"
 
 msgid "Turkish"
-msgstr "Turc"
+msgstr "turc"
 
 msgid "Turkish (Turkey)"
-msgstr "Turc (Turquie)"
+msgstr "turc (Turquie)"
 
 msgid "Ukrainian"
-msgstr "Ukrainien"
+msgstr "ukrainien"
 
 msgid "Chinese (Simplified)"
-msgstr "Chinois (Simplifié)"
+msgstr "chinois (Simplifié)"
 
 msgid "Chinese (Traditional)"
-msgstr "Chinois (Traditionnel)"
+msgstr "chinois (Traditionnel)"
 
 msgid "Edit"
 msgstr "Modifier"
@@ -453,9 +456,6 @@ msgstr "Explorateur"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "%(action)s inconnu(e)"
-
-msgid "Unknown {action}"
-msgstr "{action} inconnu(e)"
 
 msgid "Error 404: Page not found"
 msgstr "Erreur 404 : Page introuvable"
@@ -2160,16 +2160,6 @@ msgstr ""
 "La page « {0} » est publiée et cette version a été planifiée pour la "
 "publication."
 
-msgid "Version from {0} of page '{1}' has been scheduled for publishing."
-msgstr ""
-"La version depuis « {0} » de la page « {1} » a été planifiée pour la "
-"publication."
-
-msgid "Page '{0}' is live and this version has been scheduled for publishing."
-msgstr ""
-"La page « {0} » est publiée et cette version a été planifiée pour la "
-"publication."
-
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "La page '{0}' a été planifiée pour publication."
 
@@ -2218,14 +2208,6 @@ msgstr ""
 
 msgid "Page '{0}' moved."
 msgstr "Page '{0}' déplacée."
-
-#, python-format
-msgid ""
-"You are viewing a previous version of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Vous passez en revue une version passée de cette page du <b>%(created_at)s</"
-"b> par %(user)s"
 
 #, python-format
 msgid ""

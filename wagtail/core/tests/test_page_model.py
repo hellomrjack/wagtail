@@ -499,6 +499,12 @@ class TestRoutingWithI18N(TestRouting):
         with translation.override("en-us"):
             self.test_urls()
 
+    def test_urls_with_language_not_in_wagtail_content_languages(self):
+        # If the active locale doesn't map to anything in WAGTAIL_CONTENT_LANGUAGES,
+        # URL prefixes should remain the same as the page's reported locale
+        with translation.override("se"):
+            self.test_urls()
+
     def test_urls_with_different_language_tree(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
@@ -936,6 +942,96 @@ class TestLiveRevision(TestCase):
             self.assertEqual(
                 about_us.last_published_at, timezone.make_naive(datetime.datetime(2014, 2, 1, 12, 0, 0, tzinfo=pytz.utc))
             )
+
+
+class TestPageGetSpecific(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        super().setUp()
+        self.page = Page.objects.get(url_path="/home/about-us/")
+        self.page.foo = 'ABC'
+        self.page.bar = {'key': 'value'}
+        self.page.baz = 999
+
+    def test_default(self):
+        # Field values are fetched from the database, hence the query
+        with self.assertNumQueries(1):
+            result = self.page.get_specific(copy_attrs=['foo', 'bar'])
+
+        # The returned instance is the correct type
+        self.assertIsInstance(result, SimplePage)
+
+        # Generic page field values can be accessed for free
+        with self.assertNumQueries(0):
+            self.assertEqual(result.id, self.page.id)
+            self.assertEqual(result.title, self.page.title)
+
+        # Specific model fields values are available without additional queries
+        with self.assertNumQueries(0):
+            self.assertTrue(result.content)
+
+        # 'foo' and 'bar' attributes should have been copied over...
+        self.assertIs(result.foo, self.page.foo)
+        self.assertIs(result.bar, self.page.bar)
+
+        # ...but not 'baz'
+        self.assertFalse(hasattr(result, 'baz'))
+
+    def test_deferred(self):
+        # Field values are NOT fetched from the database, hence no query
+        with self.assertNumQueries(0):
+            result = self.page.get_specific(deferred=True, copy_attrs=['foo', 'bar'])
+
+        # The returned instance is the correct type
+        self.assertIsInstance(result, SimplePage)
+
+        # Generic page field values can be accessed for free
+        with self.assertNumQueries(0):
+            self.assertEqual(result.id, self.page.id)
+            self.assertEqual(result.title, self.page.title)
+
+        # But, specific model fields values are NOT available without additional queries
+        with self.assertNumQueries(1):
+            self.assertTrue(result.content)
+
+        # 'foo' and 'bar' attributes should have been copied over...
+        self.assertIs(result.foo, self.page.foo)
+        self.assertIs(result.bar, self.page.bar)
+
+        # ...but not 'baz'
+        self.assertFalse(hasattr(result, 'baz'))
+
+    def test_specific_cached_property(self):
+        # invoking several times to demonstrate that field values
+        # are fetched only once from the database, and each time the
+        # same object is returned
+        with self.assertNumQueries(1):
+            result = self.page.specific
+            result_2 = self.page.specific
+            result_3 = self.page.specific
+            self.assertIs(result, result_2)
+            self.assertIs(result, result_3)
+
+        self.assertIsInstance(result, SimplePage)
+        # Specific model fields values are available without additional queries
+        with self.assertNumQueries(0):
+            self.assertTrue(result.content)
+
+    def test_specific_deferred_cached_property(self):
+        # invoking several times to demonstrate that the property
+        # returns the same object (without any queries)
+        with self.assertNumQueries(0):
+            result = self.page.specific_deferred
+            result_2 = self.page.specific_deferred
+            result_3 = self.page.specific_deferred
+            self.assertIs(result, result_2)
+            self.assertIs(result, result_3)
+
+        self.assertIsInstance(result, SimplePage)
+        # Specific model fields values are not available without additional queries
+        with self.assertNumQueries(1):
+            self.assertTrue(result.content)
 
 
 class TestCopyPage(TestCase):
@@ -2770,3 +2866,28 @@ class TestLocalized(TestCase):
         with translation.override("fr"):
             self.assertEqual(self.event_page.localized, self.event_page)
             self.assertEqual(self.event_page.localized_draft, self.fr_event_page.page_ptr)
+
+    def test_localized_with_non_content_active_locale(self):
+        # if active locale does not have a Locale record, use default locale
+        with translation.override("de"):
+            self.assertEqual(self.event_page.localized, self.event_page)
+            self.assertEqual(self.fr_event_page.localized, self.event_page.specific)
+            self.assertEqual(self.event_page.localized_draft, self.event_page)
+            self.assertEqual(self.fr_event_page.localized_draft, self.event_page.specific)
+
+    def test_localized_with_missing_default_locale(self):
+        # if neither active locale nor default language code have a Locale record, return self
+
+        # Change the 'en' locale to 'pl', so that no locale record for LANGUAGE_CODE exists.
+        # This replicates a scenario where a site was originally built with LANGUAGE_CODE='pl'
+        # but subsequently changed to LANGUAGE_CODE='en' (a change which was not reflected in
+        # the database).
+        en_locale = Locale.objects.get(language_code="en")
+        en_locale.language_code = "pl"
+        en_locale.save()
+
+        with translation.override("de"):
+            self.assertEqual(self.event_page.localized, self.event_page)
+            self.assertEqual(self.fr_event_page.localized, self.fr_event_page)
+            self.assertEqual(self.event_page.localized_draft, self.event_page)
+            self.assertEqual(self.fr_event_page.localized_draft, self.fr_event_page)

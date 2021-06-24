@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-24 16:21+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2020-11-21 13:53+0000\n"
 "Last-Translator: Luís Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -292,6 +292,9 @@ msgstr "Francês"
 
 msgid "Galician"
 msgstr "Galego"
+
+msgid "Croatian"
+msgstr "Croata"
 
 msgid "Hungarian"
 msgstr "Húngaro"
@@ -2173,16 +2176,6 @@ msgstr ""
 "A página '{0}' está ao vivo e esta versão encontra-se agendada para "
 "publicação."
 
-msgid "Version from {0} of page '{1}' has been scheduled for publishing."
-msgstr ""
-"A atualização da página da versão {0} para a '{1}' foi agendada para "
-"publicação."
-
-msgid "Page '{0}' is live and this version has been scheduled for publishing."
-msgstr ""
-"A página '{0}' está ao vivo e esta versão encontra-se agendada para "
-"publicação."
-
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "A página '{0}' foi agendada para publicação."
 
@@ -2231,14 +2224,6 @@ msgstr ""
 
 msgid "Page '{0}' moved."
 msgstr "Página '{0}' movida."
-
-#, python-format
-msgid ""
-"You are viewing a previous version of this page from <b>%(created_at)s</b> "
-"by %(user)s"
-msgstr ""
-"Você está a ver a versão anterior da página a<b>%(created_at)s</b> por "
-"%(user)s"
 
 #, python-format
 msgid ""

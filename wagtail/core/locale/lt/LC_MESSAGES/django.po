@@ -4,12 +4,13 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-01-18 17:30+0000\n"
+"PO-Revision-Date: 2021-01-18 17:32+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -40,6 +41,9 @@ msgstr "Slaptažodis"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Slaptažodis kurį suvedėte yra neteisingas. Bandykite dar kartą."
+
+msgid "Comment"
+msgstr "Komentaras"
 
 msgid "hostname"
 msgstr "svetainės kompiuterio vardas"
@@ -233,6 +237,12 @@ msgstr "Trinti puslapius su vidiniais puslapiais"
 
 msgid "Lock"
 msgstr "Užrakinti"
+
+msgid "Unlock"
+msgstr "Atrakinti"
+
+msgid "Unlock any page"
+msgstr "Atrakinti bet kurį puslapį"
 
 msgid "group"
 msgstr "grupė"
