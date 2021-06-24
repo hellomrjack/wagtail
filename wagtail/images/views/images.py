@@ -8,7 +8,7 @@ from django.utils.translation import ugettext as _
 from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin import messages
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.utils import PermissionPolicyChecker, permission_denied, popular_tags_for_model
 from wagtail.core.models import Collection, Site
 from wagtail.images import get_image_model
@@ -104,6 +104,7 @@ def edit(request, image_id):
                 # Set new image file hash
                 image.file.seek(0)
                 image._set_file_hash(image.file.read())
+                image.file.seek(0)
 
             form.save()
 
@@ -260,6 +261,7 @@ def add(request):
             # Set image file hash
             image.file.seek(0)
             image._set_file_hash(image.file.read())
+            image.file.seek(0)
 
             form.save()
 

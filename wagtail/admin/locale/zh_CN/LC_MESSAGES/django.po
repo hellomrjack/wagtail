@@ -11,6 +11,7 @@
 # hanfeng <appweb.cn@gmail.com>, 2014
 # listeng, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017-2018
+# yi huang <yi.codeplayer@gmail.com>, 2018
 # jszsj <zhushajun@gmail.com>, 2017
 # 汇民 王 <whuim@qq.com>, 2017-2018
 # 飘 赵 <275980464@qq.com>, 2016
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 17:31+0100\n"
-"PO-Revision-Date: 2018-07-31 15:24+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"POT-Creation-Date: 2018-10-11 14:09+0100\n"
+"PO-Revision-Date: 2018-10-21 03:21+0000\n"
+"Last-Translator: yi huang <yi.codeplayer@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -53,15 +54,6 @@ msgstr "推荐"
 msgid "Settings"
 msgstr "设置"
 
-msgid "Search"
-msgstr "搜索"
-
-msgid "Search term"
-msgstr "搜索条件"
-
-msgid "URL"
-msgstr "URL"
-
 msgid "Enter password"
 msgstr "输入密码"
 
@@ -71,6 +63,12 @@ msgstr "输入你的 %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "输入邮件地址以重置密码"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "You cannot have multiple permission records for the same collection."
+msgstr "对于同一个集合你不能设置多重权限"
 
 msgid "New title"
 msgstr "新标题"
@@ -122,15 +120,6 @@ msgstr "此缩略名在其父页面\"%s\"上下文中已被使用。"
 msgid "You cannot copy a page into itself when copying subpages"
 msgstr "你在复制子页面时不能复制当前页面本身"
 
-msgid "Visibility"
-msgstr "是否可见"
-
-msgid "This field is required."
-msgstr "必需字段"
-
-msgid "Please select at least one group."
-msgstr "请至少选择一个组。"
-
 msgid "This slug is already in use"
 msgstr "此缩略名已被使用"
 
@@ -140,8 +129,20 @@ msgstr "发布日期/时间必须早于过期日期/时间"
 msgid "Expiry date/time must be in the future"
 msgstr "过期日期/时间必须是未来时间。"
 
-msgid "You cannot have multiple permission records for the same collection."
-msgstr "对于同一个集合你不能设置多重权限"
+msgid "Search"
+msgstr "搜索"
+
+msgid "Search term"
+msgstr "搜索条件"
+
+msgid "Visibility"
+msgstr "是否可见"
+
+msgid "This field is required."
+msgstr "必需字段"
+
+msgid "Please select at least one group."
+msgstr "请至少选择一个组。"
 
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"
@@ -1054,6 +1055,27 @@ msgstr "十一月"
 msgid "December"
 msgstr "十二月"
 
+msgid "Sunday"
+msgstr "星期天"
+
+msgid "Monday"
+msgstr "星期一"
+
+msgid "Tuesday"
+msgstr "星期四"
+
+msgid "Wednesday"
+msgstr "星期三"
+
+msgid "Thursday"
+msgstr "星期四"
+
+msgid "Friday"
+msgstr "星期五"
+
+msgid "Saturday"
+msgstr "星期六"
+
 msgid "Sun"
 msgstr "周日"
 
@@ -1150,6 +1172,9 @@ msgstr "法语"
 
 msgid "Galician"
 msgstr "加利西亚语"
+
+msgid "Indonesian"
+msgstr "印度尼西亚"
 
 msgid "Icelandic"
 msgstr "冰岛语"

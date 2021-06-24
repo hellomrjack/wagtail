@@ -42,7 +42,6 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
       page_type: 'wagtailcore.page',
       allow_external_link: true,
       allow_email_link: true,
-      can_choose_root: 'false',
       link_text: selectedText,
     };
 
@@ -50,7 +49,11 @@ export const getChooserConfig = (entityType, entity, selectedText) => {
       const data = entity.getData();
 
       if (data.id) {
-        url = `${global.chooserUrls.pageChooser}${data.parentId}/`;
+        if (data.parentId !== null) {
+          url = `${global.chooserUrls.pageChooser}${data.parentId}/`;
+        } else {
+          url = global.chooserUrls.pageChooser;
+        }
       } else if (data.url.startsWith('mailto:')) {
         url = global.chooserUrls.emailLinkChooser;
         urlParams.link_url = data.url.replace('mailto:', '');

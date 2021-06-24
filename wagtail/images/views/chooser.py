@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.utils.translation import ugettext as _
 
-from wagtail.admin.forms import SearchForm
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.utils import PermissionPolicyChecker, popular_tags_for_model
 from wagtail.core import hooks
@@ -150,6 +150,7 @@ def chooser_upload(request):
             # Set image file hash
             image.file.seek(0)
             image._set_file_hash(image.file.read())
+            image.file.seek(0)
 
             form.save()
 

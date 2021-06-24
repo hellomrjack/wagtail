@@ -25,9 +25,10 @@ $breakpoint-desktop-large: 75em; // 1200px
 $breakpoint-desktop-larger: 100em; // 1600px
 
 // colours
-$color-teal: #43b1b0;
-$color-teal-darker: darken($color-teal, 10%);
-$color-teal-dark: #246060;
+$color-teal: #007d7e;
+$color-teal-darker: darken(adjust-hue($color-teal, 1), 4);
+$color-teal-dark: darken(adjust-hue($color-teal, 1), 7);
+
 $color-blue: #71b2d4;
 $color-red: #cd3238;
 $color-orange: #e9b04d;
@@ -38,22 +39,24 @@ $color-white: #fff;
 $color-black: #000;
 
 // darker to lighter
-$color-grey-1: #333;
-$color-grey-1-1: #404040;
-$color-grey-2: #666;
-$color-grey-3: #d9d9d9;
-$color-grey-4: #e6e6e6;
-$color-grey-5: #fafafa;
+$color-grey-1: darken($color-white, 80);
+$color-grey-2: darken($color-white, 70);
 
-$color-menu-text: #cacaca; // was #aaa wich was too low contrast
+$color-grey-3: darken($color-white, 15);
+$color-grey-4: darken($color-white, 10);
+$color-grey-5: darken($color-white, 2);
+
+$color-menu-text: darken($color-white, 20);
 
 $color-thead-bg: $color-grey-5;
-$color-header-bg: $color-teal; // #ff6a58;
+$color-header-bg: $color-teal;
+
 $color-fieldset-hover: $color-grey-5;
 $color-input-border: $color-grey-4;
-$color-input-focus: #f4fcfc;
-$color-input-focus-border: darken($color-input-focus, 40%);
-$color-input-error-bg: #feedee;
+$color-input-focus: lighten(desaturate($color-teal, 40), 72);
+$color-input-focus-border: lighten(saturate($color-teal, 12), 10);
+$color-input-error-bg: lighten(saturate($color-red, 28), 45);
+
 $color-button: $color-teal;
 $color-button-hover: $color-teal-darker;
 $color-button-yes: $color-green;
@@ -65,8 +68,8 @@ $color-button-warning-hover: darken($color-orange, 20%);
 $color-link: $color-teal;
 $color-link-hover: $color-teal-dark;
 
-$color-text-base: $color-grey-2;
-$color-text-input: $color-grey-1;
+$color-text-base: darken($color-white, 85);
+$color-text-input: darken($color-white, 90);
 
 // Color states
 $color-state-live: #59b524;
@@ -86,3 +89,20 @@ $mobile-nav-indent: 50px;
 
 $nav-wrapper-inner-z-index: 26;
 $draftail-editor-z-index: $nav-wrapper-inner-z-index + 1;
+
+// Nav
+$nav-grey-1: darken($color-white, 80);
+$nav-grey-2: darken($color-white, 60);
+$nav-item-hover-bg: rgba(100, 100, 100, 0.15);
+$nav-item-active-bg: darken($color-white, 90);
+$submenu-bg: darken($color-white, 85);
+$footer-account: $nav-item-active-bg;
+$footer-submenu: $submenu-bg;
+
+// Nav search
+$nav-search-color: darken($color-white, 20);
+$nav-search-border: darken($color-white, 40);
+$nav-search-bg: $nav-grey-1;
+$nav-search-hover-bg: $nav-item-hover-bg;
+$nav-search-focus-color: $color-white;
+$nav-search-focus-bg: $nav-item-hover-bg;

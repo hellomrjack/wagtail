@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext as _
 from django.utils.translation import activate
 
-from wagtail.admin import forms
+from wagtail.admin.forms.auth import LoginForm, PasswordResetForm
 from wagtail.core import hooks
 from wagtail.users.forms import (
     AvatarPreferencesForm, CurrentTimeZoneForm, EmailForm, NotificationPreferencesForm, PreferredLanguageForm)
@@ -22,7 +22,7 @@ def get_user_login_form():
     if hasattr(settings, form_setting):
         return get_custom_form(form_setting)
     else:
-        return forms.LoginForm
+        return LoginForm
 
 
 # Helper functions to check password management settings to enable/disable views as appropriate.
@@ -112,7 +112,7 @@ class PasswordResetView(PasswordResetEnabledViewMixin, auth_views.PasswordResetV
     template_name = 'wagtailadmin/account/password_reset/form.html'
     email_template_name = 'wagtailadmin/account/password_reset/email.txt'
     subject_template_name = 'wagtailadmin/account/password_reset/email_subject.txt'
-    form_class = forms.PasswordResetForm
+    form_class = PasswordResetForm
     success_url = reverse_lazy('wagtailadmin_password_reset_done')
 
 
@@ -203,7 +203,7 @@ class LoginView(auth_views.LoginView):
     template_name = 'wagtailadmin/login.html'
 
     def get_success_url(self):
-        return reverse('wagtailadmin_home')
+        return self.get_redirect_url() or reverse('wagtailadmin_home')
 
     def get(self, *args, **kwargs):
         # If user is already logged in, redirect them to the dashboard

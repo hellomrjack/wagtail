@@ -1,6 +1,40 @@
 Changelog
 =========
 
+2.3 LTS (23.10.2018)
+~~~~~~~~~~~~~~~~~~~~
+
+ * Added support for Django 2.1 (Ryan Verner, Matt Westcott)
+ * Improved colour contrast (Coen van der Kamp, Naomi Morduch Toubman, Naa Marteki Reed, Edd Baldry, Ben Enright)
+ * Added 'scale' image filter (Oliver Wilkerson)
+ * Added meta tag to prevent search engines from indexing admin pages (Karl Hobley)
+ * EmbedBlock now validates against recognised embed providers on save (Bertrand Bordage)
+ * Made cache control headers on Wagtail admin consistent with Django admin (Tomasz Knapik)
+ * Notification emails now include an "Auto-Submitted: auto-generated" header (Dan Braghis)
+ * Image chooser panels now show alt text as title (Samir Shah)
+ * Added `download_url` field to images in the API (Michael Harrison)
+ * Dummy requests for preview now preserve the HTTP Authorization header (Ben Dickinson)
+ * Fix: Respect next param on login (Loic Teixeira)
+ * Fix: InlinePanel now handles relations that specify a related_query_name (Aram Dulyan)
+ * Fix: before_delete_page / after_delete_page hooks now run within the same database transaction as the page deletion (Tomasz Knapik)
+ * Fix: Snippet chooser modal no longer fails on snippet models with UUID primary keys (Sævar Öfjörð Magnússon)
+ * Fix: Restored localisation in date/time pickers (David Moore, Thibaud Colas)
+ * Fix: Tag input field no longer treats 'б' on Russian keyboards as a comma (Michael Borisov)
+ * Fix: Disabled autocomplete dropdowns on date/time chooser fields (Janneke Janssen)
+ * Fix: Split up `wagtail.admin.forms` to make it less prone to circular imports (Matt Westcott)
+ * Fix: Disable linking to root page in rich text, making the page non-functional (Matt Westcott)
+ * Fix: Pages should be editable and save-able even if there are broken page or document links in rich text (Matt Westcott)
+ * Fix: Avoid redundant round-trips of JSON StreamField data on save, improving performance and preventing consistency issues on fixture loading (Andy Chosak, Matt Westcott)
+ * Fix: Users are not logged out when changing their own password through the Users area (Matt Westcott)
+
+
+2.2.2 (29.08.2018)
+~~~~~~~~~~~~~~~~~~
+
+ * Fix: Seek to the beginning of image files when uploading, to restore compatibility with django-storages Google Cloud and Azure backends (Mikalai Radchuk)
+ * Fix: Respect next param on login (Loic Teixeira)
+
+
 2.2.1 (13.08.2018)
 ~~~~~~~~~~~~~~~~~~
 
