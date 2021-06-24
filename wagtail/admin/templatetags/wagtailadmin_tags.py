@@ -1,5 +1,7 @@
 import itertools
-from warnings import warn
+import json
+
+from urllib.parse import urljoin
 
 from django import template
 from django.conf import settings
@@ -13,16 +15,17 @@ from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
+from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
 from wagtail.core.models import (
     CollectionViewRestriction, Page, PageViewRestriction, UserPagePermissionsProxy)
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
 from wagtail.core.utils import camelcase_to_underscore, escape_script
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.deprecation import RemovedInWagtail27Warning
 
 register = template.Library()
 
@@ -428,6 +431,10 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
     buttons = sorted(itertools.chain.from_iterable(
         hook(page, page_perms, is_parent)
         for hook in button_hooks))
+
+    for hook in hooks.get_hooks('construct_page_listing_buttons'):
+        hook(buttons, page, page_perms, is_parent, context)
+
     return {'page': page, 'buttons': buttons}
 
 
@@ -470,12 +477,27 @@ def avatar_url(user, size=50):
         if gravatar_url is not None:
             return gravatar_url
 
-    return static('wagtailadmin/images/default-user-avatar.png')
+    return versioned_static_func('wagtailadmin/images/default-user-avatar.png')
 
 
 @register.simple_tag
-def ajax_pagination_nav_deprecation_warning():
-    warn('Passing is_ajax=1 to wagtailadmin/shared/pagination_nav.html is deprecated. '
-         'Use wagtailadmin/shared/ajax_pagination_nav.html instead',
-         category=RemovedInWagtail27Warning)
-    return ''
+def js_translation_strings():
+    return mark_safe(json.dumps(get_js_translation_strings()))
+
+
+@register.simple_tag
+def notification_static(path):
+    """
+    Variant of the {% static %}` tag for use in notification emails - tries to form
+    a full URL using BASE_URL if the static URL isn't already a full URL.
+    """
+    return urljoin(base_url_setting(), static(path))
+
+
+@register.simple_tag
+def versioned_static(path):
+    """
+    Wrapper for Django's static file finder to append a cache-busting query parameter
+    that updates on each Wagtail version
+    """
+    return versioned_static_func(path)

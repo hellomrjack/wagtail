@@ -2,13 +2,13 @@ import os
 import gettext
 import bisect
 from locale import getdefaultlocale
-from collections import MutableMapping
+from collections.abc import MutableMapping
 from copy import copy, deepcopy
 
 import six
 
 
-class Trans(object):
+class Trans:
 
     def __init__(self):
         self.registry = {}
@@ -73,7 +73,7 @@ else:
             return s
 
 
-class L18NLazyObject(object):
+class L18NLazyObject:
 
     def _value(self, utf8=True):
         raise NotImplementedError

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-09 14:27+0100\n"
-"PO-Revision-Date: 2019-07-16 03:50+0000\n"
-"Last-Translator: c o <ihcgno@icloud.com>\n"
+"POT-Creation-Date: 2019-10-16 18:00+0100\n"
+"PO-Revision-Date: 2019-10-16 17:04+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh-Hant\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Publish"
+msgstr "發布"
 
 msgid "Submit for moderation"
 msgstr "提交審核"
@@ -29,14 +32,20 @@ msgstr "取消發布"
 msgid "Delete"
 msgstr "刪除"
 
+msgid "Page locked"
+msgstr "頁面已鎖定"
+
 msgid "Wagtail admin"
 msgstr "Wagtail 管理"
 
-msgid "None"
-msgstr "無"
+msgid "Sorry, you do not have permission to access this area."
+msgstr "對不起， 你沒有權限訪問。"
 
 msgid "You do not have permission to access the admin"
 msgstr "您沒有後台管理權限"
+
+msgid "None"
+msgstr "無"
 
 msgid "Scheduled publishing"
 msgstr "定時發布"
@@ -62,9 +71,6 @@ msgstr "輸入你的 %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "輸入電子郵件地址以重置密碼"
-
-msgid "URL"
-msgstr "URL"
 
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "對於同一個集合你不能設置多重權限"
@@ -142,6 +148,223 @@ msgstr "必要欄位"
 
 msgid "Please select at least one group."
 msgstr "請至少選擇一個組。"
+
+msgid "Arabic"
+msgstr "阿拉伯語"
+
+msgid "Catalan"
+msgstr "加泰羅尼亞語"
+
+msgid "German"
+msgstr "德語"
+
+msgid "Greek"
+msgstr "希臘語"
+
+msgid "English"
+msgstr "英語"
+
+msgid "Spanish"
+msgstr "西班牙語"
+
+msgid "Finnish"
+msgstr "芬蘭語"
+
+msgid "French"
+msgstr "法語"
+
+msgid "Galician"
+msgstr "加利西亞語"
+
+msgid "Indonesian"
+msgstr "印度尼西亞"
+
+msgid "Icelandic"
+msgstr "冰島語"
+
+msgid "Italian"
+msgstr "義大利語"
+
+msgid "Korean"
+msgstr "韓國語"
+
+msgid "Lithuanian"
+msgstr "立陶宛語"
+
+msgid "Norwegian Bokmål"
+msgstr "挪威博克馬爾語"
+
+msgid "Netherlands Dutch"
+msgstr "荷蘭語"
+
+msgid "Persian"
+msgstr "波斯語"
+
+msgid "Polish"
+msgstr "波蘭語"
+
+msgid "Brazilian Portuguese"
+msgstr "巴西葡萄牙語"
+
+msgid "Portuguese"
+msgstr "葡萄牙語"
+
+msgid "Romanian"
+msgstr "羅馬尼亞語"
+
+msgid "Russian"
+msgstr "俄語"
+
+msgid "Swedish"
+msgstr "瑞典語"
+
+msgid "Slovak"
+msgstr "斯洛伐克語"
+
+msgid "Ukrainian"
+msgstr "烏克蘭語"
+
+msgid "Page"
+msgstr "頁面"
+
+msgid "Pages"
+msgstr "頁面"
+
+msgid "Loading…"
+msgstr "正在載入..."
+
+msgid "No results"
+msgstr "沒有結果"
+
+msgid "Server Error"
+msgstr "伺服器錯誤"
+
+msgid "See all"
+msgstr "查看全部"
+
+msgid "Close explorer"
+msgstr "關閉資源管理"
+
+msgid "Alt text"
+msgstr "替代文字"
+
+msgid "Write here…"
+msgstr "寫在這里..."
+
+msgid "Horizontal line"
+msgstr "水平線"
+
+msgid "Line break"
+msgstr "換行"
+
+msgid "Undo"
+msgstr "復原"
+
+msgid "Redo"
+msgstr "取消復原"
+
+msgid "Reload the page"
+msgstr "刷新頁面"
+
+msgid "Reload saved content"
+msgstr "重新加載已保存內容"
+
+msgid "Show latest content"
+msgstr "顯示最新內容"
+
+msgid "Show error"
+msgstr "顯示錯誤"
+
+msgid ""
+"The editor just crashed. Content has been reset to the last saved version."
+msgstr "編輯器崩潰了😭，內容被重新設置為最後保存的版本。"
+
+msgid "Broken link"
+msgstr "無效連結"
+
+msgid "Close"
+msgstr "關閉"
+
+msgid "Edit '{title}'"
+msgstr "編輯 '{title}'"
+
+msgid "January"
+msgstr "一月"
+
+msgid "February"
+msgstr "二月"
+
+msgid "March"
+msgstr "三月"
+
+msgid "April"
+msgstr "四月"
+
+msgid "May"
+msgstr "五月"
+
+msgid "June"
+msgstr "六月"
+
+msgid "July"
+msgstr "七月"
+
+msgid "August"
+msgstr "八月"
+
+msgid "September"
+msgstr "九月"
+
+msgid "October"
+msgstr "十月"
+
+msgid "November"
+msgstr "十一月"
+
+msgid "December"
+msgstr "十二月"
+
+msgid "Sunday"
+msgstr "星期日"
+
+msgid "Monday"
+msgstr "星期一"
+
+msgid "Tuesday"
+msgstr "星期二"
+
+msgid "Wednesday"
+msgstr "星期三"
+
+msgid "Thursday"
+msgstr "星期四"
+
+msgid "Friday"
+msgstr "星期五"
+
+msgid "Saturday"
+msgstr "星期六"
+
+msgid "Sun"
+msgstr "周日"
+
+msgid "Mon"
+msgstr "周一"
+
+msgid "Tue"
+msgstr "周二"
+
+msgid "Wed"
+msgstr "周三"
+
+msgid "Thu"
+msgstr "周四"
+
+msgid "Fri"
+msgstr "周五"
+
+msgid "Sat"
+msgstr "周六"
 
 msgid "Error 404: Page not found"
 msgstr "404錯誤：沒有找到頁面"
@@ -228,61 +451,6 @@ msgstr "密碼已重置。"
 
 msgid "Reset your password"
 msgstr "重置密碼"
-
-msgid "Page"
-msgstr "頁面"
-
-msgid "Pages"
-msgstr "頁面"
-
-msgid "Loading…"
-msgstr "正在載入..."
-
-msgid "No results"
-msgstr "沒有結果"
-
-msgid "Server Error"
-msgstr "伺服器錯誤"
-
-msgid "See all"
-msgstr "查看全部"
-
-msgid "Close explorer"
-msgstr "關閉資源管理"
-
-msgid "Alt text"
-msgstr "替代文字"
-
-msgid "Write here…"
-msgstr "寫在這里..."
-
-msgid "Horizontal line"
-msgstr "水平線"
-
-msgid "Line break"
-msgstr "換行"
-
-msgid "Undo"
-msgstr "復原"
-
-msgid "Redo"
-msgstr "取消復原"
-
-msgid "Reload the page"
-msgstr "刷新頁面"
-
-msgid "Reload saved content"
-msgstr "重新加載已保存內容"
-
-msgid "Show latest content"
-msgstr "顯示最新內容"
-
-msgid "Show error"
-msgstr "顯示錯誤"
-
-msgid ""
-"The editor just crashed. Content has been reset to the last saved version."
-msgstr "編輯器崩潰了😭，內容被重新設置為最後保存的版本。"
 
 msgid "Broken link"
 msgstr "無效連結"
@@ -373,9 +541,6 @@ msgstr "控制面板"
 
 msgid "Menu"
 msgstr "選單"
-
-msgid "Add another"
-msgstr "新增其它"
 
 msgid "Move up"
 msgstr "上移"
@@ -628,8 +793,14 @@ msgstr "正在發布..."
 msgid "Publish this revision"
 msgstr "發布這個版本"
 
-msgid "Publish"
-msgstr "發布"
+msgid "Saving…"
+msgstr "正在保存..."
+
+msgid "Replace current draft"
+msgstr "替換當前的草稿"
+
+msgid "Save draft"
+msgstr "保存草稿"
 
 #, python-format
 msgid "Create a page in %(title)s"
@@ -754,12 +925,6 @@ msgstr "新%(page_type)s頁面類型"
 msgid "New"
 msgstr "新"
 
-msgid "Saving…"
-msgstr "正在保存..."
-
-msgid "Save draft"
-msgstr "保存草稿"
-
 msgid "This page has unsaved changes."
 msgstr "頁面還沒保存"
 
@@ -770,12 +935,6 @@ msgstr "編輯 %(page_type)s: %(title)s"
 #, python-format
 msgid "Editing %(page_type)s <span>%(title)s</span>"
 msgstr "編輯 %(page_type)s <span>%(title)s</span>"
-
-msgid "Page locked"
-msgstr "頁面已鎖定"
-
-msgid "Replace current draft"
-msgstr "替換當前的草稿"
 
 #, python-format
 msgid "Last modified: %(last_mod)s"
@@ -1114,84 +1273,6 @@ msgstr "在資源管理器中顯示"
 msgid "Test"
 msgstr "測試"
 
-msgid "Arabic"
-msgstr "阿拉伯語"
-
-msgid "Catalan"
-msgstr "加泰羅尼亞語"
-
-msgid "German"
-msgstr "德語"
-
-msgid "Greek"
-msgstr "希臘語"
-
-msgid "English"
-msgstr "英語"
-
-msgid "Spanish"
-msgstr "西班牙語"
-
-msgid "Finnish"
-msgstr "芬蘭語"
-
-msgid "French"
-msgstr "法語"
-
-msgid "Galician"
-msgstr "加利西亞語"
-
-msgid "Indonesian"
-msgstr "印度尼西亞"
-
-msgid "Icelandic"
-msgstr "冰島語"
-
-msgid "Italian"
-msgstr "義大利語"
-
-msgid "Korean"
-msgstr "韓國語"
-
-msgid "Lithuanian"
-msgstr "立陶宛語"
-
-msgid "Norwegian Bokmål"
-msgstr "挪威博克馬爾語"
-
-msgid "Netherlands Dutch"
-msgstr "荷蘭語"
-
-msgid "Persian"
-msgstr "波斯語"
-
-msgid "Polish"
-msgstr "波蘭語"
-
-msgid "Brazilian Portuguese"
-msgstr "巴西葡萄牙語"
-
-msgid "Portuguese"
-msgstr "葡萄牙語"
-
-msgid "Romanian"
-msgstr "羅馬尼亞語"
-
-msgid "Russian"
-msgstr "俄語"
-
-msgid "Swedish"
-msgstr "瑞典語"
-
-msgid "Slovak"
-msgstr "斯洛伐克語"
-
-msgid "Ukrainian"
-msgstr "烏克蘭語"
-
-msgid "Sorry, you do not have permission to access this area."
-msgstr "對不起， 你沒有權限訪問。"
-
 msgid "Your password has been changed successfully!"
 msgstr "密碼成功修改！"
 
@@ -1353,44 +1434,11 @@ msgstr " \"{1}\"的修訂版本{0}"
 msgid "Revision {0} of \"{1}\" unscheduled."
 msgstr " \"{1}\"的修訂版本{0}已取消預定的發布。"
 
-msgid "Edit '{title}'"
-msgstr "編輯 '{title}'"
-
-msgid "Preview draft version of '{title}'"
-msgstr "預覽 '{title}' 的草稿"
-
-msgid "View live version of '{title}'"
-msgstr "查看 '{title}' 的線上版本"
-
-msgid "Add a child page to '{title}' "
-msgstr "為 '{title}' 新增子頁面"
-
 msgid "More"
 msgstr "更多"
 
-msgid "View more options for '{title}'"
-msgstr "查看 '{title}' 的更多選項"
-
-msgid "Move page '{title}'"
-msgstr "移動頁面 '{title}'"
-
-msgid "Copy page '{title}'"
-msgstr "復制頁面 '{title}'"
-
-msgid "Delete page '{title}'"
-msgstr "刪除頁面 '{title}'"
-
-msgid "Unpublish page '{title}'"
-msgstr "取消發布頁面 '{title}'"
-
-msgid "View revision history for '{title}'"
-msgstr "查看 '{title}' 的修訂歷史"
-
 msgid "Set profile picture"
 msgstr "頭像設置"
-
-msgid "Change your profile picture"
-msgstr "更改你的頭像"
 
 msgid "Change the email address linked to your account."
 msgstr "更改帳號關聯信箱"
@@ -1412,9 +1460,6 @@ msgstr "當前時區"
 
 msgid "Choose your current time zone."
 msgstr "選擇你的當前時區"
-
-msgid "Heading {level}"
-msgstr "標題{level}"
 
 msgid "Bulleted list"
 msgstr "項目列表"
