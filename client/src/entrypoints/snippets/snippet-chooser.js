@@ -41,6 +41,17 @@ function createSnippetChooser(id, modelString) {
 
       state = newState;
     },
+    getTextLabel: (opts) => {
+      if (!state) return null;
+      const result = state.string;
+      if (opts && opts.maxLength && result.length > opts.maxLength) {
+        return result.substring(0, opts.maxLength - 1) + '…';
+      }
+      return result;
+    },
+    focus: () => {
+      $('.action-choose', chooserElement).focus();
+    },
     openChooserModal: () => {
       // eslint-disable-next-line no-undef, new-cap
       ModalWorkflow({

@@ -1,7 +1,9 @@
 import json
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
+from django.db.models import Prefetch, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
@@ -14,10 +16,12 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
+from wagtail.admin.mail import send_notification
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import Page, UserPagePermissionsProxy, WorkflowState
+from wagtail.core.models import (
+    Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy, WorkflowState)
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -54,6 +58,90 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             )
 
         messages.success(self.request, message)
+
+    def send_commenting_notifications(self):
+        """
+        Sends notifications about any changes to comments to anyone who is subscribed.
+        """
+        # Skip if this page does not have CommentPanel enabled
+        if 'comments' not in self.form.formsets:
+            return
+
+        # Get changes
+        comments_formset = self.form.formsets['comments']
+        new_comments = comments_formset.new_objects
+        deleted_comments = comments_formset.deleted_objects
+        relevant_comment_ids = []
+
+        # Assume any changed comments that are resolved were only just resolved
+        resolved_comments = []
+        for changed_comment, changed_fields in comments_formset.changed_objects:
+            if changed_comment.resolved_at and 'resolved' in changed_fields:
+                resolved_comments.append(changed_comment)
+                relevant_comment_ids.append(changed_comment.pk)
+
+        replied_comments = []
+        for comment_form in comments_formset.forms:
+            replies = getattr(comment_form.formsets['replies'], 'new_objects', [])
+            if replies:
+                replied_comments.append({
+                    'comment': comment_form.instance,
+                    'replies': replies
+                })
+                relevant_comment_ids.append(comment_form.instance.pk)
+
+        # Skip if no changes were made
+        if not new_comments and not deleted_comments and not resolved_comments and not replied_comments:
+            return
+
+        # Get global page comment subscribers
+        subscribers = PageSubscription.objects.filter(page=self.page, comment_notifications=True).select_related('user')
+        global_recipient_users = [subscriber.user for subscriber in subscribers if subscriber.user != self.request.user]
+
+        # Get subscribers to individual threads
+        replies = CommentReply.objects.filter(comment_id__in=relevant_comment_ids)
+        comments = Comment.objects.filter(id__in=relevant_comment_ids)
+        thread_users = get_user_model().objects.exclude(pk=self.request.user.pk).exclude(pk__in=subscribers.values_list('user_id', flat=True)).prefetch_related(
+            Prefetch('comment_replies', queryset=replies),
+            Prefetch('comments', queryset=comments)
+        ).exclude(
+            Q(comment_replies__isnull=True) & Q(comments__isnull=True)
+        )
+
+        # Skip if no recipients
+        if not (global_recipient_users or thread_users):
+            return
+        thread_users = [(user, set(list(user.comment_replies.values_list('comment_id', flat=True)) + list(user.comments.values_list('pk', flat=True)))) for user in thread_users]
+        mailed_users = set()
+
+        for current_user, current_threads in thread_users:
+            # We are trying to avoid calling send_notification for each user for performance reasons
+            # so group the users receiving the same thread notifications together here
+            if current_user in mailed_users:
+                continue
+            users = [current_user]
+            mailed_users.add(current_user)
+            for user, threads in thread_users:
+                if user not in mailed_users and threads == current_threads:
+                    users.append(user)
+                    mailed_users.add(user)
+            send_notification(users, 'updated_comments', {
+                'page': self.page,
+                'editor': self.request.user,
+                'new_comments': [comment for comment in new_comments if comment.pk in threads],
+                'resolved_comments': [comment for comment in resolved_comments if comment.pk in threads],
+                'deleted_comments': [],
+                'replied_comments': [comment for comment in replied_comments if comment['comment'].pk in threads]
+            })
+
+        return send_notification(global_recipient_users, 'updated_comments', {
+            'page': self.page,
+            'editor': self.request.user,
+            'new_comments': new_comments,
+            'resolved_comments': resolved_comments,
+            'deleted_comments': deleted_comments,
+            'replied_comments': replied_comments
+        })
 
     def get_edit_message_button(self):
         return messages.button(
@@ -114,6 +202,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         response = self.run_hook('before_edit_page', self.request, self.page)
         if response:
             return response
+
+        try:
+            self.subscription = PageSubscription.objects.get(page=self.page, user=self.request.user)
+        except PageSubscription.DoesNotExist:
+            self.subscription = PageSubscription(page=self.page, user=self.request.user)
 
         self.edit_handler = self.page_class.get_edit_handler()
         self.edit_handler = self.edit_handler.bind_to(instance=self.page, request=self.request)
@@ -182,7 +275,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                     extra_tags="lock"
                 )
 
-        self.form = self.form_class(instance=self.page, parent_page=self.parent)
+        self.form = self.form_class(instance=self.page, subscription=self.subscription, parent_page=self.parent)
         self.has_unsaved_changes = False
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
         self.add_legacy_moderation_warning()
@@ -209,7 +302,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return HttpResponse(status=405)
 
         self.form = self.form_class(
-            self.request.POST, self.request.FILES, instance=self.page, parent_page=self.parent
+            self.request.POST, self.request.FILES, instance=self.page, subscription=self.subscription, parent_page=self.parent
         )
 
         self.is_cancelling_workflow = bool(self.request.POST.get('action-cancel-workflow')) and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
@@ -249,6 +342,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def save_action(self):
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         # Save revision
         self.page.save_revision(
@@ -259,6 +353,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         self.add_save_confirmation_message()
 
+        self.send_commenting_notifications()
+
         response = self.run_hook('after_edit_page', self.request, self.page)
         if response:
             return response
@@ -268,6 +364,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def publish_action(self):
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         # Save revision
         revision = self.page.save_revision(
@@ -288,6 +385,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             changed=self.has_content_changes,
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
+
+        self.send_commenting_notifications()
 
         # Need to reload the page because the URL may have changed, and we
         # need the up-to-date URL for the "View Live" button.
@@ -357,6 +456,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def submit_action(self):
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         # Save revision
         self.page.save_revision(
@@ -364,6 +464,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             log_action=True,  # Always log the new revision on edit
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
+
+        self.send_commenting_notifications()
 
         if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
             # If the workflow was in the needs changes state, resume the existing workflow on submission
@@ -393,16 +495,20 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def restart_workflow_action(self):
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
+        # save revision
+        self.page.save_revision(
+            user=self.request.user,
+            log_action=True,  # Always log the new revision on edit
+            previous_revision=(self.previous_revision if self.is_reverting else None)
+        )
+
+        # cancel workflow
         self.workflow_state.cancel(user=self.request.user)
-
-        if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
-            # If the workflow was in the needs changes state, resume the existing workflow on submission
-            self.workflow_state.resume(self.request.user)
-        else:
-            # Otherwise start a new workflow
-            workflow = self.page.get_workflow()
-            workflow.start(self.page, self.request.user)
+        # start new workflow
+        workflow = self.page.get_workflow()
+        workflow.start(self.page, self.request.user)
 
         message = _(
             "Workflow on page '{0}' has been restarted."
@@ -424,6 +530,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def perform_workflow_action(self):
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         if self.has_content_changes:
             # Save revision
@@ -449,6 +556,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
     def cancel_workflow_action(self):
         self.workflow_state.cancel(user=self.request.user)
         self.page = self.form.save(commit=False)
+        self.subscription.save()
 
         # Save revision
         self.page.save_revision(

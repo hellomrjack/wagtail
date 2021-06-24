@@ -19,8 +19,8 @@ from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.core.models import (
-    Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site, get_page_models,
-    get_translatable_models)
+    Comment, Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site,
+    get_page_models, get_translatable_models)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
@@ -957,7 +957,7 @@ class TestPageGetSpecific(TestCase):
     def test_default(self):
         # Field values are fetched from the database, hence the query
         with self.assertNumQueries(1):
-            result = self.page.get_specific(copy_attrs=['foo', 'bar'])
+            result = self.page.get_specific()
 
         # The returned instance is the correct type
         self.assertIsInstance(result, SimplePage)
@@ -971,17 +971,15 @@ class TestPageGetSpecific(TestCase):
         with self.assertNumQueries(0):
             self.assertTrue(result.content)
 
-        # 'foo' and 'bar' attributes should have been copied over...
-        self.assertIs(result.foo, self.page.foo)
-        self.assertIs(result.bar, self.page.bar)
-
-        # ...but not 'baz'
-        self.assertFalse(hasattr(result, 'baz'))
+        # All non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertIs(getattr(result, attr), getattr(self.page, attr))
 
     def test_deferred(self):
         # Field values are NOT fetched from the database, hence no query
         with self.assertNumQueries(0):
-            result = self.page.get_specific(deferred=True, copy_attrs=['foo', 'bar'])
+            result = self.page.get_specific(deferred=True)
 
         # The returned instance is the correct type
         self.assertIsInstance(result, SimplePage)
@@ -995,12 +993,46 @@ class TestPageGetSpecific(TestCase):
         with self.assertNumQueries(1):
             self.assertTrue(result.content)
 
-        # 'foo' and 'bar' attributes should have been copied over...
+        # All non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertIs(getattr(result, attr), getattr(self.page, attr))
+
+    def test_copy_attrs(self):
+        result = self.page.get_specific(copy_attrs=['foo', 'bar'])
+
+        # foo and bar should have been copied over
         self.assertIs(result.foo, self.page.foo)
         self.assertIs(result.bar, self.page.bar)
 
-        # ...but not 'baz'
+        # but baz should not have been
         self.assertFalse(hasattr(result, 'baz'))
+
+    def test_copy_attrs_with_empty_list(self):
+        result = self.page.get_specific(copy_attrs=())
+
+        # No non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertFalse(hasattr(result, attr))
+
+    def test_copy_attrs_exclude(self):
+        result = self.page.get_specific(copy_attrs_exclude=['baz'])
+
+        # foo and bar should have been copied over
+        self.assertIs(result.foo, self.page.foo)
+        self.assertIs(result.bar, self.page.bar)
+
+        # but baz should not have been
+        self.assertFalse(hasattr(result, 'baz'))
+
+    def test_copy_attrs_exclude_with_empty_list(self):
+        result = self.page.get_specific(copy_attrs_exclude=())
+
+        # All non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertIs(getattr(result, attr), getattr(self.page, attr))
 
     def test_specific_cached_property(self):
         # invoking several times to demonstrate that field values
@@ -1112,6 +1144,27 @@ class TestCopyPage(TestCase):
         self.assertEqual(
             new_christmas_event.categories.all().in_bulk(),
             christmas_event.categories.all().in_bulk()
+        )
+
+    def test_copy_page_does_not_copy_comments(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        christmas_event.comments = [Comment(text='test', user=christmas_event.owner)]
+        christmas_event.save()
+
+        # Copy the page as in `test_copy_page_copies_child_objects()``, but using exclude_fields
+        # to prevent 'advert_placements' from being copied to the new version
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
+
+        # Check that the comments weren't removed from old page
+        self.assertEqual(christmas_event.comments.count(), 1, "Comments were removed from the original page")
+
+        # Check that comments were NOT copied over
+        self.assertFalse(
+            new_christmas_event.comments.exists(),
+            "Comments were copied"
         )
 
     def test_copy_page_does_not_copy_child_objects_if_accessor_name_in_exclude_fields(self):
@@ -1666,6 +1719,22 @@ class TestCopyPage(TestCase):
         )
         self.assertFalse(signal_fired)
 
+    def test_copy_alias_page(self):
+        about_us = SimplePage.objects.get(url_path='/home/about-us/')
+        about_us_alias = about_us.create_alias(update_slug='about-us-alias')
+
+        about_us_alias_copy = about_us_alias.copy(update_attrs={
+            'slug': 'about-us-alias-copy'
+        })
+
+        self.assertIsInstance(about_us_alias_copy, SimplePage)
+        self.assertEqual(about_us_alias_copy.slug, 'about-us-alias-copy')
+        self.assertNotEqual(about_us_alias_copy.id, about_us.id)
+        self.assertEqual(about_us_alias_copy.url_path, '/home/about-us-alias-copy/')
+
+        # The copy should just be a copy of the original page, not an alias
+        self.assertIsNone(about_us_alias_copy.alias_of)
+
 
 class TestCreateAlias(TestCase):
     fixtures = ['test.json']
@@ -2057,6 +2126,45 @@ class TestUpdateAliases(TestCase):
         # Draft titles shouldn't update as alias pages do not have drafts
         self.assertEqual(alias.draft_title, "Updated title")
         self.assertEqual(alias_alias.draft_title, "Updated title")
+
+        # Check log entries were created
+        self.assertTrue(PageLogEntry.objects.filter(page=alias, action='wagtail.publish').exists())
+        self.assertTrue(PageLogEntry.objects.filter(page=alias_alias, action='wagtail.publish').exists())
+
+    def test_update_aliases_publishes_drafts(self):
+        event_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Unpublish the event page so that the aliases will be created in draft
+        event_page.live = False
+        event_page.has_unpublished_changes = True
+        event_page.save(clean=False)
+
+        alias = event_page.create_alias(update_slug='new-event-page')
+        alias_alias = alias.create_alias(update_slug='new-event-page-2')
+
+        self.assertFalse(alias.live)
+        self.assertFalse(alias_alias.live)
+
+        # Publish the event page
+        event_page.live = True
+        event_page.has_unpublished_changes = False
+        event_page.save(clean=False)
+
+        # Nothing should've happened yet
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+        self.assertFalse(alias.live)
+        self.assertFalse(alias_alias.live)
+
+        PageLogEntry.objects.all().delete()
+
+        event_page.update_aliases()
+
+        # Check that the aliases have been updated
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+        self.assertTrue(alias.live)
+        self.assertTrue(alias_alias.live)
 
         # Check log entries were created
         self.assertTrue(PageLogEntry.objects.filter(page=alias, action='wagtail.publish').exists())

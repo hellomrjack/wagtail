@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2020-11-21 12:24+0000\n"
-"Last-Translator: ongchi <ihcgno@icloud.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -77,9 +77,6 @@ msgstr "定時發佈"
 msgid "Privacy"
 msgstr "隱蔽設置"
 
-msgid "Common page configuration"
-msgstr "常用頁面配置"
-
 msgid "Content"
 msgstr "內容"
 
@@ -126,8 +123,14 @@ msgstr "輸入電子郵件地址以重置密碼"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "上一級"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "對於同一個集合你不能設置多重權限"
+
+msgid "Collection"
+msgstr "集合"
 
 msgid "New title"
 msgstr "新增標題"
@@ -221,81 +224,6 @@ msgstr "命名工作流程"
 msgid "Add tasks to your workflow"
 msgstr "增加作業至工作流程"
 
-msgid "Arabic"
-msgstr "阿拉伯語"
-
-msgid "Catalan"
-msgstr "加泰羅尼亞語"
-
-msgid "German"
-msgstr "德語"
-
-msgid "Greek"
-msgstr "希臘語"
-
-msgid "English"
-msgstr "英語"
-
-msgid "Spanish"
-msgstr "西班牙語"
-
-msgid "Finnish"
-msgstr "芬蘭語"
-
-msgid "French"
-msgstr "法語"
-
-msgid "Galician"
-msgstr "加利西亞語"
-
-msgid "Indonesian"
-msgstr "印度尼西亞"
-
-msgid "Icelandic"
-msgstr "冰島語"
-
-msgid "Italian"
-msgstr "義大利語"
-
-msgid "Korean"
-msgstr "韓國語"
-
-msgid "Lithuanian"
-msgstr "立陶宛語"
-
-msgid "Norwegian Bokmål"
-msgstr "挪威博克馬爾語"
-
-msgid "Netherlands Dutch"
-msgstr "荷蘭語"
-
-msgid "Persian"
-msgstr "波斯語"
-
-msgid "Polish"
-msgstr "波蘭語"
-
-msgid "Brazilian Portuguese"
-msgstr "巴西葡萄牙語"
-
-msgid "Portuguese"
-msgstr "葡萄牙語"
-
-msgid "Romanian"
-msgstr "羅馬尼亞語"
-
-msgid "Russian"
-msgstr "俄語"
-
-msgid "Swedish"
-msgstr "瑞典語"
-
-msgid "Slovak"
-msgstr "斯洛伐克語"
-
-msgid "Ukrainian"
-msgstr "烏克蘭語"
-
 msgid "Edit"
 msgstr "編輯"
 
@@ -372,9 +300,14 @@ msgstr "檢視 '{title}' 子頁面"
 msgid "Page explorer"
 msgstr "頁面瀏覽器"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "未知 %(action)s"
+msgid "Save"
+msgstr "儲存"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Comment"
+msgstr "評論"
 
 msgid "Error 404: Page not found"
 msgstr "404錯誤：沒有找到頁面"
@@ -391,36 +324,12 @@ msgstr "轉到管理界面"
 msgid "Account"
 msgstr "帳號"
 
-msgid "Change profile picture"
-msgstr "更改個人資料圖片"
-
-msgid "Your current profile picture:"
-msgstr "您目前的個人資料圖片："
-
-msgid "Update"
-msgstr "更新"
-
-msgid "Change email"
-msgstr "更改電子郵件"
-
-msgid "Change name"
-msgstr "更改名稱"
-
 msgid "Change password"
 msgstr "更改密碼"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "您不能修改密碼，請聯系管理員。"
-
-msgid "Set Time Zone"
-msgstr "設定時區"
-
-msgid "Language Preferences"
-msgstr "語言偏好設定"
-
-msgid "Notification preferences"
-msgstr "通知偏好設定"
 
 msgid "Reset password"
 msgstr "重置密碼"
@@ -470,12 +379,6 @@ msgstr "控制面板"
 
 msgid "Menu"
 msgstr "選單"
-
-msgid "Move up"
-msgstr "上移"
-
-msgid "Move down"
-msgstr "下移"
 
 msgid "Explorer"
 msgstr "資源管理"
@@ -545,9 +448,6 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "隱蔽設置可檢視此文件集合之使用者。"
 
-msgid "Save"
-msgstr "儲存"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "集合隱蔽設定。目前狀態：公開"
 
@@ -578,8 +478,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "增加 %(label)s"
 
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
 msgid "Yes, delete"
 msgstr "確認刪除"
+
+msgid "Update"
+msgstr "更新"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -589,15 +498,6 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "此面版可顯示你所建立內容的相關資訊。"
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail 已逐步移除對 IE11 的支援，可能對於你或你的組織造成影響。<a href="
-"\"%(url)s\">查看更多有關 IE11 的支援計畫</a>"
 
 msgid "Your locked pages"
 msgstr "你已鎖定的頁面"
@@ -620,9 +520,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "等待頁面審核中"
-
-msgid "Parent"
-msgstr "上一級"
 
 msgid "Type"
 msgstr "類型"
@@ -988,9 +885,6 @@ msgstr "發佈此頁面將取消目前工作流程"
 msgid "Would you still like to publish this page?"
 msgstr "確定仍要發佈此頁面？"
 
-msgid "Cancel"
-msgstr "取消"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "使用%(page_class_verbose_name)s的頁面"
@@ -1056,9 +950,6 @@ msgstr "使用者"
 
 msgid "Date / Time"
 msgstr "日期/時間"
-
-msgid "Comment"
-msgstr "評論"
 
 msgid "Live version"
 msgstr "線上版本"
@@ -1393,9 +1284,6 @@ msgstr "已核准作業"
 msgid "Incomplete task"
 msgstr "未完成作業"
 
-msgid "Collection"
-msgstr "集合"
-
 msgid "Download XLSX"
 msgstr "下載 XLSX"
 
@@ -1456,6 +1344,15 @@ msgstr "已發佈"
 
 msgid "Draft saved"
 msgstr "已儲存草稿"
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail 已逐步移除對 IE11 的支援，可能對於你或你的組織造成影響。<a href="
+"\"%(url)s\">查看更多有關 IE11 的支援計畫</a>"
 
 msgid "Go to Wagtail admin interface"
 msgstr "轉到管理界面"
@@ -1577,18 +1474,6 @@ msgstr "0 分鐘"
 
 msgid "Test"
 msgstr "測試"
-
-msgid "Your password has been changed successfully!"
-msgstr "密碼成功修改！"
-
-msgid "Your email has been changed successfully!"
-msgstr "修改郵箱成功！😊"
-
-msgid "Your preferences have been updated."
-msgstr "你的首選項已被更新。"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "已更新您的配置！"
 
 msgid "You have been successfully logged out."
 msgstr "成功登出"
@@ -1831,33 +1716,6 @@ msgstr "取消發佈頁面 '%(title)s'"
 msgid "View page history for '%(title)s'"
 msgstr "檢視 '%(title)s' 歷史頁面"
 
-msgid "Set profile picture"
-msgstr "頭像設置"
-
-msgid "Change your profile picture."
-msgstr "更改你的個人資料圖片"
-
-msgid "Change the email address linked to your account."
-msgstr "更改帳號關聯信箱"
-
-msgid "Change the password you use to log in."
-msgstr "修改用於登錄的密碼"
-
-msgid "Choose which email notifications to receive."
-msgstr "選擇接收哪些郵件提醒"
-
-msgid "Language preferences"
-msgstr "語言首選項"
-
-msgid "Choose the language you want to use here."
-msgstr "請在這里選擇你想使用的語言。"
-
-msgid "Current Time Zone"
-msgstr "當前時區"
-
-msgid "Choose your current time zone."
-msgstr "選擇你的當前時區"
-
 msgid "Bulleted list"
 msgstr "項目列表"
 
@@ -1893,132 +1751,6 @@ msgstr "已被鎖定頁面"
 
 msgid "Reports"
 msgstr "報告"
-
-msgid "Created"
-msgstr "已建立"
-
-msgid "Deleted"
-msgstr "已刪除"
-
-msgid "Unpublished"
-msgstr "取消發佈"
-
-msgid "Unlocked"
-msgstr "已解鎖"
-
-msgid "Approved"
-msgstr "己核准"
-
-msgid "Rejected"
-msgstr "已駁回"
-
-msgid "Reverted to previous revision"
-msgstr "已還原至前版本"
-
-msgid "Copied"
-msgstr "已複製"
-
-msgid "Created an alias"
-msgstr "建立別名"
-
-msgid "Converted an alias into a regular page"
-msgstr "轉換別名為一般頁面"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "由 '%(old_parent)s' 移動至 '%(new_parent)s'"
-
-msgid "Added view restriction"
-msgstr "新增檢視限制"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "更新檢視限制為 '%(restriction)s'"
-
-msgid "Updated view restriction"
-msgstr "已更新檢視限制"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "移除檢視限制 '%(restriction)s'"
-
-msgid "Removed view restriction"
-msgstr "已移除檢視限制"
-
-msgid "Renamed"
-msgstr "已更名"
-
-msgid "Rename"
-msgstr "重新命名"
-
-msgid "Revert"
-msgstr "復原"
-
-msgid "Create alias"
-msgstr "建立別名"
-
-msgid "Convert alias into regular page"
-msgstr "轉換別名為一般頁面"
-
-msgid "Add view restrictions"
-msgstr "新增檢視限制"
-
-msgid "Update view restrictions"
-msgstr "更新檢視限制"
-
-msgid "Remove view restrictions"
-msgstr "移除檢視限制"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "已開始 '%(workflow)s' ，下一步驟 '%(task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "已核准 '%(task)s' ，下一步驟 '%(next_task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "已核准 '%(task)s' ，'%(workflow)s' 完成"
-
-msgid "Workflow task approved"
-msgstr "已核准工作流程作業"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "已駁回 '%(task)s' ，需進行變更"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "已駁回工作流程作業。工作流程完成"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "重新提交 '%(task)s' ，已繼續工作流程"
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "重新提交工作流程作業，已繼續工作流程"
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "已取消 '%(workflow)s' 於 '%(task)s'"
-
-msgid "Workflow cancelled"
-msgstr "已取消工作流程"
-
-msgid "Workflow: start"
-msgstr "工作流程：開始"
-
-msgid "Workflow: approve task"
-msgstr "工作流程：核准作業"
-
-msgid "Workflow: reject task"
-msgstr "工作流程：駁回作業"
-
-msgid "Workflow: resume task"
-msgstr "工作流程：繼續作業"
-
-msgid "Workflow: cancel"
-msgstr "工作流程：取消"
 
 msgid "Yes"
 msgstr "是"

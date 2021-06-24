@@ -4,15 +4,15 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020
+# Martin Sandström <martin@marteinn.se>, 2020-2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:31+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-30 05:42+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail documents"
 msgstr "Wagtail dokument"
+
+msgid "Collection"
+msgstr "Samling"
 
 msgid "Add"
 msgstr "Lägg till"
@@ -35,6 +38,12 @@ msgstr "Redigera"
 
 msgid "Edit any document"
 msgstr "Redigera alla dokument"
+
+msgid "Choose"
+msgstr "Välj"
+
+msgid "Select documents in choosers"
+msgstr "Markera dokument i väljare"
 
 msgid "title"
 msgstr "titel"
@@ -171,9 +180,6 @@ msgstr "Titel"
 msgid "File"
 msgstr "Fil"
 
-msgid "Collection"
-msgstr "Samling"
-
 msgid "Created"
 msgstr "Skapades"
 
@@ -187,7 +193,7 @@ msgid ""
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Du har inte laddat upp några dokument till den här samlingen. Varför inte <a "
-"href=\"%(wagtaildocs_add_document_url)s\">ladda up ett nu</a>?"
+"href=\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
 
 #, python-format
 msgid ""
@@ -195,7 +201,7 @@ msgid ""
 "\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
 msgstr ""
 "Du har inte laddat upp några dokument. Varför inte <a href="
-"\"%(wagtaildocs_add_document_url)s\">ladda up ett nu</a>?"
+"\"%(wagtaildocs_add_document_url)s\">ladda upp ett nu</a>?"
 
 #, python-format
 msgid "Usage of %(title)s"

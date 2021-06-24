@@ -1,3 +1,4 @@
+import itertools
 import uuid
 import warnings
 
@@ -7,18 +8,15 @@ from collections.abc import MutableSequence
 from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.forms.utils import ErrorList
-from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html_join
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.core.utils import escape_script
+from wagtail.core.telepath import Adapter, register
 from wagtail.utils.deprecation import RemovedInWagtail214Warning
 
-from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass
-from .utils import indent, js_dict
+from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass, get_help_icon
 
 
 __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidationError']
@@ -26,6 +24,9 @@ __all__ = ['BaseStreamBlock', 'StreamBlock', 'StreamValue', 'StreamBlockValidati
 
 class StreamBlockValidationError(ValidationError):
     def __init__(self, block_errors=None, non_block_errors=None):
+        self.non_block_errors = non_block_errors
+        self.block_errors = block_errors
+
         params = {}
         if block_errors:
             params.update(block_errors)
@@ -33,6 +34,25 @@ class StreamBlockValidationError(ValidationError):
             params[NON_FIELD_ERRORS] = non_block_errors
         super().__init__(
             'Validation error in StreamBlock', params=params)
+
+
+class StreamBlockValidationErrorAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.StreamBlockValidationError'
+
+    def js_args(self, error):
+        return [error.non_block_errors.as_data(), {
+            block_id: child_errors.as_data()
+            for block_id, child_errors in error.block_errors.items()
+        }]
+
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
+
+
+register(StreamBlockValidationErrorAdapter(), StreamBlockValidationError)
 
 
 class BaseStreamBlock(Block):
@@ -48,8 +68,6 @@ class BaseStreamBlock(Block):
             for name, block in local_blocks:
                 block.set_name(name)
                 self.child_blocks[name] = block
-
-        self.dependencies = self.child_blocks.values()
 
     def get_default(self):
         """
@@ -67,99 +85,15 @@ class BaseStreamBlock(Block):
         return sorted(self.child_blocks.values(),
                       key=lambda child_block: child_block.meta.group)
 
-    def render_list_member(self, block_type_name, value, prefix, index, errors=None, id=None):
+    def grouped_child_blocks(self):
         """
-        Render the HTML for a single list item. This consists of a container, hidden fields
-        to manage ID/deleted state/type, delete/reorder buttons, and the child block's own HTML.
+        The available child block types of this stream block, organised into groups according to
+        their meta.group attribute.
+        Returned as an iterable of (group_name, list_of_blocks) tuples
         """
-        child_block = self.child_blocks[block_type_name]
-        child = child_block.bind(value, prefix="%s-value" % prefix, errors=errors)
-        return render_to_string('wagtailadmin/block_forms/stream_member.html', {
-            'child_blocks': self.sorted_child_blocks(),
-            'block_type_name': block_type_name,
-            'child_block': child_block,
-            'prefix': prefix,
-            'child': child,
-            'index': index,
-            'block_id': id,
-        })
-
-    def html_declarations(self):
-        return format_html_join(
-            '\n', '<script type="text/template" id="{0}-newmember-{1}">{2}</script>',
-            [
-                (
-                    self.definition_prefix,
-                    name,
-                    mark_safe(escape_script(self.render_list_member(name, child_block.get_default(), '__PREFIX__', '')))
-                )
-                for name, child_block in self.child_blocks.items()
-            ]
+        return itertools.groupby(
+            self.sorted_child_blocks(), key=lambda child_block: child_block.meta.group
         )
-
-    @property
-    def media(self):
-        return forms.Media(js=[
-            versioned_static('wagtailadmin/js/blocks/sequence.js'),
-            versioned_static('wagtailadmin/js/blocks/stream.js')
-        ])
-
-    def js_initializer(self):
-        # compile a list of info dictionaries, one for each available block type
-        child_blocks = []
-        for name, child_block in self.child_blocks.items():
-            # each info dictionary specifies at least a block name
-            child_block_info = {'name': "'%s'" % name}
-
-            # if the child defines a JS initializer function, include that in the info dict
-            # along with the param that needs to be passed to it for initializing an empty/default block
-            # of that type
-            child_js_initializer = child_block.js_initializer()
-            if child_js_initializer:
-                child_block_info['initializer'] = child_js_initializer
-
-            child_blocks.append(indent(js_dict(child_block_info)))
-
-        opts = {
-            'definitionPrefix': "'%s'" % self.definition_prefix,
-            'childBlocks': '[\n%s\n]' % ',\n'.join(child_blocks),
-            'maxNumChildBlocks': 'Infinity' if self.meta.max_num is None else ('%s' % self.meta.max_num),
-        }
-
-        return "StreamBlock(%s)" % js_dict(opts)
-
-    def render_form(self, value, prefix='', errors=None):
-        error_dict = {}
-        if errors:
-            if len(errors) > 1:
-                # We rely on StreamBlock.clean throwing a single
-                # StreamBlockValidationError with a specially crafted 'params'
-                # attribute that we can pull apart and distribute to the child
-                # blocks
-                raise TypeError('StreamBlock.render_form unexpectedly received multiple errors')
-            error_dict = errors.as_data()[0].params
-
-        # value can be None when the StreamField is in a formset
-        if value is None:
-            value = self.get_default()
-        # drop any child values that are an unrecognised block type
-        valid_children = [child for child in value if child.block_type in self.child_blocks]
-
-        list_members_html = [
-            self.render_list_member(child.block_type, child.value, "%s-%d" % (prefix, i), i,
-                                    errors=error_dict.get(i), id=child.id)
-            for (i, child) in enumerate(valid_children)
-        ]
-
-        return render_to_string('wagtailadmin/block_forms/stream.html', {
-            'prefix': prefix,
-            'help_text': getattr(self.meta, 'help_text', None),
-            'list_members_html': list_members_html,
-            'child_blocks': self.sorted_child_blocks(),
-            'header_menu_prefix': '%s-before' % prefix,
-            'block_errors': error_dict.get(NON_FIELD_ERRORS),
-            'classname': getattr(self.meta, 'form_classname', None),
-        })
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data['%s-count' % prefix])
@@ -317,6 +251,19 @@ class BaseStreamBlock(Block):
             # round-trips to the full data representation and back)
             return value.get_prep_value()
 
+    def get_form_state(self, value):
+        if not value:
+            return []
+        else:
+            return [
+                {
+                    'type': child.block.name,
+                    'value': child.block.get_form_state(child.value),
+                    'id': child.id,
+                }
+                for child in value
+            ]
+
     def get_api_representation(self, value, context=None):
         if value is None:
             # treat None as identical to an empty stream
@@ -377,9 +324,12 @@ class BaseStreamBlock(Block):
         icon = "placeholder"
         default = []
         required = True
+        form_classname = None
         min_num = None
         max_num = None
         block_counts = {}
+
+    MUTABLE_META_ATTRIBUTES = ['required', 'min_num', 'max_num', 'block_counts']
 
 
 class StreamBlock(BaseStreamBlock, metaclass=DeclarativeSubBlocksMetaclass):
@@ -555,6 +505,10 @@ class StreamValue(MutableSequence):
         return StreamValue.StreamChild(block_def, value, id=block_id)
 
     def __getitem__(self, i):
+        if isinstance(i, slice):
+            start, stop, step = i.indices(len(self._bound_blocks))
+            return [self[j] for j in range(start, stop, step)]
+
         if self._bound_blocks[i] is None:
             raw_value = self._raw_data[i]
             self._prefetch_blocks(raw_value['type'])
@@ -672,3 +626,45 @@ class StreamValue(MutableSequence):
 
     def __str__(self):
         return self.__html__()
+
+
+class StreamBlockAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.StreamBlock'
+
+    def js_args(self, block):
+        meta = {
+            'label': block.label, 'required': block.required, 'icon': block.meta.icon,
+            'classname': block.meta.form_classname,
+            'maxNum': block.meta.max_num, 'minNum': block.meta.min_num,
+            'blockCounts': block.meta.block_counts,
+            'strings': {
+                'MOVE_UP': _("Move up"),
+                'MOVE_DOWN': _("Move down"),
+                'DUPLICATE': _("Duplicate"),
+                'DELETE': _("Delete"),
+                'ADD': _("Add"),
+            },
+        }
+        help_text = getattr(block.meta, 'help_text', None)
+        if help_text:
+            meta['helpText'] = help_text
+            meta['helpIcon'] = get_help_icon()
+
+        return [
+            block.name,
+            block.grouped_child_blocks(),
+            {
+                name: child_block.get_form_state(child_block.get_default())
+                for name, child_block in block.child_blocks.items()
+            },
+            meta,
+        ]
+
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
+
+
+register(StreamBlockAdapter(), StreamBlock)

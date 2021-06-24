@@ -3,48 +3,46 @@ import pytz
 from django.conf import settings
 from django.utils.dates import MONTHS, WEEKDAYS, WEEKDAYS_ABBR
 from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy
 
 
 # Wagtail languages with >=90% coverage
 # This list is manually maintained
 WAGTAILADMIN_PROVIDED_LANGUAGES = [
-    ('ar', gettext_lazy('Arabic')),
-    ('ca', gettext_lazy('Catalan')),
-    ('cs', gettext_lazy('Czech')),
-    ('de', gettext_lazy('German')),
-    ('el', gettext_lazy('Greek')),
-    ('en', gettext_lazy('English')),
-    ('es', gettext_lazy('Spanish')),
-    ('et', gettext_lazy('Estonian')),
-    ('fi', gettext_lazy('Finnish')),
-    ('fr', gettext_lazy('French')),
-    ('gl', gettext_lazy('Galician')),
-    ('hr', gettext_lazy('Croatian')),
-    ('hu', gettext_lazy('Hungarian')),
-    ('id-id', gettext_lazy('Indonesian')),
-    ('is-is', gettext_lazy('Icelandic')),
-    ('it', gettext_lazy('Italian')),
-    ('ja', gettext_lazy('Japanese')),
-    ('ko', gettext_lazy('Korean')),
-    ('lt', gettext_lazy('Lithuanian')),
-    ('mn', gettext_lazy('Mongolian')),
-    ('nb', gettext_lazy('Norwegian Bokmål')),
-    ('nl-nl', gettext_lazy('Netherlands Dutch')),
-    ('fa', gettext_lazy('Persian')),
-    ('pl', gettext_lazy('Polish')),
-    ('pt-br', gettext_lazy('Brazilian Portuguese')),
-    ('pt-pt', gettext_lazy('Portuguese')),
-    ('ro', gettext_lazy('Romanian')),
-    ('ru', gettext_lazy('Russian')),
-    ('sv', gettext_lazy('Swedish')),
-    ('sk-sk', gettext_lazy('Slovak')),
-    ('th', gettext_lazy('Thai')),
-    ('tr', gettext_lazy('Turkish')),
-    ('tr-tr', gettext_lazy('Turkish (Turkey)')),
-    ('uk', gettext_lazy('Ukrainian')),
-    ('zh-hans', gettext_lazy('Chinese (Simplified)')),
-    ('zh-hant', gettext_lazy('Chinese (Traditional)')),
+    ('ar', 'Arabic'),
+    ('ca', 'Catalan'),
+    ('cs', 'Czech'),
+    ('de', 'German'),
+    ('el', 'Greek'),
+    ('en', 'English'),
+    ('es', 'Spanish'),
+    ('et', 'Estonian'),
+    ('fi', 'Finnish'),
+    ('fr', 'French'),
+    ('gl', 'Galician'),
+    ('hr', 'Croatian'),
+    ('hu', 'Hungarian'),
+    ('id-id', 'Indonesian'),
+    ('is-is', 'Icelandic'),
+    ('it', 'Italian'),
+    ('ja', 'Japanese'),
+    ('ko', 'Korean'),
+    ('lt', 'Lithuanian'),
+    ('mn', 'Mongolian'),
+    ('nb', 'Norwegian Bokmål'),
+    ('nl-nl', 'Netherlands Dutch'),
+    ('fa', 'Persian'),
+    ('pl', 'Polish'),
+    ('pt-br', 'Brazilian Portuguese'),
+    ('pt-pt', 'Portuguese'),
+    ('ro', 'Romanian'),
+    ('ru', 'Russian'),
+    ('sv', 'Swedish'),
+    ('sk-sk', 'Slovak'),
+    ('th', 'Thai'),
+    ('tr', 'Turkish'),
+    ('uk', 'Ukrainian'),
+    ('zh-hans', 'Chinese (Simplified)'),
+    ('zh-hant', 'Chinese (Traditional)'),
 ]
 
 
@@ -62,6 +60,7 @@ def get_js_translation_strings():
         'SEE_ALL': _('See all'),
         'CLOSE_EXPLORER': _('Close explorer'),
         'ALT_TEXT': _('Alt text'),
+        'DECORATIVE_IMAGE': _('Decorative image'),
         'WRITE_HERE': _('Write here…'),
         'HORIZONTAL_LINE': _('Horizontal line'),
         'LINE_BREAK': _('Line break'),
@@ -78,6 +77,26 @@ def get_js_translation_strings():
         'EDIT_PAGE': _('Edit \'{title}\''),
         'VIEW_CHILD_PAGES_OF_PAGE': _('View child pages of \'{title}\''),
         'PAGE_EXPLORER': _('Page explorer'),
+        'SAVE': _('Save'),
+        'SAVING': _('Saving...'),
+        'CANCEL': _('Cancel'),
+        'DELETING': _('Deleting...'),
+        'ADD_A_COMMENT': _('Add a comment'),
+        'SHOW_COMMENTS': _('Show comments'),
+        'REPLY': _('Reply'),
+        'RESOLVE': _('Resolve'),
+        'RETRY': _('Retry'),
+        'DELETE_ERROR': _('Delete error'),
+        'CONFIRM_DELETE_COMMENT': _('Are you sure?'),
+        'SAVE_ERROR': _('Save error'),
+        'SAVE_COMMENT_WARNING': _('This will be saved when the page is saved'),
+        'FOCUS_COMMENT': _('Focus comment'),
+        'UNFOCUS_COMMENT': _('Unfocus comment'),
+        'COMMENT': _('Comment'),
+        'MORE_ACTIONS': _('More actions'),
+        'SAVE_PAGE_TO_ADD_COMMENT': _('Save the page to add this comment'),
+        'SAVE_PAGE_TO_SAVE_COMMENT_CHANGES': _('Save the page to save this comment'),
+        'SAVE_PAGE_TO_SAVE_REPLY': _('Save the page to save this reply'),
 
         'MONTHS': [str(m) for m in MONTHS.values()],
 
@@ -93,4 +112,7 @@ def get_available_admin_languages():
 
 
 def get_available_admin_time_zones():
+    if not settings.USE_TZ:
+        return []
+
     return getattr(settings, 'WAGTAIL_USER_TIME_ZONES', pytz.common_timezones)

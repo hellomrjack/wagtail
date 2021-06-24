@@ -121,6 +121,7 @@ INSTALLED_APPS = [
     'wagtail.tests.search',
     'wagtail.tests.modeladmintest',
     'wagtail.tests.i18n',
+    'wagtail.contrib.simple_translation',
     'wagtail.contrib.styleguide',
     'wagtail.contrib.routable_page',
     'wagtail.contrib.frontend_cache',
@@ -175,6 +176,8 @@ WAGTAILSEARCH_BACKENDS = {
         'BACKEND': 'wagtail.search.backends.db',
     }
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 if os.environ.get('USE_EMAIL_USER_MODEL'):
     INSTALLED_APPS.append('wagtail.tests.emailuser')

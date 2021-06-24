@@ -1,3 +1,4 @@
+import functools
 import json
 import logging
 import uuid
@@ -40,7 +41,9 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
+from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
+from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.query import PageQuerySet, TreeQuerySet
 from wagtail.core.signals import (
     page_published, page_unpublished, post_page_move, pre_page_move, task_approved, task_cancelled,
@@ -150,7 +153,11 @@ def _copy(source, exclude_fields=None, update_attrs=None):
                 continue
             setattr(target, field, value)
 
-    child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
+    if isinstance(source, ClusterableModel):
+        child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
+    else:
+        child_object_map = {}
+
     return target, child_object_map
 
 
@@ -292,10 +299,10 @@ class Site(models.Model):
         Each root path is an instance of the `SiteRootPath` named tuple,
         and have the following attributes:
 
-         - `site_id` - The ID of the Site record
-         - `root_path` - The internal URL path of the site's home page (for example '/home/')
-         - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
-         - `language_code` - The language code of the site (for example 'en')
+        - `site_id` - The ID of the Site record
+        - `root_path` - The internal URL path of the site's home page (for example '/home/')
+        - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
+        - `language_code` - The language code of the site (for example 'en')
         """
         result = cache.get('wagtail_site_root_paths')
 
@@ -328,10 +335,6 @@ def pk(obj):
 
 
 class LocaleManager(models.Manager):
-    def get_queryset(self):
-        # Exclude any locales that have an invalid language code
-        return super().get_queryset().filter(language_code__in=get_content_languages().keys())
-
     def get_for_language(self, language_code):
         """
         Gets a Locale from a language code.
@@ -493,9 +496,14 @@ class TranslatableMixin(models.Model):
 
         Note that the copy is initially unsaved.
         """
-        translated = self.__class__.objects.get(id=self.id)
-        translated.id = None
+        translated, child_object_map = _copy(self)
         translated.locale = locale
+
+        # Update locale on any translatable child objects as well
+        # Note: If this is not a subclass of ClusterableModel, child_object_map will always be '{}'
+        for (child_relation, old_pk), child_object in child_object_map.items():
+            if isinstance(child_object, TranslatableMixin):
+                child_object.locale = locale
 
         return translated
 
@@ -671,6 +679,14 @@ def get_default_page_content_type():
     return ContentType.objects.get_for_model(Page)
 
 
+@functools.lru_cache(maxsize=None)
+def get_streamfield_names(model_class):
+    return tuple(
+        field.name for field in model_class._meta.concrete_fields
+        if isinstance(field, StreamField)
+    )
+
+
 class BasePageManager(models.Manager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by('path')
@@ -759,10 +775,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     )
 
     seo_title = models.CharField(
-        verbose_name=_("page title"),
+        verbose_name=_("title tag"),
         max_length=255,
         blank=True,
-        help_text=_("Optional. 'Search Engine Friendly' title. This will appear at the top of the browser window.")
+        help_text=_("The name of the page displayed on search engine results as the clickable headline.")
     )
 
     show_in_menus_default = False
@@ -771,7 +787,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         default=False,
         help_text=_("Whether a link to this page will appear in automatically generated menus")
     )
-    search_description = models.TextField(verbose_name=_('search description'), blank=True)
+    search_description = models.TextField(
+        verbose_name=_('meta description'),
+        blank=True,
+        help_text=_("The descriptive text displayed underneath a headline in search engine results.")
+    )
 
     go_live_at = models.DateTimeField(
         verbose_name=_("go live date/time"),
@@ -865,7 +885,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
-    default_exclude_fields_in_copy = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
+    default_exclude_fields_in_copy = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries', 'comments']
 
     # Define these attributes early to avoid masking errors. (Issue #3078)
     # The canonical definition is in wagtailadmin.edit_handlers.
@@ -888,6 +908,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def __str__(self):
         return self.title
+
+    @classmethod
+    def get_streamfield_names(cls):
+        return get_streamfield_names(cls)
 
     def set_url_path(self, parent):
         """
@@ -1165,11 +1189,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
         )
 
-    def get_specific(self, deferred=False, copy_attrs=None):
+    def get_specific(self, deferred=False, copy_attrs=None, copy_attrs_exclude=None):
         """
         .. versionadded:: 2.12
 
         Return this page in its most specific subclassed form.
+
+        .. versionchanged:: 2.13
+            * When ``copy_attrs`` is not supplied, all known non-field attribute
+              values are copied to the returned object. Previously, no non-field
+              values would be copied.
+            * The ``copy_attrs_exclude`` option was added.
 
         By default, a database query is made to fetch all field values for the
         specific object. If you only require access to custom methods or other
@@ -1178,10 +1208,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         specific field values from the returned object will trigger additional
         database queries.
 
-        If there are attribute values on this object that you wish to be copied
-        over to the specific version (for example: evaluated relationship field
-        values, annotations or cached properties), use `copy_attrs`` to pass an
-        iterable of names of attributes you wish to be copied.
+        By default, references to all non-field attribute values are copied
+        from current object to the returned one. This includes:
+
+        * Values set by a queryset, for example: annotations, or values set as
+          a result of using ``select_related()`` or ``prefetch_related()``.
+        * Any ``cached_property`` values that have been evaluated.
+        * Attributes set elsewhere in Python code.
+
+        For fine-grained control over which non-field values are copied to the
+        returned object, you can use ``copy_attrs`` to specify a complete list
+        of attribute names to include. Alternatively, you can use
+        ``copy_attrs_exclude`` to specify a list of attribute names to exclude.
 
         If called on a page object that is already an instance of the most
         specific class (e.g. an ``EventPage``), the object will be returned
@@ -1221,10 +1259,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Fetch object from database
             specific_obj = model_class._default_manager.get(id=self.id)
 
-        # Copy additional attribute values
-        for attr in copy_attrs or ():
-            if attr in self.__dict__:
+        # Copy non-field attribute values
+        if copy_attrs is not None:
+            for attr in (attr for attr in copy_attrs if attr in self.__dict__):
                 setattr(specific_obj, attr, getattr(self, attr))
+        else:
+            exclude = copy_attrs_exclude or ()
+            for k, v in (
+                (k, v) for k, v in self.__dict__.items()
+                if k not in exclude
+            ):
+                # only set values that haven't already been set
+                specific_obj.__dict__.setdefault(k, v)
 
         return specific_obj
 
@@ -1365,6 +1411,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if clean:
             self.full_clean()
 
+        new_comments = self.comments.filter(pk__isnull=True)
+        for comment in new_comments:
+            # We need to ensure comments have an id in the revision, so positions can be identified correctly
+            comment.save()
+
         # Create revision
         revision = self.revisions.create(
             content_json=self.to_json(),
@@ -1373,7 +1424,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             approved_go_live_at=approved_go_live_at,
         )
 
-        update_fields = []
+        for comment in new_comments:
+            comment.revision_created = revision
+
+        update_fields = ['comments']
 
         self.latest_revision_created_at = revision.created_at
         update_fields.append('latest_revision_created_at')
@@ -1468,6 +1522,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             # Copy field content
             alias_updated = alias.with_content_json(_content_json)
+
+            # Publish the alias if it's currently in draft
+            alias_updated.live = True
+            alias_updated.has_unpublished_changes = False
 
             # Copy child relations
             child_object_map = specific_self.copy_all_child_relations(target=alias_updated, exclude=exclude_fields)
@@ -2014,7 +2072,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         PageLogEntry.objects.log_action(
             instance=self,
-            action='wagtail.move',
+            # Check if page was reordered (reordering doesn't change the parent)
+            action='wagtail.reorder' if parent_before.id == target.id else 'wagtail.move',
             user=user,
             data={
                 'source': {
@@ -2043,14 +2102,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
         specific_self = self.specific
         if keep_live:
-            base_update_attrs = {}
+            base_update_attrs = {
+                'alias_of': None,
+            }
         else:
             base_update_attrs = {
                 'live': False,
                 'has_unpublished_changes': True,
                 'live_revision': None,
                 'first_published_at': None,
-                'last_published_at': None
+                'last_published_at': None,
+                'alias_of': None,
             }
 
         if user:
@@ -2664,8 +2726,32 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return self.get_siblings(inclusive).filter(path__lte=self.path).order_by('-path')
 
     def get_view_restrictions(self):
-        """Return a query set of all page view restrictions that apply to this page"""
-        return PageViewRestriction.objects.filter(page__in=self.get_ancestors(inclusive=True))
+        """
+        Return a query set of all page view restrictions that apply to this page.
+
+        This checks the current page and all ancestor pages for page view restrictions.
+
+        If any of those pages are aliases, it will resolve them to their source pages
+        before querying PageViewRestrictions so alias pages use the same view restrictions
+        as their source page and they cannot have their own.
+        """
+        page_ids_to_check = set()
+
+        def add_page_to_check_list(page):
+            # If the page is an alias, add the source page to the check list instead
+            if page.alias_of:
+                add_page_to_check_list(page.alias_of)
+            else:
+                page_ids_to_check.add(page.id)
+
+        # Check current page for view restrictions
+        add_page_to_check_list(self)
+
+        # Check each ancestor for view restrictions as well
+        for page in self.get_ancestors().only('alias_of'):
+            add_page_to_check_list(page)
+
+        return PageViewRestriction.objects.filter(page_id__in=page_ids_to_check)
 
     password_required_template = getattr(settings, 'PASSWORD_REQUIRED_TEMPLATE', 'wagtailcore/password_required.html')
 
@@ -2703,6 +2789,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``latest_revision_created_at``
         * ``first_published_at``
         * ``alias_of``
+        * ``comments``
         """
 
         obj = self.specific_class.from_json(content_json)
@@ -2735,6 +2822,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.translation_key = self.translation_key
         obj.locale = self.locale
         obj.alias_of_id = self.alias_of_id
+        revision_comments = obj.comments
+        page_comments = self.comments.filter(resolved_at__isnull=True)
+        for comment in page_comments:
+            # attempt to retrieve the comment position from the revision's stored version
+            # of the comment
+            try:
+                revision_comment = revision_comments.get(id=comment.id)
+                comment.position = revision_comment.position
+            except Comment.DoesNotExist:
+                pass
+        obj.comments = page_comments
 
         return obj
 
@@ -2764,21 +2862,23 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def current_workflow_state(self):
         """Returns the in progress or needs changes workflow state on this page, if it exists"""
         try:
-            return WorkflowState.objects.active().get(page=self)
+            return WorkflowState.objects.active().select_related("current_task_state__task").get(page=self)
         except WorkflowState.DoesNotExist:
             return
 
     @property
     def current_workflow_task_state(self):
         """Returns (specific class of) the current task state of the workflow on this page, if it exists"""
-        if self.current_workflow_state and self.current_workflow_state.status == WorkflowState.STATUS_IN_PROGRESS and self.current_workflow_state.current_task_state:
-            return self.current_workflow_state.current_task_state.specific
+        current_workflow_state = self.current_workflow_state
+        if current_workflow_state and current_workflow_state.status == WorkflowState.STATUS_IN_PROGRESS and current_workflow_state.current_task_state:
+            return current_workflow_state.current_task_state.specific
 
     @property
     def current_workflow_task(self):
         """Returns (specific class of) the current task in progress on this page, if it exists"""
-        if self.current_workflow_task_state:
-            return self.current_workflow_task_state.task.specific
+        current_workflow_task_state = self.current_workflow_task_state
+        if current_workflow_task_state:
+            return current_workflow_task_state.task.specific
 
     class Meta:
         verbose_name = _('page')
@@ -2890,6 +2990,20 @@ class PageRevision(models.Model):
         latest_revision = PageRevision.objects.filter(page_id=self.page_id).order_by('-created_at', '-id').first()
         return (latest_revision == self)
 
+    def delete(self):
+        # Update revision_created fields for comments that reference the current revision, if applicable.
+
+        try:
+            next_revision = self.get_next()
+        except PageRevision.DoesNotExist:
+            next_revision = None
+
+        if next_revision:
+            # move comments created on this revision to the next revision, as they may well still apply if they're unresolved
+            self.created_comments.all().update(revision_created=next_revision)
+
+        return super().delete()
+
     def publish(self, user=None, changed=True, log_action=True, previous_revision=None):
         """
         Publishes or schedules revision for publishing.
@@ -2970,6 +3084,10 @@ class PageRevision(models.Model):
             page.live_revision = None
 
         page.save()
+
+        for comment in page.comments.all().only('position'):
+            comment.save(update_fields=['position'])
+
         self.submitted_for_moderation = False
         page.revisions.update(submitted_for_moderation=False)
 
@@ -3236,8 +3354,9 @@ class PagePermissionTester:
         return self.page.locked_by_id == self.user.pk
 
     def page_locked(self):
-        if self.page.current_workflow_task:
-            if self.page.current_workflow_task.page_locked_for_user(self.page, self.user):
+        current_workflow_task = self.page.current_workflow_task
+        if current_workflow_task:
+            if current_workflow_task.page_locked_for_user(self.page, self.user):
                 return True
 
         if not self.page.locked:
@@ -3275,8 +3394,9 @@ class PagePermissionTester:
         if 'add' in self.permissions and self.page.owner_id == self.user.pk:
             return True
 
-        if self.page.current_workflow_task:
-            if self.page.current_workflow_task.user_can_access_editor(self.page, self.user):
+        current_workflow_task = self.page.current_workflow_task
+        if current_workflow_task:
+            if current_workflow_task.user_can_access_editor(self.page, self.user):
                 return True
 
         return False
@@ -3350,9 +3470,9 @@ class PagePermissionTester:
     def can_lock(self):
         if self.user.is_superuser:
             return True
-
-        if self.page.current_workflow_task:
-            return self.page.current_workflow_task.user_can_lock(self.page, self.user)
+        current_workflow_task = self.page.current_workflow_task
+        if current_workflow_task:
+            return current_workflow_task.user_can_lock(self.page, self.user)
 
         if 'lock' in self.permissions:
             return True
@@ -3366,8 +3486,9 @@ class PagePermissionTester:
         if self.user_has_lock():
             return True
 
-        if self.page.current_workflow_task:
-            return self.page.current_workflow_task.user_can_unlock(self.page, self.user)
+        current_workflow_task = self.page.current_workflow_task
+        if current_workflow_task:
+            return current_workflow_task.user_can_unlock(self.page, self.user)
 
         if 'unlock' in self.permissions:
             return True
@@ -4644,6 +4765,7 @@ class BaseLogEntry(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,  # Null if actioned by system
+        blank=True,
         on_delete=models.DO_NOTHING,
         db_constraint=False,
         related_name='+',
@@ -4655,11 +4777,23 @@ class BaseLogEntry(models.Model):
 
     objects = BaseLogEntryManager()
 
+    action_registry = None
+
     class Meta:
         abstract = True
         verbose_name = _('log entry')
         verbose_name_plural = _('log entries')
         ordering = ['-timestamp']
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
+
+    def clean(self):
+        self.action_registry.scan_for_actions()
+
+        if self.action not in self.action_registry.actions:
+            raise ValidationError({'action': _("The log action '{}' has not been registered.").format(self.action)})
 
     def __str__(self):
         return "LogEntry %d: '%s' on '%s'" % (
@@ -4728,12 +4862,15 @@ class PageLogEntry(BaseLogEntry):
     revision = models.ForeignKey(
         'wagtailcore.PageRevision',
         null=True,
+        blank=True,
         on_delete=models.DO_NOTHING,
         db_constraint=False,
         related_name='+',
     )
 
     objects = PageLogEntryManager()
+
+    action_registry = page_log_action_registry
 
     class Meta:
         ordering = ['-timestamp', '-id']
@@ -4748,3 +4885,83 @@ class PageLogEntry(BaseLogEntry):
     @cached_property
     def object_id(self):
         return self.page_id
+
+
+class Comment(ClusterableModel):
+    """
+    A comment on a field, or a field within a streamfield block
+    """
+    page = ParentalKey(Page, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField()
+
+    contentpath = models.TextField()
+    # This stores the field or field within a streamfield block that the comment is applied on, in the form: 'field', or 'field.block_id.field'
+    # This must be unchanging across all revisions, so we will not support (current-format) ListBlock or the contents of InlinePanels initially.
+
+    position = models.TextField(blank=True)
+    # This stores the position within a field, to be interpreted by the field's frontend widget. It may change between revisions
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    revision_created = models.ForeignKey(PageRevision, on_delete=models.CASCADE, related_name='created_comments', null=True, blank=True)
+
+    resolved_at = models.DateTimeField(null=True, blank=True)
+    resolved_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        related_name='comments_resolved',
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = _('comment')
+        verbose_name_plural = _('comments')
+
+    def __str__(self):
+        return "Comment on Page '{0}', left by {1}: '{2}'".format(self.page, self.user, self.text)
+
+    def save(self, update_position=False, **kwargs):
+        # Don't save the position unless specifically instructed to, as the position will normally be retrieved from the revision
+        update_fields = kwargs.pop('update_fields', None)
+        if not update_position and (not update_fields or 'position' not in update_fields):
+            if self.id:
+                # The instance is already saved; we can use `update_fields`
+                update_fields = update_fields if update_fields else self._meta.get_fields()
+                update_fields = [field.name for field in update_fields if field.name not in {'position', 'id'}]
+            else:
+                # This is a new instance, we have to preserve and then restore the position via a variable
+                position = self.position
+                result = super().save(**kwargs)
+                self.position = position
+                return result
+        return super().save(update_fields=update_fields, **kwargs)
+
+
+class CommentReply(models.Model):
+    comment = ParentalKey(Comment, on_delete=models.CASCADE, related_name='replies')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comment_replies')
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = _('comment reply')
+        verbose_name_plural = _('comment replies')
+
+    def __str__(self):
+        return "CommentReply left by '{0}': '{1}'".format(self.user, self.text)
+
+
+class PageSubscription(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='page_subscriptions')
+    page = models.ForeignKey(Page, on_delete=models.CASCADE, related_name='subscribers')
+
+    comment_notifications = models.BooleanField()
+
+    class Meta:
+        unique_together = [
+            ('page', 'user'),
+        ]

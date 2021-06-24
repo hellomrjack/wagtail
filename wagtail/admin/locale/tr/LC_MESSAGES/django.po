@@ -11,14 +11,15 @@
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Py Data Geek <pydatageek@gmail.com>, 2019
 # Ragıp Ünal <ragip@ragipunal.com>, 2016
+# suayip uzulmez <suayip.541@gmail.com>, 2021
 # Umut Bektaş <info@umutbektas.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-10 04:12+0000\n"
-"Last-Translator: Fatih Koç koç <fatihinemaili@gmail.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-04-20 19:23+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -81,9 +82,6 @@ msgstr "Planlanmış yayın"
 msgid "Privacy"
 msgstr "Gizlilik"
 
-msgid "Common page configuration"
-msgstr "Genel sayfa ayarları"
-
 msgid "Content"
 msgstr "İçerik"
 
@@ -127,8 +125,14 @@ msgstr "Şifreyi sıfırlamak için eposta adresini girin"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Üst-Ebeveyn"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Aynı kolleksiyon için birden fazla yetkiye sahip olamazsınız."
+
+msgid "Collection"
+msgstr "Koleksiyon"
 
 msgid "New title"
 msgstr "Yeni başlık"
@@ -210,108 +214,6 @@ msgstr "Bu alan zorunludur."
 msgid "Please select at least one group."
 msgstr "Lütfen en az bir grup seçin."
 
-msgid "Arabic"
-msgstr "Arapça"
-
-msgid "Catalan"
-msgstr "Katalonca"
-
-msgid "Czech"
-msgstr "Çekçe"
-
-msgid "German"
-msgstr "Almanca"
-
-msgid "Greek"
-msgstr "Yunanca"
-
-msgid "English"
-msgstr "İngilizce"
-
-msgid "Spanish"
-msgstr "İspanyolca"
-
-msgid "Finnish"
-msgstr "Fince"
-
-msgid "French"
-msgstr "Fransızca"
-
-msgid "Galician"
-msgstr "Galiçyaca"
-
-msgid "Hungarian"
-msgstr "Macarca"
-
-msgid "Indonesian"
-msgstr "Endonezce"
-
-msgid "Icelandic"
-msgstr "İzlandaca"
-
-msgid "Italian"
-msgstr "İtalyanca"
-
-msgid "Japanese"
-msgstr "Japonca"
-
-msgid "Korean"
-msgstr "Korece"
-
-msgid "Lithuanian"
-msgstr "Litvanca"
-
-msgid "Mongolian"
-msgstr "Moğolca"
-
-msgid "Norwegian Bokmål"
-msgstr "Bokmak Norveç Dili"
-
-msgid "Netherlands Dutch"
-msgstr "Hollanda Flemenkçesi"
-
-msgid "Persian"
-msgstr "Farsça"
-
-msgid "Polish"
-msgstr "Polonyaca"
-
-msgid "Brazilian Portuguese"
-msgstr "Brezilya Portekizcesi"
-
-msgid "Portuguese"
-msgstr "Portekizce"
-
-msgid "Romanian"
-msgstr "Romence"
-
-msgid "Russian"
-msgstr "Rusça"
-
-msgid "Swedish"
-msgstr "İsveççe"
-
-msgid "Slovak"
-msgstr "Slovakça"
-
-msgid "Thai"
-msgstr "Tayca"
-
-msgid "Turkish"
-msgstr "Türkçe"
-
-msgid "Turkish (Turkey)"
-msgstr "Türkçe (Türkiye)"
-
-msgid "Ukrainian"
-msgstr "Ukraynaca"
-
-msgid "Chinese (Simplified)"
-msgstr "Çince (Basitleştirilmiş)"
-
-msgid "Chinese (Traditional)"
-msgstr "Çince (Geleneksel)"
-
 msgid "Edit"
 msgstr "Düzenle"
 
@@ -388,6 +290,9 @@ msgstr "'{title}' alt sayfalarını gör"
 msgid "Page explorer"
 msgstr "Sayfa bulucu"
 
+msgid "Save"
+msgstr "Kaydet"
+
 msgid "Error 404: Page not found"
 msgstr "Hata 404: Sayfa bulunamadı"
 
@@ -403,36 +308,12 @@ msgstr "Wagtail yönetimine git"
 msgid "Account"
 msgstr "Hesap"
 
-msgid "Change profile picture"
-msgstr "Profil resmini değiştir"
-
-msgid "Your current profile picture:"
-msgstr "Mevcut profil resminiz:"
-
-msgid "Update"
-msgstr "Güncelle"
-
-msgid "Change email"
-msgstr "E-posta değiştir"
-
-msgid "Change name"
-msgstr "Adı değiştir"
-
 msgid "Change password"
 msgstr "Şifre değiştir"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "Şifreniz değiştirilemiyor. Yönetici ile irtibata geçin."
-
-msgid "Set Time Zone"
-msgstr "Saat Dilimini Ayarla"
-
-msgid "Language Preferences"
-msgstr "Dil Tercihleri"
-
-msgid "Notification preferences"
-msgstr "Bildirim tercihleri"
 
 msgid "Reset password"
 msgstr "Şifreyi sıfırla"
@@ -484,12 +365,6 @@ msgstr "Kontrol paneli"
 
 msgid "Menu"
 msgstr "Menü"
-
-msgid "Move up"
-msgstr "Yukarı taşı"
-
-msgid "Move down"
-msgstr "Aşağı taşı"
 
 msgid "Explorer"
 msgstr "Keşfedici"
@@ -585,9 +460,6 @@ msgid ""
 msgstr ""
 "Gizlilik ayarları, bu koleksiyondaki belgeleri kimin görebileceğini belirler."
 
-msgid "Save"
-msgstr "Kaydet"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Koleksiyon gizliliğini ayarla. Şimdiki durum: Genel"
 
@@ -619,8 +491,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Ekle %(label)s"
 
+msgid "Move up"
+msgstr "Yukarı taşı"
+
+msgid "Move down"
+msgstr "Aşağı taşı"
+
 msgid "Yes, delete"
 msgstr "Evet, sil"
+
+msgid "Update"
+msgstr "Güncelle"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -650,9 +531,6 @@ msgstr "Yayında"
 
 msgid "Pages awaiting moderation"
 msgstr "Denetlenmeyi bekleyen sayfalar"
-
-msgid "Parent"
-msgstr "Üst-Ebeveyn"
 
 msgid "Type"
 msgstr "Tip"
@@ -787,6 +665,9 @@ msgstr "Sayfa gizliliği. Şimdiki durum: Gizli"
 
 msgid "Publishing…"
 msgstr "Yayınlanıyor…"
+
+msgid "Publish this version"
+msgstr "Bu düzeltmeyi yayınla"
 
 msgid "Saving…"
 msgstr "Kaydediliyor…"
@@ -1234,14 +1115,15 @@ msgstr[1] ""
 msgid "Page types"
 msgstr "Sayfa türleri"
 
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Üzgünüz, <em>\"%(query_string)s\"</em> ile eşleşen sayfa yok."
+
 msgid "Enter a search term above"
 msgstr "Bir arama kelimesi girin"
 
 msgid "No pages use"
 msgstr "Hiçbir sayfa kullanmıyor"
-
-msgid "Collection"
-msgstr "Koleksiyon"
 
 msgid "No pages match this report's criteria."
 msgstr "Rapor kriterine göre eşleşen sayfa bulunmamaktadır."
@@ -1292,6 +1174,33 @@ msgstr "Şimdiki sayfa durumu:"
 msgid "Other searches"
 msgstr "Diğer aramalar"
 
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Bu yazılım tarafından desteklenmeyen, <strong>eski</strong> bir tarayıcı "
+"kullanıyorsunuz. Lütfen <a href=\"https://browsehappy.com/\">tarayıcınızı "
+"yükseltin</a>."
+
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"Wagtail kullanmak için JavaScript gerekli ancak şu an devre dışıdır.<br /"
+">           \n"
+"\n"
+"Bu adresten <a href=\"https://www.enable-javascript.com/\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">tarayıcınızda JavaScript'i nasıl "
+"aktifleştireceğinize dair talimatları</a> görebilirsiniz.\n"
+"    "
+
 msgid "Go to Wagtail admin interface"
 msgstr "Wagtail yönetici arayüzüne git"
 
@@ -1326,21 +1235,6 @@ msgstr ""
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Your password has been changed successfully!"
-msgstr "Şifreniz başarıyla değiştirildi!"
-
-msgid "Your email has been changed successfully!"
-msgstr "Eposta adresiniz başarıyla değiştirildi!"
-
-msgid "Your name has been changed successfully!"
-msgstr "Adınız başarıyla değiştirildi!"
-
-msgid "Your preferences have been updated."
-msgstr "Tercihleriniz güncellendi."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Tercihleriniz başarıyla güncellendi!"
 
 msgid "You have been successfully logged out."
 msgstr "Başarılı bir şekilde çıkış yaptınız."
@@ -1504,36 +1398,6 @@ msgstr "'%(title)s' sayfasını sil"
 #, python-format
 msgid "Unpublish page '%(title)s'"
 msgstr "'%(title)s' sayfasını yayından kaldır"
-
-msgid "Set profile picture"
-msgstr "Profil resmini ayarla"
-
-msgid "Change your profile picture."
-msgstr "Profil resimini değiştir."
-
-msgid "Change the email address linked to your account."
-msgstr "Hesabınıza bağlı olan eposta adresinizi değiştirin."
-
-msgid "Change the password you use to log in."
-msgstr "Giriş şifrenizi değiştirin"
-
-msgid "Choose which email notifications to receive."
-msgstr "Almak istediğiniz eposta bildirimlerini seçin."
-
-msgid "Language preferences"
-msgstr "Dil tercihleri"
-
-msgid "Choose the language you want to use here."
-msgstr "Kullanmak istediğiniz dili seçin."
-
-msgid "Current Time Zone"
-msgstr "Şimdiki Saat Dilimi"
-
-msgid "Choose your current time zone."
-msgstr "Şimdiki saat diliminizi seçin."
-
-msgid "Change your first and last name on your account."
-msgstr "Hesabınızda ad ve soyadınızı değiştirin."
 
 #, python-format
 msgid "Heading %(level)d"

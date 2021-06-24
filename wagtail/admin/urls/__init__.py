@@ -53,25 +53,6 @@ urlpatterns = [
     path('reports/', include(wagtailadmin_reports_urls, namespace='wagtailadmin_reports')),
 
     path('account/', account.account, name='wagtailadmin_account'),
-    path('account/change_password/', account.change_password, name='wagtailadmin_account_change_password'),
-    path('account/change_email/', account.change_email, name='wagtailadmin_account_change_email'),
-    path('account/change_name/', account.change_name, name='wagtailadmin_account_change_name'),
-    path(
-        'account/notification_preferences/',
-        account.notification_preferences,
-        name='wagtailadmin_account_notification_preferences'
-    ),
-    path('account/change_avatar/', account.change_avatar, name='wagtailadmin_account_change_avatar'),
-    path(
-        'account/language_preferences/',
-        account.language_preferences,
-        name='wagtailadmin_account_language_preferences'
-    ),
-    path(
-        'account/current_time_zone/',
-        account.current_time_zone,
-        name='wagtailadmin_account_current_time_zone'
-    ),
     path('logout/', account.LogoutView.as_view(), name='wagtailadmin_logout'),
 ]
 

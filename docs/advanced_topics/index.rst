@@ -15,7 +15,6 @@ Advanced topics
     privacy
     customisation/index
     third_party_tutorials
-    jinja2
     testing
     api/index
     amp
@@ -23,3 +22,4 @@ Advanced topics
     custom_tasks
     audit_log
     accessibility_considerations
+    boundblocks_and_values

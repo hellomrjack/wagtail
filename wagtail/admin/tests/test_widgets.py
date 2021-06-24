@@ -26,6 +26,31 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser()
         self.assertFalse(widget.is_hidden)
 
+    def test_adapt(self):
+        widget = widgets.AdminPageChooser()
+
+        js_args = widgets.PageChooserAdapter().js_args(widget)
+        self.assertInHTML("""<input id="__ID__" name="__NAME__" type="hidden" />""", js_args[0])
+        self.assertIn(">Choose a page<", js_args[0])
+        self.assertEqual(js_args[1], '__ID__')
+        self.assertEqual(js_args[2], {
+            'can_choose_root': False,
+            'model_names': ['wagtailcore.page'],
+            'user_perms': None
+        })
+
+    def test_adapt_with_target_model(self):
+        widget = widgets.AdminPageChooser(target_models=[SimplePage, EventPage])
+
+        js_args = widgets.PageChooserAdapter().js_args(widget)
+        self.assertEqual(js_args[2]['model_names'], ['tests.simplepage', 'tests.eventpage'])
+
+    def test_adapt_with_can_choose_root(self):
+        widget = widgets.AdminPageChooser(can_choose_root=True)
+
+        js_args = widgets.PageChooserAdapter().js_args(widget)
+        self.assertTrue(js_args[2]['can_choose_root'])
+
     def test_render_html(self):
         # render_html is mostly an internal API, but we do want to support calling it with None as
         # a value, to render a blank field without the JS initialiser (so that we can call that
@@ -92,6 +117,26 @@ class TestAdminPageChooserWidget(TestCase):
 
 class TestAdminDateInput(TestCase):
 
+    def test_adapt(self):
+        widget = widgets.AdminDateInput()
+
+        js_args = widgets.AdminDateInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'Y-m-d'
+        })
+
+    def test_adapt_with_custom_format(self):
+        widget = widgets.AdminDateInput(format='%d.%m.%Y')
+
+        js_args = widgets.AdminDateInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'd.m.Y'
+        })
+
     def test_render_js_init(self):
         widget = widgets.AdminDateInput()
 
@@ -136,7 +181,84 @@ class TestAdminDateInput(TestCase):
         self.assertIn('vendor/star_date.js', media_html)
 
 
+class TestAdminTimeInput(TestCase):
+
+    def test_adapt(self):
+        widget = widgets.AdminTimeInput()
+
+        js_args = widgets.AdminTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'format': 'H:i',
+            'formatTime': 'H:i'
+        })
+
+    def test_adapt_with_custom_format(self):
+        widget = widgets.AdminTimeInput(format='%H:%M:%S')
+
+        js_args = widgets.AdminTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'format': 'H:i:s',
+            'formatTime': 'H:i:s'
+        })
+
+    def test_render_js_init(self):
+        widget = widgets.AdminTimeInput()
+
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+
+        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
+
+        # we should see the JS initialiser code:
+        # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
+        # except that we can't predict the order of the config options
+        self.assertIn('initTimeChooser("test\\u002Did", {', html)
+        self.assertIn('"format": "H:i"', html)
+
+    def test_render_js_init_with_format(self):
+        widget = widgets.AdminTimeInput(format='%H:%M:%S')
+
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+        self.assertIn(
+            '"format": "H:i:s"',
+            html,
+        )
+
+    @override_settings(WAGTAIL_TIME_FORMAT='%H:%M:%S')
+    def test_render_js_init_with_format_from_settings(self):
+        widget = widgets.AdminTimeInput()
+
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+        self.assertIn(
+            '"format": "H:i:s"',
+            html,
+        )
+
+
 class TestAdminDateTimeInput(TestCase):
+
+    def test_adapt(self):
+        widget = widgets.AdminDateTimeInput()
+
+        js_args = widgets.AdminDateTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'Y-m-d H:i',
+            'formatTime': 'H:i'
+        })
+
+    def test_adapt_with_custom_format(self):
+        widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M', time_format='%H:%M %p')
+
+        js_args = widgets.AdminDateTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'd.m.Y. H:i',
+            'formatTime': 'H:i A'
+        })
 
     def test_render_js_init(self):
         widget = widgets.AdminDateTimeInput()

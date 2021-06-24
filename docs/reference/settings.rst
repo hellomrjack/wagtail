@@ -31,9 +31,9 @@ When ``WAGTAIL_APPEND_SLASH`` is ``False``, requests to Wagtail pages will be se
 
 .. note::
 
-  If you use the ``False`` setting, keep in mind that serving your pages both with and without slashes may affect search engines' ability to index your site. See `this Google Webmaster Blog post`_ for more details.
+  If you use the ``False`` setting, keep in mind that serving your pages both with and without slashes may affect search engines' ability to index your site. See `this Google Search Central Blog post`_ for more details.
 
-.. _this Google Webmaster Blog post: https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html
+.. _this Google Search Central Blog post: https://developers.google.com/search/blog/2010/04/to-slash-or-not-to-slash
 
 Search
 ======
@@ -199,6 +199,18 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
   WAGTAIL_MODERATION_ENABLED = True
 
 Changes whether the Submit for Moderation button is displayed in the action menu.
+
+Comments
+========
+
+.. versionadded:: 2.13
+
+.. code-block:: python
+
+  # Disable commenting
+  WAGTAILADMIN_COMMENTS_ENABLED = False
+
+Sets whether commenting is enabled for pages (``True`` by default).
 
 Images
 ======
@@ -659,10 +671,6 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
  * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but both ``DraftailRichTextArea`` and ``HalloRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
 
 If a ``'default'`` editor is not specified, rich text fields that do not specify an ``editor`` argument will use the Draftail editor with the default feature set enabled.
-
-.. versionchanged:: 2.10
-
-    Omitting the ``'default'`` editor now leaves the original default editor intact, so it is no longer necessary to redefine ``'default'`` when adding alternative editors.
 
 
 .. _WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK:

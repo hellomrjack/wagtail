@@ -170,6 +170,15 @@ If there is no ``request`` available in the template at all, you can use the set
 
 .. note:: You can not reliably get the correct settings instance for the current site from this template tag if the request object is not available. This is only relevant for multisite instances of Wagtail.
 
+By default, the tag will create or update a ``settings`` variable in the context. If you want to
+assign to a different context variable instead, use ``{% get_settings as other_variable_name %}``:
+
+.. code-block:: html+django
+
+    {% load wagtailsettings_tags %}
+    {% get_settings as wagtail_settings %}
+    {{ wagtail_settings.app_label.SocialMediaSettings.instagram }}
+
 .. _settings_tag_jinja2:
 
 Using in Jinja2 templates
@@ -214,7 +223,7 @@ You can store the settings instance in a variable to save some typing, if you ha
 
     {% with social_settings=settings("app_label.SocialMediaSettings") %}
         Follow us on Twitter at @{{ social_settings.twitter }},
-        or Instagram at @{{ social_settings.Instagram }}.
+        or Instagram at @{{ social_settings.instagram }}.
     {% endwith %}
 
 Or, alternately, using the ``set`` tag:
@@ -271,8 +280,6 @@ and two more to fetch each page):
 
 Utilising the ``page_url`` setting shortcut
 -------------------------------------------
-
-.. versionadded:: 2.10
 
 If, like in the previous section, your settings model references pages,
 and you regularly need to output the URLs of those pages in your project,

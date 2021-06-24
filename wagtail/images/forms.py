@@ -20,7 +20,7 @@ def formfield_for_dbfield(db_field, **kwargs):
     if db_field.name == 'file':
         return WagtailImageField(label=capfirst(db_field.verbose_name), **kwargs)
     elif db_field.name == 'collection':
-        return CollectionChoiceField(queryset=Collection.objects.all(), empty_label=None, **kwargs)
+        return CollectionChoiceField(label=_("Collection"), queryset=Collection.objects.all(), empty_label=None, **kwargs)
 
     # For all other fields, just call its formfield() method.
     return db_field.formfield(**kwargs)
@@ -95,10 +95,26 @@ class ImageInsertionForm(forms.Form):
     into a rich text area
     """
     format = forms.ChoiceField(
+        label=_("Format"),
         choices=[(format.name, format.label) for format in get_image_formats()],
         widget=forms.RadioSelect
     )
-    alt_text = forms.CharField()
+    image_is_decorative = forms.BooleanField(required=False, label=_("Image is decorative"))
+    alt_text = forms.CharField(required=False, label=_("Alt text"))
+
+    def clean_alt_text(self):
+        alt_text = self.cleaned_data['alt_text']
+        image_is_decorative = self.cleaned_data['image_is_decorative']
+
+        # Empty the alt text value if the image is set to be decorative
+        if image_is_decorative:
+            return ''
+        else:
+            # Alt text is required if image is not decorative.
+            if not alt_text:
+                msg = _("Please add some alt text for your image or mark it as decorative")
+                self.add_error('alt_text', msg)
+        return alt_text
 
 
 class URLGeneratorForm(forms.Form):

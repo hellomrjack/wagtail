@@ -20,15 +20,15 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=2.2,<3.2",
+    "Django>=2.2,<3.3",
     "django-modelcluster>=5.1,<6.0",
     "django-taggit>=1.0,<2.0",
-    "django-treebeard>=4.2.0,<5.0",
+    "django-treebeard>=4.2.0,<5.0,!=4.5",
     "djangorestframework>=3.11.1,<4.0",
     "django-filter>=2.2,<3.0",
     "draftjs_exporter>=2.1.5,<3.0",
     "Pillow>=4.0.0,<9.0.0",
-    "beautifulsoup4>=4.8,<4.9",
+    "beautifulsoup4>=4.8,<4.10",
     "html5lib>=0.999,<2",
     "Willow>=1.4,<1.5",
     "requests>=2.11.1,<3.0",
@@ -36,6 +36,7 @@ install_requires = [
     "xlsxwriter>=1.2.8,<2.0",
     "tablib[xls,xlsx]>=0.14.0",
     "anyascii>=0.1.5",
+    "telepath>=0.1.1,<1",
 ]
 
 # Testing dependencies
@@ -44,7 +45,7 @@ testing_extras = [
     'python-dateutil>=2.2',
     'pytz>=2014.7',
     'elasticsearch>=5.0,<6.0',
-    'Jinja2>=2.8,<3.0',
+    'Jinja2>=2.11,<3.0',
     'boto3>=1.16,<1.17',
     'freezegun>=0.3.8',
     'openpyxl>=2.6.4',
@@ -75,7 +76,8 @@ documentation_extras = [
     'sphinxcontrib-spelling>=5.4.0,<6',
     'Sphinx>=1.5.2',
     'sphinx-autobuild>=0.6.0',
-    'sphinx_rtd_theme>=0.1.9',
+    'sphinx-wagtail-theme==5.0.3',
+    'recommonmark>=0.7.1',
 ]
 
 setup(
@@ -110,6 +112,7 @@ https://github.com/wagtail/wagtail/.",
         'Framework :: Django :: 2.2',
         'Framework :: Django :: 3.0',
         'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
         'Framework :: Wagtail',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],

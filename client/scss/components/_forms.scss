@@ -107,11 +107,11 @@ select::-ms-expand {
             display: none;
         }
     }
-}
 
-// the site setting dropdown is auto width, so the chevron will overlap with text if not padded
-.choice_field .setting-site-switch-form .input select {
-    padding-right: 5em;
+    // Override default select padding so the chevron will overlap with long option text
+    select {
+        padding-right: 5em;
+    }
 }
 
 // Other text
@@ -138,7 +138,8 @@ li.focused > .help {
     opacity: 1;
 }
 
-.required .field > label:after {
+.required .field > label:after,
+label.required:after {
     content: '*';
     color: $color-red;
     font-weight: bold;
@@ -425,6 +426,126 @@ li.inline:first-child {
             padding: 0 0 0.8em;
             float: none;
             width: auto;
+        }
+    }
+}
+
+.field-comment-control {
+    display: none;
+}
+
+.tab-content--comments-enabled {
+    .field {
+        position: relative;
+    }
+
+    .field-content {
+        padding-right: 45px;
+
+        @include media-breakpoint-up(sm) {
+            padding-right: 60px;
+        }
+    }
+
+    .widget-draftail_rich_text_area .field-content {
+        padding-right: 0;
+    }
+
+    .field-comment-control {
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        height: 100%;
+        line-height: 100%;
+
+        &--object {
+            right: 20px;
+
+            @include media-breakpoint-up(lg) {
+                right: 350px;
+            }
+        }
+
+        button {
+            @include transition(opacity 0.2s ease);
+            border: 0;
+            background: none;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            border-radius: 3px;
+            position: absolute;
+            top: 50%;
+            right: 0;
+
+            @include media-breakpoint-up(sm) {
+                right: 10px;
+            }
+
+            // Hide by default, reveal on hover of parent
+            @include media-breakpoint-up(md) {
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-50%);
+                right: 0;
+            }
+
+            .icon-reversed {
+                display: none;
+            }
+
+            &:hover {
+                cursor: pointer;
+
+                // stylelint-disable max-nesting-depth
+                .icon-default {
+                    display: none;
+                }
+
+                .icon-reversed {
+                    display: block;
+                }
+            }
+
+            &:focus {
+                opacity: 1;
+                pointer-events: initial;
+            }
+
+            > svg {
+                width: 30px;
+                height: 30px;
+                color: $color-teal;
+            }
+        }
+    }
+
+    .field-row .field-comment-control {
+        top: 0;
+    }
+
+    .field:not(.block_field) {
+        &:hover {
+            .field-comment-control button {
+                opacity: 1;
+                pointer-events: initial;
+            }
+        }
+    }
+
+    .object {
+        &:hover {
+            .field-comment-control--object button {
+                opacity: 1;
+                pointer-events: initial;
+            }
+        }
+    }
+
+    .object.model_choice_field {
+        .object-help {
+            right: 153px;
         }
     }
 }

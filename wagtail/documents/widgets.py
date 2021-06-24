@@ -3,10 +3,13 @@ import json
 from django import forms
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
 from wagtail.documents import get_document_model
 
 
@@ -55,3 +58,22 @@ class AdminDocumentChooser(AdminChooser):
             versioned_static('wagtaildocs/js/document-chooser-modal.js'),
             versioned_static('wagtaildocs/js/document-chooser.js'),
         ])
+
+
+class DocumentChooserAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.documents.widgets.DocumentChooser'
+
+    def js_args(self, widget):
+        return [
+            widget.render_html('__NAME__', None, attrs={'id': '__ID__'}),
+            widget.id_for_label('__ID__'),
+        ]
+
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtaildocs/js/document-chooser-telepath.js'),
+        ])
+
+
+register(DocumentChooserAdapter(), AdminDocumentChooser)

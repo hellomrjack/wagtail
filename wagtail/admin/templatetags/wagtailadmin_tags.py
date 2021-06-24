@@ -20,12 +20,12 @@ from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_js_translation_strings
-from wagtail.admin.log_action_registry import registry as log_action_registry
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.core import hooks
+from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.models import (
     Collection, CollectionViewRestriction, Locale, Page, PageLogEntry, PageViewRestriction,
     UserPagePermissionsProxy)
@@ -65,7 +65,7 @@ def main_nav(context):
 
 
 @register.inclusion_tag('wagtailadmin/shared/breadcrumb.html', takes_context=True)
-def explorer_breadcrumb(context, page, include_self=False):
+def explorer_breadcrumb(context, page, include_self=True, trailing_arrow=False):
     user = context['request'].user
 
     # find the closest common ancestor of the pages that this user has direct explore permission
@@ -75,7 +75,8 @@ def explorer_breadcrumb(context, page, include_self=False):
         return {'pages': Page.objects.none()}
 
     return {
-        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True).specific()
+        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True).specific(),
+        'trailing_arrow': trailing_arrow
     }
 
 
@@ -474,14 +475,14 @@ def admin_urlquote(value):
 
 
 @register.simple_tag
-def avatar_url(user, size=50):
+def avatar_url(user, size=50, gravatar_only=False):
     """
     A template tag that receives a user and size and return
     the appropiate avatar url for that user.
     Example usage: {% avatar_url request.user 50 %}
     """
 
-    if hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
+    if not gravatar_only and hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
         return user.wagtail_userprofile.avatar.url
 
     if hasattr(user, 'email'):
@@ -582,7 +583,7 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
 def format_action_log_message(log_entry):
     if not isinstance(log_entry, PageLogEntry):
         return ''
-    return log_action_registry.format_message(log_entry)
+    return page_log_action_registry.format_message(log_entry)
 
 
 @register.simple_tag

@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Benjamin Thurm, 2018
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2020
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
@@ -14,6 +14,7 @@
 # Matt Westcott <matthew@torchbox.com>, 2015
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016-2018
+# oliverengel <imwebunterwegs@icloud.com>, 2021
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
@@ -24,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-02 19:20+0000\n"
+"Last-Translator: oliverengel <imwebunterwegs@icloud.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +38,15 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail Kern"
+
+msgid "Duplicate"
+msgstr "Duplizieren"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Add"
+msgstr "Hinzufügen"
 
 #, python-format
 msgid "%(label)s: this block has no options."
@@ -64,6 +74,10 @@ msgstr "Das eingegebene Passwort ist falsch. Bitte versuchen Sie es erneut."
 
 msgid "Comment"
 msgstr "Kommentar"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Unbekannte %(action)s"
 
 msgid "hostname"
 msgstr "Hostname"
@@ -147,16 +161,6 @@ msgstr "URL Pfad"
 msgid "owner"
 msgstr "Eigner"
 
-msgid "page title"
-msgstr "Seitentitel"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Optional. Suchmaschinenfreundlicher Titel. Wird in der Titelleiste des "
-"Browsers angezeigt."
-
 msgid "show in menus"
 msgstr "In Menüs anzeigen"
 
@@ -164,9 +168,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Ob ein Link zu dieser Seite in automatisch generierten Menüs auftaucht."
-
-msgid "search description"
-msgstr "Suchbeschreibung"
 
 msgid "go live date/time"
 msgstr "Veröffentlicht ab"
@@ -248,9 +249,6 @@ msgstr "Seitenrevision"
 
 msgid "page revisions"
 msgstr "Seiten Revisionen"
-
-msgid "Add"
-msgstr "Hinzufügen"
 
 msgid "Add/edit pages you own"
 msgstr "Hinzufügen/Bearbeiten von Seiten, die Sie besitzen"

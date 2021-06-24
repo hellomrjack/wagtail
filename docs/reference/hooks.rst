@@ -159,12 +159,52 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``url`` (optional)
   A URL to an index page that lists the objects being described.
 
+
+``register_account_settings_panel``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Registers a new settings panel class to add to the "Account" view in the admin.
+
+This hook can be added to a sub-class of ``BaseSettingsPanel``. For example:
+
+  .. code-block:: python
+
+    from wagtail.admin.views.account import BaseSettingsPanel
+    from wagtail.core import hooks
+
+    @hooks.register('register_account_settings_panel')
+    class CustomSettingsPanel(BaseSettingsPanel):
+        name = 'custom'
+        title = "My custom settings"
+        order = 500
+        form_class = CustomSettingsForm
+
+Alternatively, it can also be added to a function. For example, this function is equivalent to the above:
+
+  .. code-block:: python
+
+    from wagtail.admin.views.account import BaseSettingsPanel
+    from wagtail.core import hooks
+
+    class CustomSettingsPanel(BaseSettingsPanel):
+        name = 'custom'
+        title = "My custom settings"
+        order = 500
+        form_class = CustomSettingsForm
+
+    @hooks.register('register_account_settings_panel')
+    def register_custom_settings_panel(request, user, profile):
+        return CustomSettingsPanel(request, user, profile)
+
+More details about the options that are available can be found at :doc:`/advanced_topics/customisation/custom_account_settings`.
+
+
 .. _register_account_menu_item:
 
 ``register_account_menu_item``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add an item to the “Account settings” page within the Wagtail admin.
+  Add an item to the "More actions" tab on the "Account" page within the Wagtail admin.
   The callable for this hook should return a dict with the keys
   ``url``, ``label`` and ``help_text``. For example:
 
@@ -191,7 +231,8 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   Add an item to the Wagtail admin menu. The callable passed to this hook must return an instance of ``wagtail.admin.menu.MenuItem``. New items can be constructed from the ``MenuItem`` class by passing in a ``label`` which will be the text in the menu item, and the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up). Additionally, the following keyword arguments are accepted:
 
   :name: an internal name used to identify the menu item; defaults to the slugified form of the label.
-  :classnames: additional classnames applied to the link, used to give it an icon
+  :icon_name: icon to display against the menu item
+  :classnames: additional classnames applied to the link
   :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu
 
@@ -208,7 +249,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('register_admin_menu_item')
     def register_frank_menu_item():
-      return MenuItem('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
+      return MenuItem('Frank', reverse('frank'), icon_name='folder-inverse', order=10000)
 
 
 .. _register_admin_urls:
@@ -287,7 +328,8 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   :label: text displayed in the "Other Searches" option box.
   :name: an internal name used to identify the search option; defaults to the slugified form of the label.
   :url: the URL of the target search page.
-  :classnames: additional CSS classnames applied to the link, used to give it an icon.
+  :classnames: arbitrary CSS classnames applied to the link
+  :icon_name: icon to display next to the label.
   :attrs: additional HTML attributes to apply to the link.
   :order: an integer which determines the item's position in the list of options.
 
@@ -306,7 +348,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('register_admin_search_area')
     def register_frank_search_area():
-        return SearchArea('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
+        return SearchArea('Frank', reverse('frank'), icon_name='folder-inverse', order=10000)
 
 
 .. _register_permissions:
@@ -1309,7 +1351,7 @@ Audit log
 
         from wagtail.core import hooks
 
-        @hook.register('register_log_actions')
+        @hooks.register('register_log_actions')
         def additional_log_actions(actions):
             actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
 

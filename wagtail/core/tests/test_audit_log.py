@@ -2,10 +2,12 @@ from datetime import datetime, timedelta
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
 
+from wagtail.core.log_actions import LogActionRegistry
 from wagtail.core.models import (
     Page, PageLogEntry, PageViewRestriction, Task, Workflow, WorkflowTask)
 from wagtail.tests.testapp.models import SimplePage
@@ -29,7 +31,7 @@ class TestAuditLogManager(TestCase, WagtailTestUtils):
 
         with freeze_time(now):
             entry = PageLogEntry.objects.log_action(
-                self.page, 'test', user=self.user
+                self.page, 'wagtail.edit', user=self.user
             )
 
         self.assertEqual(entry.content_type, self.page.content_type)
@@ -37,8 +39,8 @@ class TestAuditLogManager(TestCase, WagtailTestUtils):
         self.assertEqual(entry.timestamp, now)
 
     def test_get_for_model(self):
-        PageLogEntry.objects.log_action(self.page, 'test')
-        PageLogEntry.objects.log_action(self.simple_page, 'test')
+        PageLogEntry.objects.log_action(self.page, 'wagtail.edit')
+        PageLogEntry.objects.log_action(self.simple_page, 'wagtail.edit')
 
         entries = PageLogEntry.objects.get_for_model(SimplePage)
         self.assertEqual(entries.count(), 2)
@@ -85,8 +87,8 @@ class TestAuditLog(TestCase):
         self.assertEqual(PageLogEntry.objects.filter(action='wagtail.edit').count(), 1)
 
         # passing a string for the action should log this.
-        self.home_page.save_revision(log_action='wagtail.custom_action')
-        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.custom_action').count(), 1)
+        self.home_page.save_revision(log_action='wagtail.revert')
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.revert').count(), 1)
 
     def test_page_publish(self):
         revision = self.home_page.save_revision()
@@ -185,13 +187,32 @@ class TestAuditLog(TestCase):
             ['wagtail.publish', 'wagtail.copy', 'wagtail.create']
         )
 
+    def test_page_reorder(self):
+        section_1 = self.root_page.add_child(
+            instance=SimplePage(title="Child 1", slug="child-1", content="hello")
+        )
+        self.root_page.add_child(
+            instance=SimplePage(title="Child 2", slug="child-2", content="hello")
+        )
+
+        user = get_user_model().objects.first()
+
+        # Reorder section 1 to be the last page under root_page.
+        # This should log as `wagtail.reorder` because the page was moved under the same parent page
+        section_1.move(self.root_page, user=user, pos="last-child")
+
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.reorder', user=user).count(), 1)
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.move', user=user).count(), 0)
+
     def test_page_move(self):
         section = self.root_page.add_child(
             instance=SimplePage(title="About us", slug="about", content="hello")
         )
+        user = get_user_model().objects.first()
+        section.move(self.home_page, user=user)
 
-        section.move(self.home_page)
-        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.move').count(), 1)
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.move', user=user).count(), 1)
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.reorder', user=user).count(), 0)
 
     def test_page_delete(self):
         self.home_page.add_child(
@@ -288,3 +309,47 @@ class TestAuditLog(TestCase):
         restriction.restriction_type = PageViewRestriction.PASSWORD
         restriction.save()
         self.assertEqual(PageLogEntry.objects.filter(action='wagtail.view_restriction.edit').count(), 1)
+
+
+def test_hook(actions):
+    return actions.register_action('test.custom_action', 'Custom action', 'Tested!')
+
+
+class TestAuditLogHooks(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+
+    def test_register_log_actions_hook(self):
+        # testapp/wagtail_hooks.py defines a 'blockquote' rich text feature with a hallo.js
+        # plugin, via the register_rich_text_features hook; test that we can retrieve it here
+        log_actions = LogActionRegistry('register_log_actions')
+        actions = log_actions.get_actions()
+        self.assertIn('wagtail.create', actions)
+
+    def test_action_must_be_registered(self):
+        # We check actions are registered to let developers know if they have forgotten to register
+        # a new action or made a spelling mistake. It's not intended as a database-level constraint.
+        with self.assertRaises(ValidationError) as e:
+            PageLogEntry.objects.log_action(self.root_page, action='test.custom_action')
+
+        self.assertEqual(e.exception.message_dict, {
+            'action': ["The log action 'test.custom_action' has not been registered."]
+        })
+
+    def test_action_format_message(self):
+        # All new logs should pass our validation, but older logs or logs that were added in bulk
+        # may be invalid.
+        # Using LogEntry.objects.update, we can bypass the on save validation.
+        log_entry = PageLogEntry.objects.log_action(self.root_page, action='wagtail.create')
+        PageLogEntry.objects.update(action='test.custom_action')
+        log_entry.refresh_from_db()
+
+        log_actions = LogActionRegistry('register_log_actions')
+        self.assertEqual(log_actions.format_message(log_entry), "Unknown test.custom_action")
+        self.assertNotIn('test.custom_action', log_actions.get_actions())
+
+        with self.register_hook('register_log_actions', test_hook):
+            log_actions = LogActionRegistry('register_log_actions')
+            self.assertIn('test.custom_action', log_actions.get_actions())
+            self.assertEqual(log_actions.format_message(log_entry), "Tested!")
+            self.assertEqual(log_actions.get_action_label('test.custom_action'), 'Custom action')

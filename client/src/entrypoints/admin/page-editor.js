@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 window.halloPlugins = {};
 
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function registerHalloPlugin(name, opts) {  // lgtm[js/unused-local-variable]
   /* Obsolete - used on Wagtail <1.12 to register plugins for the hallo.js editor.
   Defined here so that third-party plugins can continue to call it to provide Wagtail <1.12
@@ -254,7 +254,7 @@ function initErrorDetection() {
   // now identify them on each tab
   // eslint-disable-next-line no-restricted-syntax, guard-for-in
   for (const index in errorSections) {
-    $('.tab-nav a[href="#' + index + '"]').addClass('errors').attr('data-count', errorSections[index]);
+    $('[data-tab-nav] a[href="#' + index + '"]').addClass('errors').attr('data-count', errorSections[index]);
   }
 }
 window.initErrorDetection = initErrorDetection;
@@ -264,17 +264,26 @@ function initCollapsibleBlocks() {
   $('.object.multi-field.collapsible').each(function () {
     const $li = $(this);
     const $fieldset = $li.find('fieldset');
+    const onAnimationComplete = () => $fieldset.get(0).dispatchEvent(new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }));
     if ($li.hasClass('collapsed') && $li.find('.error-message').length === 0) {
-      $fieldset.hide();
+      $fieldset.hide({
+        complete: onAnimationComplete
+      });
     }
 
     $li.find('> .title-wrapper').on('click', () => {
       if (!$li.hasClass('collapsed')) {
         $li.addClass('collapsed');
-        $fieldset.hide('slow');
+        $fieldset.hide({
+          duration: 'slow',
+          complete: onAnimationComplete
+        });
       } else {
         $li.removeClass('collapsed');
-        $fieldset.show('show');
+        $fieldset.show({
+          duration: 'slow',
+          complete: onAnimationComplete
+        });
       }
     });
   });
@@ -378,6 +387,42 @@ $(() => {
       });
   });
 });
+
+let updateFooterTextTimeout = -1;
+window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
+  const warningContainer = $('[data-unsaved-warning]');
+  const warnings = warningContainer.find('[data-unsaved-type]');
+  const anyDirty = formDirty || commentsDirty;
+  const typeVisibility = {
+    all: formDirty && commentsDirty,
+    any: anyDirty,
+    comments: commentsDirty && !formDirty,
+    edits: formDirty && !commentsDirty
+  };
+
+  let hiding = false;
+  if (anyDirty) {
+    warningContainer.removeClass('footer__container--hidden');
+  } else {
+    if (!warningContainer.hasClass('footer__container--hidden')) {
+      hiding = true;
+    }
+    warningContainer.addClass('footer__container--hidden');
+  }
+  clearTimeout(updateFooterTextTimeout);
+  const updateWarnings = () => {
+    for (const warning of warnings) {
+      const visible = typeVisibility[warning.dataset.unsavedType];
+      warning.hidden = !visible;
+    }
+  };
+  if (hiding) {
+    // If hiding, we want to keep the text as-is before it disappears
+    updateFooterTextTimeout = setTimeout(updateWarnings, 1050);
+  } else {
+    updateWarnings();
+  }
+};
 
 if (typeof module !== 'undefined' && module.exports) {
   module.exports.cleanForSlug = cleanForSlug;

@@ -103,18 +103,47 @@ class PageViewRestrictionForm(BaseViewRestrictionForm):
 
 
 class WagtailAdminPageForm(WagtailAdminModelForm):
+    comment_notifications = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
 
     class Meta:
         # (dealing with Treebeard's tree-related fields that really should have
         # been editable=False)
         exclude = ['content_type', 'path', 'depth', 'numchild']
 
-    def __init__(self, data=None, files=None, parent_page=None, *args, **kwargs):
-        super().__init__(data, files, *args, **kwargs)
+    def __init__(self, data=None, files=None, parent_page=None, subscription=None, *args, **kwargs):
+        self.subscription = subscription
+
+        initial = kwargs.pop('initial', {})
+        if self.subscription:
+            initial['comment_notifications'] = subscription.comment_notifications
+
+        super().__init__(data, files, *args, initial=initial, **kwargs)
+
         self.parent_page = parent_page
 
-    def clean(self):
+    def save(self, commit=True):
+        # Save updates to PageSubscription
+        if self.subscription:
+            self.subscription.comment_notifications = self.cleaned_data['comment_notifications']
+            if commit:
+                self.subscription.save()
 
+        return super().save(commit=commit)
+
+    def is_valid(self):
+        comments = self.formsets.get('comments')
+        # Remove the comments formset if the management form is invalid
+        if comments:
+            try:
+                # As of Django 3.2, this no longer raises an error
+                has_form = comments.management_form.is_valid()
+            except forms.ValidationError:
+                has_form = False
+            if not has_form:
+                del self.formsets['comments']
+        return super().is_valid()
+
+    def clean(self):
         cleaned_data = super().clean()
         if 'slug' in self.cleaned_data:
             if not Page._slug_is_available(

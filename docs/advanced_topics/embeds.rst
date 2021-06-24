@@ -59,7 +59,7 @@ The ``max_width`` argument is sent to the provider when fetching the embed code.
     {% load wagtailembeds_tags %}
 
     {# Embed a YouTube video #}
-    {% embed 'https://www.youtube.com/watch?v=SJXMTtvCxRo' %}
+    {% embed 'https://www.youtube.com/watch?v=Ffu-2jEdLPw' %}
 
     {# This tag can also take the URL from a variable #}
     {% embed page.video_url %}
@@ -78,7 +78,7 @@ fetching the embed code.
     from wagtail.embeds.exceptions import EmbedException
 
     try:
-        embed = get_embed('https://www.youtube.com/watch?v=SJXMTtvCxRo')
+        embed = get_embed('https://www.youtube.com/watch?v=Ffu-2jEdLPw')
 
         print(embed.html)
     except EmbedException:
@@ -117,7 +117,7 @@ provider using the oEmbed protocol. Wagtail has a built-in list of providers
 which are all enabled by default. You can find that provider list at the
 following link:
 
-https://github.com/wagtail/wagtail/blob/master/wagtail/embeds/oembed_providers.py
+https://github.com/wagtail/wagtail/blob/main/wagtail/embeds/oembed_providers.py
 
 .. _customising_embed_providers:
 

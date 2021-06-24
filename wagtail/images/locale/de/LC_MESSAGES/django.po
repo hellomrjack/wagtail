@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Benjamin Thurm, 2018
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Bohreromir, 2020
@@ -12,6 +12,7 @@
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
+# oliverengel <imwebunterwegs@icloud.com>, 2021
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
@@ -22,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-18 17:30+0000\n"
-"PO-Revision-Date: 2021-01-18 17:32+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-04-20 20:19+0100\n"
+"PO-Revision-Date: 2021-05-02 19:15+0000\n"
+"Last-Translator: oliverengel <imwebunterwegs@icloud.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +81,15 @@ msgstr "Linksbündig"
 msgid "Right-aligned"
 msgstr "Rechtsbündig"
 
+msgid "Collection"
+msgstr "Sammlung"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Alt text"
+msgstr "Alternativtext"
+
 msgid "Filter"
 msgstr "Filter"
 
@@ -121,6 +131,9 @@ msgstr "Bearbeiten"
 
 msgid "Edit any image"
 msgstr "Jedes Bild bearbeiten"
+
+msgid "Choose"
+msgstr "Auswählen"
 
 msgid "title"
 msgstr "Titel"
