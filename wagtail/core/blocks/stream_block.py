@@ -118,6 +118,7 @@ class BaseStreamBlock(Block):
         opts = {
             'definitionPrefix': "'%s'" % self.definition_prefix,
             'childBlocks': '[\n%s\n]' % ',\n'.join(child_blocks),
+            'maxNumChildBlocks': 'Infinity' if self.meta.max_num is None else ('%s' % self.meta.max_num),
         }
 
         return "StreamBlock(%s)" % js_dict(opts)
@@ -152,6 +153,7 @@ class BaseStreamBlock(Block):
             'child_blocks': self.sorted_child_blocks(),
             'header_menu_prefix': '%s-before' % prefix,
             'block_errors': error_dict.get(NON_FIELD_ERRORS),
+            'classname': getattr(self.meta, 'form_classname', None),
         })
 
     def value_from_datadict(self, data, files, prefix):

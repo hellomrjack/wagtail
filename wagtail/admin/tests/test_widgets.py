@@ -153,23 +153,32 @@ class TestAdminDateTimeInput(TestCase):
         self.assertIn('initDateTimeChooser("test\\u002Did", {', html)
         self.assertIn('"dayOfWeekStart": 0', html)
         self.assertIn('"format": "Y-m-d H:i"', html)
+        self.assertIn('"formatTime": "H:i"', html)
 
     def test_render_js_init_with_format(self):
-        widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M')
+        widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M', time_format='%H:%M %p')
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y. H:i"',
             html,
         )
+        self.assertIn(
+            '"formatTime": "H:i A"',
+            html,
+        )
 
-    @override_settings(WAGTAIL_DATETIME_FORMAT='%d.%m.%Y. %H:%M')
+    @override_settings(WAGTAIL_DATETIME_FORMAT='%d.%m.%Y. %H:%M', WAGTAIL_TIME_FORMAT='%H:%M %p')
     def test_render_js_init_with_format_from_settings(self):
         widget = widgets.AdminDateTimeInput()
 
         html = widget.render('test', None, attrs={'id': 'test-id'})
         self.assertIn(
             '"format": "d.m.Y. H:i"',
+            html,
+        )
+        self.assertIn(
+            '"formatTime": "H:i A"',
             html,
         )
 
@@ -293,3 +302,57 @@ class TestTagField(TestCase):
         form = RestaurantTagForm({'tags': "Italian, delicious"})
         self.assertTrue(form.is_valid())
         self.assertEqual(set(form.cleaned_data['tags']), {"Italian", "delicious"})
+
+
+class TestFilteredSelect(TestCase):
+    def test_render(self):
+        widget = widgets.FilteredSelect(choices=[
+            (None, '----'),
+            ('FR', 'France', ['EU']),
+            ('JP', 'Japan', ['AS']),
+            ('RU', 'Russia', ['AS', 'EU']),
+        ], filter_field='id_continent')
+
+        html = widget.render('country', 'JP')
+        self.assertHTMLEqual(html, '''
+            <select name="country" data-widget="filtered-select" data-filter-field="id_continent">
+                <option value="">----</option>
+                <option value="FR" data-filter-value="EU">France</option>
+                <option value="JP" selected data-filter-value="AS">Japan</option>
+                <option value="RU" data-filter-value="AS,EU">Russia</option>
+            </select>
+        ''')
+
+    def test_optgroups(self):
+        widget = widgets.FilteredSelect(choices=[
+            (None, '----'),
+            ('Big countries', [
+                ('FR', 'France', ['EU']),
+                ('JP', 'Japan', ['AS']),
+                ('RU', 'Russia', ['AS', 'EU']),
+                ('MOON', 'The moon'),
+            ]),
+            ('Small countries', [
+                ('AZ', 'Azerbaijan', ['AS']),
+                ('LI', 'Liechtenstein', ['EU']),
+            ]),
+            ('SK', 'Slovakia', ['EU'])
+        ], filter_field='id_continent')
+
+        html = widget.render('country', 'JP')
+        self.assertHTMLEqual(html, '''
+            <select name="country" data-widget="filtered-select" data-filter-field="id_continent">
+                <option value="">----</option>
+                <optgroup label="Big countries">
+                    <option value="FR" data-filter-value="EU">France</option>
+                    <option value="JP" selected data-filter-value="AS">Japan</option>
+                    <option value="RU" data-filter-value="AS,EU">Russia</option>
+                    <option value="MOON">The moon</option>
+                </optgroup>
+                <optgroup label="Small countries">
+                    <option value="AZ" data-filter-value="AS">Azerbaijan</option>
+                    <option value="LI" data-filter-value="EU">Liechtenstein</option>
+                </optgroup>
+                <option value="SK" data-filter-value="EU">Slovakia</option>
+            </select>
+        ''')

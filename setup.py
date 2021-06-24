@@ -21,20 +21,22 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=2.1,<3.1",
+    "Django>=2.2,<3.2",
     "django-modelcluster>=5.0,<6.0",
     "django-taggit>=1.0,<2.0",
     "django-treebeard>=4.2.0,<5.0",
-    "djangorestframework>=3.7.4,<4.0",
+    "djangorestframework>=3.11.1,<4.0",
+    "django-filter>=2.2,<3.0",
     "draftjs_exporter>=2.1.5,<3.0",
     "Pillow",
     "beautifulsoup4>=4.8,<4.9",
     "html5lib>=0.999,<2",
     "Unidecode>=0.04.14,<2.0",
-    "Willow>=1.3,<1.4",
+    "Willow>=1.4,<1.5",
     "requests>=2.11.1,<3.0",
     "l18n>=2018.5",
     "xlsxwriter>=1.2.8,<2.0",
+    "tablib[xls,xlsx]>=0.14.0",
 ]
 
 # Testing dependencies
@@ -60,6 +62,10 @@ testing_extras = [
 
     # Pipenv hack to fix broken dependency causing CircleCI failures
     'docutils==0.15',
+
+    # django-taggit 1.3.0 made changes to verbose_name which affect migrations;
+    # the test suite migrations correspond to >=1.3.0
+    'django-taggit>=1.3.0,<2.0',
 ]
 
 # Documentation dependencies
@@ -95,13 +101,13 @@ https://github.com/wagtail/wagtail/.",
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Framework :: Django',
         'Framework :: Django :: 2.2',
         'Framework :: Django :: 3.0',
+        'Framework :: Django :: 3.1',
         'Framework :: Wagtail',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],

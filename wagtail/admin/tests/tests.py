@@ -2,6 +2,7 @@
 
 import json
 
+from django import VERSION as DJANGO_VERSION
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
@@ -32,14 +33,24 @@ class TestHome(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
         # check that media attached to menu items is correctly pulled in
-        self.assertContains(
-            response,
-            '<script type="text/javascript" src="/static/testapp/js/kittens.js"></script>'
-        )
+        if DJANGO_VERSION >= (3, 1):
+            self.assertContains(
+                response,
+                '<script src="/static/testapp/js/kittens.js"></script>',
+                html=True
+            )
+        else:
+            self.assertContains(
+                response,
+                '<script type="text/javascript" src="/static/testapp/js/kittens.js"></script>',
+                html=True
+            )
+
         # check that custom menu items (including classname / attrs parameters) are pulled in
         self.assertContains(
             response,
-            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
+            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>',
+            html=True
         )
 
         # Check that the explorer menu item is here, with the right start page.

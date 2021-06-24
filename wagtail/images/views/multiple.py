@@ -127,7 +127,7 @@ def add(request):
             'help_text': form.fields['file'].help_text,
             'allowed_extensions': ALLOWED_EXTENSIONS,
             'error_max_file_size': form.fields['file'].error_messages['file_too_large_unknown_size'],
-            'error_accepted_file_types': form.fields['file'].error_messages['invalid_image'],
+            'error_accepted_file_types': form.fields['file'].error_messages['invalid_image_extension'],
             'collections': collections_to_choose,
             'form_media': form.media,
         })
@@ -147,7 +147,7 @@ def edit(request, image_id, callback=None):
         raise PermissionDenied
 
     form = ImageForm(
-        request.POST, request.FILES, instance=image, prefix='image-' + image_id, user=request.user
+        request.POST, request.FILES, instance=image, prefix='image-%d' % image_id, user=request.user
     )
 
     if form.is_valid():
@@ -207,7 +207,7 @@ def create_from_uploaded_image(request, uploaded_image_id):
 
     image = Image()
     form = ImageForm(
-        request.POST, request.FILES, instance=image, prefix='uploaded-image-' + uploaded_image_id, user=request.user
+        request.POST, request.FILES, instance=image, prefix='uploaded-image-%d' % uploaded_image_id, user=request.user
     )
 
     if form.is_valid():

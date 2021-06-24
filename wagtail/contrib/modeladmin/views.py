@@ -24,7 +24,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
-from wagtail.admin.views.reports import SpreadsheetExportMixin
+from wagtail.admin.views.mixins import SpreadsheetExportMixin
 
 from .forms import ParentChooserForm
 
@@ -265,12 +265,16 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
 
         return super().dispatch(request, *args, **kwargs)
 
+    def get_filename(self):
+        """ Get filename for exported spreadsheet, without extension """
+        return getattr(self.model_admin, 'export_filename', super().get_filename())
+
     def get_heading(self, queryset, field):
         """ Get headings for exported spreadsheet column for the relevant field """
         heading_override = self.export_headings.get(field)
         if heading_override:
             return force_str(heading_override)
-        return force_str(label_for_field(field, model=self.model).title())
+        return force_str(label_for_field(field, model=self.model, model_admin=self.model_admin).title())
 
     def to_row_dict(self, item):
         """ Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""

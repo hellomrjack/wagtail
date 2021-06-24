@@ -220,8 +220,8 @@ class BaseSearchResults:
 
         if isinstance(key, slice):
             # Set limits
-            start = int(key.start) if key.start else None
-            stop = int(key.stop) if key.stop else None
+            start = int(key.start) if key.start is not None else None
+            stop = int(key.stop) if key.stop is not None else None
             new._set_limits(start, stop)
 
             # Copy results cache
@@ -299,6 +299,7 @@ class BaseSearchBackend:
     autocomplete_query_compiler_class = None
     results_class = None
     rebuilder_class = None
+    catch_indexing_errors = False
 
     def __init__(self, params):
         pass
