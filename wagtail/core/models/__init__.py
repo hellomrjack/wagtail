@@ -450,7 +450,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         This includes translations of site root pages as well.
         """
-        return Site.objects.filter(root_page__translation_key=self.translation_key).exists()
+        # `_is_site_root` may be populated by `annotate_site_root_state` on `PageQuerySet` as a
+        # performance optimisation
+        if hasattr(self, "_is_site_root"):
+            return self._is_site_root
+
+        return Site.objects.filter(
+            root_page__translation_key=self.translation_key
+        ).exists()
 
     @transaction.atomic
     # ensure that changes are only committed when we have updated all descendant URL paths, to preserve consistency
@@ -1451,6 +1458,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @property
     def approved_schedule(self):
+        # `_approved_schedule` may be populated by `annotate_approved_schedule` on `PageQuerySet` as a
+        # performance optimisation
+        if hasattr(self, "_approved_schedule"):
+            return self._approved_schedule
+
         return self.revisions.exclude(approved_go_live_at__isnull=True).exists()
 
     def has_unpublished_subtree(self):
@@ -1669,11 +1681,19 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 data={
                     'page': {
                         'id': page_copy.id,
-                        'title': page_copy.get_admin_display_title()
+                        'title': page_copy.get_admin_display_title(),
+                        'locale': {
+                            'id': page_copy.locale_id,
+                            'language_code': page_copy.locale.language_code
+                        }
                     },
                     'source': {'id': parent.id, 'title': parent.specific_deferred.get_admin_display_title()} if parent else None,
                     'destination': {'id': to.id, 'title': to.specific_deferred.get_admin_display_title()} if to else None,
-                    'keep_live': page_copy.live and keep_live
+                    'keep_live': page_copy.live and keep_live,
+                    'source_locale': {
+                        'id': self.locale_id,
+                        'language_code': self.locale.language_code
+                    }
                 },
             )
             if page_copy.live and keep_live:
@@ -1930,6 +1950,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 reset_translation_key=False,
                 process_child_object=process_child_object,
                 exclude_fields=exclude_fields,
+                log_action='wagtail.copy_for_translation',
             )
 
     copy_for_translation.alters_data = True
@@ -2308,6 +2329,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """Returns True if a workflow is in progress on the current page, otherwise False"""
         if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             return False
+
+        # `_current_workflow_states` may be populated by `prefetch_workflow_states` on `PageQuerySet` as a
+        # performance optimisation
+        if hasattr(self, "_current_workflow_states"):
+            for state in self._current_workflow_states:
+                if state.status == WorkflowState.STATUS_IN_PROGRESS:
+                    return True
+            return False
+
         return WorkflowState.objects.filter(page=self, status=WorkflowState.STATUS_IN_PROGRESS).exists()
 
     @property
@@ -2315,6 +2345,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """Returns the in progress or needs changes workflow state on this page, if it exists"""
         if not getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             return None
+
+        # `_current_workflow_states` may be populated by `prefetch_workflow_states` on `pagequeryset` as a
+        # performance optimisation
+        if hasattr(self, "_current_workflow_states"):
+            try:
+                return self._current_workflow_states[0]
+            except IndexError:
+                return
+
         try:
             return WorkflowState.objects.active().select_related("current_task_state__task").get(page=self)
         except WorkflowState.DoesNotExist:
